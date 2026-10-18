@@ -896,7 +896,7 @@
         event.preventDefault();
 
       // ดึงค่าจาก Element ตาม ID และ Name ใน HTML ล่าสุด
-      const roleValue = document.querySelector('input[name="role"]:checked')?.value || 'student';
+      const roleValue = document.querySelector('input[name="userRole"]:checked')?.value || 'student';
       const studentId = document.getElementById('regStudentId').value.trim();
       const fullName = document.getElementById('regfullName').value.trim();
       const lastName = document.getElementById('reglastName').value.trim();
