@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TATC แลก Point - ระบบแยกขยะเพื่อแลกแต้มรางวัล</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Font: Prompt -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap Icons (ลิงก์ที่ถูกต้องจาก cdnjs) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <!-- Font Awesome 6 CDN (cdnjs) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-emerald: #059669;
+      --primary-dark: #064e3b;
+      --primary-light: #10b981;
+      --accent-gold: #fbbf24;
+      --accent-gold-hover: #f59e0b;
+      --bg-gradient: linear-gradient(135deg, #064e3b 0%, #047857 50%, #059669 100%);
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.22);
+    }
+   
+    * {
+      box-sizing: border-box;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
+      background-color: #f0fdf4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+      overflow-x: hidden;
+    }
+
+    /* Main Container Card */
+    .auth-container {
+      width: 100%;
+      max-width: 1140px;
+      min-height: 680px;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.18), 0 0 0 1px rgba(5, 150, 105, 0.08);
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    /* Left Banner - Glassmorphism & Gradient */
+    .hero-banner {
+      background: var(--bg-gradient);
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3.5rem 3rem;
+      z-index: 1;
+    }
+
+    /* Abstract Ecological Background Patterns */
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+      top: -100px;
+      right: -80px;
+      z-index: -1;
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+      bottom: -80px;
+      left: -60px;
+      z-index: -1;
+    }
+
+    /* Floating Badges & Cards */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .floating-badge {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .floating-badge-2 {
+      animation: float 5s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Right Form Section */
+    .form-section {
+      padding: 3rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #ffffff;
+      position: relative;
+    }
+
+    /* Custom Navigation Tabs Pill */
+    .auth-tab-nav {
+      background: #f1f5f9;
+      padding: 6px;
+      border-radius: 50rem;
+      display: flex;
+      gap: 6px;
+      margin-bottom: 2rem;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 0.65rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #64748b;
+      border-radius: 50rem;
+      cursor: pointer;
+    }
+
+    .auth-tab-btn.active {
+      background: #ffffff;
+      color: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Input Pill Styling */
+    .form-label {
+      font-weight: 500;
+      color: #334155;
+      font-size: 0.875rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .input-group-custom {
+      position: relative;
+    }
+
+    .input-icon-left {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1.15rem;
+      z-index: 5;
+    }
+
+    .input-icon-right {
+      position: absolute;
+      right: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1.15rem;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .input-icon-right:hover {
+      color: var(--primary-emerald);
+    }
+
+    .form-control-custom, .form-select-custom {
+      width: 100%;
+      border-radius: 50rem;
+      padding: 0.72rem 1.25rem 0.72rem 2.85rem;
+      border: 1.5px solid #e2e8f0;
+      font-size: 0.925rem;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+
+    .form-control-custom:focus, .form-select-custom:focus {
+      outline: none;
+      border-color: var(--primary-emerald);
+      background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.12);
+    }
+
+    /* Custom Role Option Badges */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .role-option {
+      position: relative;
+    }
+
+    .role-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .role-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.55rem 0.75rem;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 50rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #475569;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .role-option input[type="radio"]:checked + .role-label {
+      background: #ecfdf5;
+      border-color: var(--primary-emerald);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* Department Pills */
+    .dept-flex {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .dept-option {
+      flex: 1;
+      min-width: 58px;
+    }
+
+    .dept-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .dept-label {
+      display: block;
+      text-align: center;
+      padding: 0.5rem 0.25rem;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+    }
+
+    .dept-option input[type="radio"]:checked + .dept-label {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      color: #ffffff;
+    }
+
+    /* Submit Button */
+    .btn-submit-emerald {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 50rem;
+      padding: 0.85rem 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.2px;
+      box-shadow: 0 10px 20px -5px rgba(5, 150, 105, 0.4);
+      cursor: pointer;
+    }
+
+    .btn-submit-emerald:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -5px rgba(5, 150, 105, 0.5);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+    }
+
+    .btn-submit-emerald:active {
+      transform: translateY(0);
+    }
+
+    /* View Form Panels with Transitions */
+    .form-panel {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .form-panel.active {
+      display: block;
+      animation: fadeInUp 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Toast Notification */
+    .custom-toast {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 9999;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991.98px) {
+      .auth-container {
+        flex-direction: column;
+        border-radius: 24px;
+        min-height: auto;
+      }
+      .hero-banner {
+        padding: 2.5rem 2rem;
+      }
+      .form-section {
+        padding: 2.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Alert Toast -->
+  <div id="toastAlert" class="toast custom-toast align-items-center text-white bg-success border-0 fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex p-2">
+      <div class="toast-body d-flex align-items-center gap-2 fs-6" id="toastMessage">
+        <i class="bi bi-check-circle-fill fs-5"></i> บันทึกข้อมูลสำเร็จ!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <!-- Main Split Card -->
+  <div class="auth-container">
+    <div class="row g-0 w-100">
+      
+      <!-- ================= LEFT HERO BANNER ================= -->
+      <div class="col-lg-6 hero-banner">
+        
+        <!-- Brand Header -->
+        <div>
+          <div class="d-inline-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-1.5 rounded-pill backdrop-blur mb-4 border border-white border-opacity-20">
+            <span class="fs-4">🍃</span>
+            <span class="fw-semibold text-white tracking-wide" style="font-size: 0.9rem;">ระบบจัดการขยะอัจฉริยะ</span>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <h1 class="display-5 fw-bold mb-0 text-white" style="letter-spacing: -1px;">TATC</h1>
+            <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center fw-extrabold shadow" style="width: 48px; height: 48px; font-size: 24px; border: 2px solid #ffffff;">
+              ฿
+            </div>
+            <span class="fs-2 fw-semibold text-emerald-200">แลก Point</span>
+          </div>
+
+          <p class="fs-5 text-emerald-100 fw-light mb-4" style="line-height: 1.6;">
+            "เรียนรู้... แยกขยะ... เพื่อโลกที่สะอาดกว่าเดิม" <br>
+            สะสมแต้มจากการคัดแยกขยะเพื่อนำไปแลกรับของรางวัลมากมาย
+          </p>
+        </div>
+
+        <!-- Middle Visual / Floating Glass Badges -->
+        <div class="my-4 my-lg-0 d-flex flex-column gap-3">
+          
+          <!-- Badge 1 -->
+          <div class="glass-card floating-badge d-flex align-items-center gap-3">
+            <div class="bg-warning bg-opacity-20 p-3 rounded-circle text-white fs-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+              <div class="fw-semibold text-white fs-6">แลกแต้มรางวัลได้ง่ายๆ</div>
+              <div class="text-emerald-100 small">เปลี่ยนขยะรีไซเคิลให้เป็นพอยต์ทันที</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ================= RIGHT FORM SECTION ================= -->
+      <div class="col-lg-6 form-section">
+        
+        <!-- Toggle Tabs Nav -->
+        <div class="auth-tab-nav">
+          <button type="button" class="auth-tab-btn active" id="tabLoginBtn" onclick="switchTab('login')">
+            <i class="bi bi-box-arrow-in-right me-1"></i> เข้าสู่ระบบ
+          </button>
+          <button type="button" class="auth-tab-btn" id="tabRegisterBtn" onclick="switchTab('register')">
+            <i class="bi bi-person-plus me-1"></i> สมัครสมาชิก
+          </button>
+        </div>
+
+
+        <!-- ================= 1. LOGIN FORM ================= -->
+        <div id="loginPanel" class="form-panel active">
+          <div class="mb-4">
+            <h2 class="fw-bold text-dark mb-1" style="color: #0f172a;">ยินดีต้อนรับกลับมา! 👋</h2>
+            <p class="text-muted small">กรอกข้อมูลเพื่อเข้าสู่ระบบแลกแต้มของคุณ</p>
+          </div>
+
+          <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+            
+            <!-- รหัสประจำตัว / ชื่อผู้ใช้ -->
+            <div class="mb-3">
+              <label for="loginStudentId" class="form-label">ชื่อผู้ใช้ / รหัสประจำตัว (6 หลัก)</label>
+              <div class="input-group-custom">
+                <i class="bi bi-person input-icon-left"></i>
+                <input 
+                  type="text" 
+                  id="loginStudentId" 
+                  class="form-control-custom" 
+                  placeholder="เช่น 653012 หรือ ชื่อผู้ใช้" 
+                  required
+                >
+              </div>
+            </div>
+
+            <!-- รหัสผ่าน -->
+            <div class="mb-2">
+              <label for="loginPassword" class="form-label">รหัสผ่าน</label>
+              <div class="input-group-custom">
+                <i class="bi bi-lock input-icon-left"></i>
+                <input 
+                  type="password" 
+                  id="loginPassword" 
+                  class="form-control-custom" 
+                  placeholder="กรอกรหัสผ่าน" 
+                  style="padding-right: 2.8rem;" 
+                  required
+                >
+                <i class="bi bi-eye-slash input-icon-right" id="toggleLoginPassword" onclick="togglePasswordVisibility('loginPassword', this)"></i>
+              </div>
+            </div>
+
+            <!-- Options Row -->
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <label class="form-check-label small text-muted" for="rememberMe">
+                  จำฉันไว้ในระบบ
+                </label>
+              </div>
+              <a href="#" onclick="alert('กรุณาติดต่อเจ้าหน้าที่ดูแลระบบของวิทยาลัยเพื่อรีเซ็ตรหัสผ่าน'); return false;" class="small fw-semibold text-emerald-700 text-decoration-none" style="color: #059669;">
+                ลืมรหัสผ่าน?
+              </a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-submit-emerald w-100 mb-3">
+              เข้าสู่ระบบ <i class="bi bi-arrow-right-short fs-5 align-middle ms-1"></i>
+            </button>
+
+            <!-- Switch Link -->
+            <div class="text-center">
+              <span class="small text-muted">ยังไม่มีบัญชีสมาชิก? </span>
+              <a href="javascript:void(0)" onclick="switchTab('register')" class="small fw-bold text-success text-decoration-none">
+                ลงทะเบียนที่นี่
+              </a>
+            </div>
+
+          </form>
+        </div>
+
+
+        <!-- ================= 2. REGISTER FORM ================= -->
+        <div id="registerPanel" class="form-panel">
+          <div class="mb-3">
+            <h2 class="fw-bold text-dark mb-1" style="color: #0f172a;">สร้างบัญชีใหม่ ✨</h2>
+            <p class="text-muted small mb-0">ลงทะเบียนเพื่อเริ่มสะสมแต้มรีไซเคิล</p>
+          </div>
+
+          <form id="registerForm" >
+            
+            <!-- ประเภทผู้ใช้งาน (Role Selection Badges) -->
+            <div class="mb-3">
+              <label class="form-label">ลงทะเบียนในฐานะ <span class="text-danger">*</span></label>
+              <div class="role-grid">
+                
+                <div class="role-option">
+                  <input type="radio" name="userRole" id="roleStudent" value="student" checked>
+                  <label class="role-label" for="roleStudent">
+                    <i class="bi bi-mortarboard"></i> นักศึกษา
+                  </label>
+                </div>
+
+                <div class="role-option">
+                  <input type="radio" name="userRole" id="roleCommittee" value="committee">
+                  <label class="role-label" for="roleCommittee">
+                    <i class="bi bi-person-badge"></i> กรรมการ
+                  </label>
+                </div>
+
+                <div class="role-option">
+                  <input type="radio" name="userRole" id="roleAdmin" value="admin">
+                  <label class="role-label" for="roleAdmin">
+                    <i class="bi bi-shield-lock"></i> Admin
+                  </label>
+                </div>
+
+                <div class="role-option">
+                  <input type="radio" name="userRole" id="roleTatTmt" value="tat_tmt">
+                  <label class="role-label" for="roleTatTmt">
+                    <i class="bi bi-building"></i> TAT / TMT
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Row 1: รหัสประจำตัว & ชื่อ-นามสกุล -->
+            <div class="row g-2 mb-2">
+              <div class="col-md-12">
+                <label for="regStudentId" class="form-label">รหัสประจำตัว (6 หลัก) <span class="text-danger">*</span></label>
+                <div class="input-group-custom">
+                  <i class="bi bi-card-heading input-icon-left"></i>
+                  <input 
+                    type="text" 
+                    id="regStudentId" 
+                    class="form-control-custom" 
+                    placeholder="123456" 
+                    maxlength="6" 
+                    pattern="\d{6}" 
+                    title="กรุณากรอกรหัสประจำตัวเป็นตัวเลข 6 หลัก"
+                    required
+                  >
+                </div>
+              </div>
+
+              <!-- ช่องกรอก ชื่อจริง และ นามสกุล  -->
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <label for="regfullName" class="form-label">ชื่อจริง <span class="text-danger">*</span></label>
+                  <div class="input-group-custom">
+                    <i class="fa-solid fa-user input-icon-left"></i>
+                    <input 
+                      type="text" 
+                      id="regfullName" 
+                      class="form-control-custom" 
+                      placeholder="สมชาย" 
+                      maxlength="100" 
+                      pattern="^[a-zA-Zก-๛\s]+$" 
+                      title="กรุณากรอกชื่อให้ถูกต้อง"
+                      required
+                    >
+                  </div>
+                </div>
+                <div class="col-6">
+                  <label for="reglastName" class="form-label">นามสกุล <span class="text-danger">*</span></label>
+                  <div class="input-group-custom">
+                    <i class="fa-solid fa-user input-icon-left"></i>
+                    <input 
+                      type="text" 
+                      id="reglastName" 
+                      class="form-control-custom" 
+                      placeholder="สมชาย" 
+                      maxlength="100" 
+                      pattern="^[a-zA-Zก-๛\s]+$" 
+                      title="กรุณากรอกนามสกุลให้ถูกต้อง"
+                      required
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- สาขา (Department Selection) -->
+            <div class="mb-3">
+              <label class="form-label">สาขาวิชา <span class="text-danger">*</span></label>
+              <div class="dept-flex">
+                
+                <div class="dept-option">
+                  <input type="radio" name="department" id="deptAT" value="AT" checked>
+                  <label class="dept-label" for="deptAT">AT</label>
+                </div>
+
+                <div class="dept-option">
+                  <input type="radio" name="department" id="deptAM" value="AM">
+                  <label class="dept-label" for="deptAM">AM</label>
+                </div>
+
+                <div class="dept-option">
+                  <input type="radio" name="department" id="deptSA" value="SA">
+                  <label class="dept-label" for="deptSA">SA</label>
+                </div>
+
+                <div class="dept-option">
+                  <input type="radio" name="department" id="deptBP" value="BP">
+                  <label class="dept-label" for="deptBP">BP</label>
+                </div>
+
+                <div class="dept-option">
+                  <input type="radio" name="department" id="deptEV" value="EV">
+                  <label class="dept-label" for="deptEV">EV</label>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Row 2: รหัสผ่าน & ยืนยันรหัสผ่าน -->
+            <div class="row g-2 mb-3">
+              <div class="col-md-6">
+                <label for="regPassword" class="form-label">กำหนดรหัสผ่าน <span class="text-danger">*</span></label>
+                <div class="input-group-custom">
+                  <i class="bi bi-key input-icon-left"></i>
+                  <input 
+                    type="password" 
+                    id="regPassword" 
+                    class="form-control-custom" 
+                    placeholder="อย่างน้อย 6 หลัก" 
+                    minlength="6" 
+                    required
+                  >
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="regConfirmPassword" class="form-label">ยืนยันรหัสผ่าน <span class="text-danger">*</span></label>
+                <div class="input-group-custom">
+                  <i class="bi bi-check2-circle input-icon-left"></i>
+                  <input 
+                    type="password" 
+                    id="regConfirmPassword" 
+                    class="form-control-custom" 
+                    placeholder="กรอกซ้ำอีกครั้ง" 
+                    minlength="6" 
+                    required
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-submit-emerald w-100 mb-3">
+              ยืนยันการสมัครสมาชิก <i class="bi bi-check-lg ms-1"></i>
+            </button>
+
+            <!-- Switch Link -->
+            <div class="text-center">
+              <span class="small text-muted">มีบัญชีผู้ใช้งานแล้ว? </span>
+              <a href="javascript:void(0)" onclick="switchTab('login')" class="small fw-bold text-success text-decoration-none">
+                เข้าสู่ระบบ
+              </a>
+            </div>
+
+          </form>
+        </div>
+
+
+        <!-- Footer Mini Badge -->
+        <div class="mt-4 pt-3 border-top text-center">
+          <div class="d-inline-flex align-items-center gap-1.5 text-muted extra-small" style="font-size: 0.78rem;">
+            <span>🌱 พัฒนาโดยทีมการศึกษา</span>
+            <span class="mx-1">•</span>
+            <i class="bi bi-recycle text-success"></i>
+            <span>TATC Point System</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- SweetAlert2 CSS & JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Interactive Logic Script -->
+  <script>
+    
+    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Tab Switcher
+    function switchTab(tabName) {
+      const loginTabBtn = document.getElementById('tabLoginBtn');
+      const registerTabBtn = document.getElementById('tabRegisterBtn');
+      const loginPanel = document.getElementById('loginPanel');
+      const registerPanel = document.getElementById('registerPanel');
+
+      if (tabName === 'login') {
+        loginTabBtn.classList.add('active');
+        registerTabBtn.classList.remove('active');
+        
+        registerPanel.classList.remove('active');
+        setTimeout(() => {
+          registerPanel.style.display = 'none';
+          loginPanel.style.display = 'block';
+          setTimeout(() => loginPanel.classList.add('active'), 20);
+        }, 150);
+
+      } else {
+        registerTabBtn.classList.add('active');
+        loginTabBtn.classList.remove('active');
+
+        loginPanel.classList.remove('active');
+        setTimeout(() => {
+          loginPanel.style.display = 'none';
+          registerPanel.style.display = 'block';
+          setTimeout(() => registerPanel.classList.add('active'), 20);
+        }, 150);
+      }
+    }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility(inputId, iconEl) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        iconEl.classList.remove('bi-eye-slash');
+        iconEl.classList.add('bi-eye');
+      } else {
+        input.type = 'password';
+        iconEl.classList.remove('bi-eye');
+        iconEl.classList.add('bi-eye-slash');
+      }
+    }
+
+    // Toast Alert Helper
+    function showToast(message, isSuccess = true) {
+      const toastEl = document.getElementById('toastAlert');
+      const toastMsg = document.getElementById('toastMessage');
+      
+      toastMsg.innerHTML = isSuccess 
+        ? `<i class="bi bi-check-circle-fill fs-5 me-1"></i> ${message}`
+        : `<i class="bi bi-exclamation-triangle-fill fs-5 me-1"></i> ${message}`;
+      
+      toastEl.className = `toast custom-toast align-items-center text-white border-0 fade show ${isSuccess ? 'bg-success' : 'bg-danger'}`;
+      
+      const bsToast = new bootstrap.Toast(toastEl, { delay: 3500 });
+      bsToast.show();
+    }
+
+    // Handle Login Form Submit
+    async function handleLoginSubmit(event) {
+  event.preventDefault();
+
+  const studentId = document.getElementById('loginStudentId').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  // 1. ตรวจสอบว่ากรอกข้อมูลครบไหม (ใช้ SweetAlert2)
+  if (!studentId || !password) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'ข้อมูลไม่ครบถ้วน',
+      text: 'กรุณากรอกรหัสประจำตัวและรหัสผ่านให้ครบถ้วน',
+      confirmButtonText: 'ตกลง',
+      confirmButtonColor: '#135d38'
+    });
+    return;
+  }
+
+  try {
+    // แสดงสถานะกำลังโหลด
+    Swal.fire({
+      title: 'กำลังตรวจสอบข้อมูล...',
+      text: 'กรุณารอสักครู่',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading(); }
+    });
+
+    // 2. ตรวจสอบข้อมูลในตาราง User ของ Supabase
+    const { data: user, error } = await supabaseClient
+      .from('User')
+      .select('*')
+      .eq('UserName', studentId)
+      .eq('Password', password)
+      .maybeSingle();
+
+    if (error) {
+      throw error;
+    }
+
+    console.log('Login Result:', user);
+    // 3. ตรวจสอบว่าพบผู้ใช้หรือไม่
+    if (!user) {
+      Swal.fire({
+        icon: 'error',
+        title: 'เข้าสู่ระบบไม่สำเร็จ',
+        text: 'รหัสประจำตัวหรือรหัสผ่านไม่ถูกต้อง',
+        confirmButtonText: 'ลองอีกครั้ง',
+        confirmButtonColor: '#135d38'
+      });
+      return;
+    }
+
+    // 4. ตรวจสอบสถานะ Active (บัญชีถูกระงับหรือไม่)
+    if (user.Active === false) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'บัญชีถูกระงับ',
+        text: 'บัญชีผู้ใช้นี้ถูกปิดการใช้งาน กรุณาติดต่อผู้ดูแลระบบ',
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#d33'
+      });
+      return;
+    }
+
+    // 5. บันทึกข้อมูลลงใน LocalStorage เพื่อนำไปแสดงผลที่หน้าอื่น
+    const userDataToSave = {
+      id: user.id,
+      userName: user.UserName,
+      fullName: user.FullName,
+      lastName: user.LastName,
+      status: user.Status
+    };
+    localStorage.setItem('currentUser', JSON.stringify(userDataToSave));
+
+    // 6. แจ้งเตือนเข้าสู่ระบบสำเร็จ (Status: 1 = นักศึกษา, 2 = กรรมการ, 3 = Admin, 4 = TAT/TMT)
+    Swal.fire({
+      icon: 'success',
+      title: 'เข้าสู่ระบบสำเร็จ!',
+      text: `ยินดีต้อนรับคุณ ${user.FullName} ${user.LastName}`,
+      timer: 1500,
+      showConfirmButton: false
+    }).then(() => {
+      redirectUser(user.Status);
+    });
+
+  } catch (err) {
+    console.error('Login Error:', err);
+    Swal.fire({
+      icon: 'error',
+      title: 'เกิดข้อผิดพลาด',
+      text: 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้: ' + (err.message || ''),
+      confirmButtonText: 'ตกลง',
+      confirmButtonColor: '#d33'
+    });
+  }
+}
+
+   function redirectUser(status) {
+    switch (Number(status)) {
+      case 1: // นักศึกษา
+        window.location.href = 'home.html';
+        break;
+      case 2: // กรรมการ
+        window.location.href = 'review.html'; 
+        break;
+      case 3: // Admin
+        window.location.href = 'staff-dashboard.html'; 
+        break;
+      case 4: // TAT/TMT
+        window.location.href = 'staff-dashboard.html'; 
+        break;
+      default:
+        window.location.href = 'home.html';
+    }
+  }
+
+    // ฟังก์ชันสมัครสมาชิก
+    async function handleRegister(event) {
+        event.preventDefault();
+
+      // ดึงค่าจาก Element ตาม ID และ Name ใน HTML ล่าสุด
+      const roleValue = document.querySelector('input[name="role"]:checked')?.value || 'student';
+      const studentId = document.getElementById('regStudentId').value.trim();
+      const fullName = document.getElementById('regfullName').value.trim();
+      const lastName = document.getElementById('reglastName').value.trim();
+      const department = document.querySelector('input[name="department"]:checked')?.value || 'AT';
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+      // 1. Validation ตรวจสอบความถูกต้องเบื้องต้น
+      if (password !== confirmPassword) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'รหัสผ่านไม่ตรงกัน',
+          text: 'กรุณาตรวจสอบและกรอกรหัสผ่านใหม่อีกครั้ง',
+          confirmButtonText: 'ตกลง',
+          confirmButtonColor: '#135d38'
+        });
+        return;
+      }
+
+      if (!/^\d{6}$/.test(studentId)) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'รหัสประจำตัวไม่ถูกต้อง',
+          text: 'กรุณากรอกรหัสประจำตัวเป็นตัวเลข 6 หลักเท่านั้น',
+          confirmButtonText: 'ตกลง',
+          confirmButtonColor: '#135d38'
+        });
+        return;
+      }
+
+      // แปลง Role จาก Text เป็น int2 สำหรับคอลัมน์ Status ใน Supabase
+      const statusMap = {
+        'student': 1,
+        'committee': 2,
+        'admin': 3,
+        'tat_tmt': 4
+      };
+      const statusInt = statusMap[roleValue] || 1;
+
+      // แสดง Loading Alert ระหว่างส่งข้อมูล
+      Swal.fire({
+        title: 'กำลังลงทะเบียน...',
+        text: 'กรุณารอสักครู่',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      try {
+        // 2. ตรวจสอบว่า UserName (รหัสประจำตัว) นี้เคยลงทะเบียนไว้หรือยัง
+        const { data: existingUser, error: checkError } = await supabaseClient
+          .from('User')
+          .select('UserName')
+          .eq('UserName', studentId)
+          .maybeSingle();
+
+        if (checkError) throw checkError;
+
+        if (existingUser) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ลงทะเบียนไม่สำเร็จ',
+            text: 'รหัสประจำตัวนี้เคยลงทะเบียนในระบบเรียบร้อยแล้ว',
+            confirmButtonText: 'ตกลง',
+            confirmButtonColor: '#d33'
+          });
+          return;
+        }
+
+        // 3. บันทึกข้อมูลเข้าตาราง User ใน Supabase
+        const { data, error: insertError } = await supabaseClient
+          .from('User')
+          .insert([
+            {
+              UserName: studentId,      // รหัสประจำตัว 6 หลัก
+              FullName: fullName,       // ชื่อจริง
+              LastName: lastName,       // นามสกุล
+              Password: password,       // รหัสผ่าน
+              Status: statusInt,        // สิทธิ์ใช้งาน (1=นักศึกษา, 2=กรรมการ, 3=Admin, 4=TAT/TMT)
+              Active: true              // เปิดใช้งานบัญชีทันที
+            }
+          ]);
+
+        if (insertError) throw insertError;
+
+        // 4. แจ้งเตือนสำเร็จด้วย SweetAlert2
+        Swal.fire({
+          icon: 'success',
+          title: 'ลงทะเบียนสำเร็จ!',
+          text: 'ยินดีต้อนรับเข้าสู่ระบบ TATC แลก Point',
+          confirmButtonText: 'ไปหน้าเข้าสู่ระบบ',
+          confirmButtonColor: '#135d38',
+          timer: 2500,
+          timerProgressBar: true
+        }).then(() => {
+          // รีเซ็ตฟอร์ม
+          document.getElementById('registerForm')?.reset();
+          
+          // สลับไปที่ Tab เข้าสู่ระบบ (ถ้ามี)
+          const loginTabBtn = document.getElementById('login-tab');
+          if (loginTabBtn) loginTabBtn.click();
+        });
+
+      } catch (error) {
+        console.error('Register Error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถลงทะเบียนได้: ' + (error.message || 'เกิดข้อผิดพลาดไม่ทราบสาเหตุ'),
+          confirmButtonText: 'ลองอีกครั้ง',
+          confirmButtonColor: '#d33'
+        });
+      }
+    }
+
+    // ผูกฟังก์ชันเข้ากับ Form Submit
+    document.addEventListener('DOMContentLoaded', () => {
+  const registerForm = document.getElementById('registerForm');
+  if (registerForm) {
+    registerForm.addEventListener('submit', handleRegister);
+  }
+});
+  </script>
+</body>
+</html>

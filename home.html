@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - หน้าหลัก</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="home-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TCTA</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <li class="active"><a href="home.html" aria-current="page"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
+                    <!-- <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบขยะ (กรรมการ)</a></li>
+                    <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div>
+           
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success home-sidebar-tagline">แยกขยะ... เริ่มได้จากตัวเรา</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-navbar">
+          <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-leaf text-success home-hero-icon" aria-hidden="true"></i>
+                    <h1>สวัสดี, <span id="textUser_three"></span></h1>
+                </div>
+                <p>วันนี้มาเก็บขยะ แลกแต้ม และช่วยโลกไปด้วยกันนะ</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">ทุกชิ้นที่แยกถูก เปลี่ยนเป็นแต้มและสิ่งดี ๆ ได้</div>
+        </header>
+
+        <section class="home-metric-grid" aria-label="สรุปคะแนนและการเก็บขยะ">
+            <!-- คะแนนสะสม -->
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-green"><i class="fa-solid fa-coins"></i></span>
+                <div><small>คะแนนสะสม</small><strong><span id="home-points">0</span> <small class="d-inline">แต้ม</small></strong></div>
+            </article>
+
+            <!-- ขยะที่ส่งแล้ว (น้ำหนักรวม) -->
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-blue"><i class="fa-solid fa-weight-hanging"></i></span>
+                <div><small>ขยะที่ส่งแล้ว</small><strong><span id="home-total-weight">0.0</span> <small class="d-inline">กก.</small></strong></div>
+            </article>
+
+            <!-- รางวัลที่แลกได้ -->
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-solid fa-gift"></i></span>
+                <div><small>รางวัลที่แลกได้</small><strong><span id="home-available-rewards">2</span> <small class="d-inline">รายการ</small></strong></div>
+            </article>
+
+            <!-- ลด CO₂ แล้ว -->
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-leaf"><i class="fa-solid fa-seedling"></i></span>
+                <div><small>ลด CO₂ แล้ว</small><strong><span id="home-total-co2">0.0</span> <small class="d-inline">กก.</small></strong></div>
+            </article>
+        </section>
+
+        <div class="home-layout">
+            <div class="home-main-column">
+               <section class="home-panel home-goal-panel" aria-labelledby="weekly-goal-title">
+                    <div class="home-panel-heading">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="home-panel-icon"><i class="fa-solid fa-bullseye"></i></span>
+                            <div>
+                                <h2 id="weekly-goal-title">เป้าหมายประจำสัปดาห์</h2>
+                                <p>ส่งขยะให้ครบ 5 กิโลกรัม </p>
+                            </div>
+                        </div>
+                        <!-- 🌟 เพิ่ม ID สำหรับป้ายบอกน้ำหนักที่เหลือ -->
+                        <span class="home-goal-badge" id="goal-remaining-text">เหลืออีก 1.5 กก.</span>
+                    </div>
+                    
+                    <!-- 🌟 เพิ่ม ID สำหรับข้อความสะสมและเปอร์เซ็นต์ -->
+                    <div class="home-progress-label">
+                        <span id="goal-accumulated-text">สะสมแล้ว 3.5 กก.</span>
+                        <strong id="goal-percent-text">70%</strong>
+                    </div>
+                    
+                    <div class="progress home-goal-progress" role="progressbar" aria-label="ความคืบหน้าเป้าหมายประจำสัปดาห์" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                        <!-- 🌟 เพิ่ม ID สำหรับแถบความคืบหน้า (Progress bar) -->
+                        <div class="progress-bar" id="goal-progress-bar" style="width: 70%;"></div>
+                    </div>
+                    
+                    <div class="home-goal-footer">
+                        <span><i class="fa-regular fa-calendar me-1"></i> รีเซ็ตวันจันทร์</span>
+                        <a href="send-waste.html">ส่งขยะเพิ่ม <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </section>
+
+                <section class="home-panel" id="rewards" aria-labelledby="rewards-title">
+                    <div class="home-panel-heading">
+                        <div>
+                            <h2 id="rewards-title">ของรางวัลสำหรับคุณ</h2>
+                            <p>ใช้แต้มสะสมแลกของที่มีประโยชน์</p>
+                        </div>
+                        <span class="home-small-link"><i class="fa-solid fa-star"></i> <span id="home-reward-balance">120</span> แต้ม</span>
+                    </div>
+                    
+                    <div class="home-rewards-grid">
+                        <!-- 1. ดินสอ (40 แต้ม) -->
+                        <article class="home-reward-card" data-reward-card data-reward="ดินสอ" data-cost="40">
+                            <div class="home-reward-art is-mint"><i class="fa-solid fa-pencil"></i></div>
+                            <div class="home-reward-name">ดินสอ</div>
+                            <div class="home-reward-cost"><i class="fa-solid fa-star"></i> 40 แต้ม</div>
+                            <button class="home-redeem-button" type="button" data-cost="40" data-reward="ดินสอ">แลกเลย</button>
+                        </article>
+
+                        <!-- 2. สมุดรีไซเคิล / เทปลบคำผิด (50 แต้ม) -->
+                        <article class="home-reward-card" data-reward-card data-reward="เทปลบคำผิด" data-cost="50">
+                            <div class="home-reward-art is-sky"><i class="fa-solid fa-eraser"></i></div>
+                            <div class="home-reward-name">เทปลบคำผิด</div>
+                            <div class="home-reward-cost"><i class="fa-solid fa-star"></i> 50 แต้ม</div>
+                            <button class="home-redeem-button" type="button" data-cost="50" data-reward="เทปลบคำผิด">แลกเลย</button>
+                        </article>
+
+                        <!-- 3. ผ้าเช็ดตัว (150 แต้ม) -->
+                        <article class="home-reward-card" data-reward-card data-reward="ผ้าเช็ดตัว" data-cost="150">
+                            <div class="home-reward-art is-sun"><i class="fa-solid fa-bath"></i></div>
+                            <div class="home-reward-name">ผ้าเช็ดตัว</div>
+                            <div class="home-reward-cost"><i class="fa-solid fa-star"></i> 150 แต้ม</div>
+                            <button class="home-redeem-button" type="button" data-cost="150" data-reward="ผ้าเช็ดตัว">แลกเลย</button>
+                        </article>
+                    </div>
+
+                    <div class="home-redemption-history" id="home-redemption-history" hidden>
+                        <div class="home-redemption-heading">รายการแลกรางวัลล่าสุด</div>
+                        <div class="home-redemption-list" id="home-redemption-list"></div>
+                    </div>
+                    <p class="home-reward-message" id="reward-message" role="status" hidden></p>
+                </section>
+
+                <section class="home-panel" aria-labelledby="recent-title">
+                    <div class="home-panel-heading">
+                        <div>
+                            <h2 id="recent-title">การส่งขยะล่าสุด</h2>
+                            <p>ติดตามสถานะรายการของคุณ</p>
+                        </div>
+                        <a class="home-small-link" href="history.html">ดูทั้งหมด <i class="fa-solid fa-angle-right ms-1"></i></a>
+                    </div>
+                    <!-- 🌟 เพิ่ม ID กำหนดจุดแสดงรายการขยะ -->
+                    <div class="home-activity-list" id="home-recent-activities">
+                        <!-- รายการจะถูกแทรกอัตโนมัติจาก Supabase -->
+                    </div>
+                </section>
+            </div>
+
+            <aside class="home-side-column" aria-label="ข้อมูลและทางลัด">
+                <section class="home-panel home-drop-panel" aria-labelledby="drop-title">
+                    <div class="home-panel-heading">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="home-panel-icon is-location"><i class="fa-solid fa-location-dot"></i></span>
+                            <div><h2 id="drop-title">จุดรับขยะใกล้คุณ</h2><p>โรงเรียน TATC</p></div>
+                        </div>
+                        <span class="home-open-badge"><i class="fa-solid fa-circle"></i> เปิดอยู่</span>
+                    </div>
+                    <div class="home-drop-map" aria-label="แผนที่จำลองตำแหน่งจุดรับขยะ">
+                        <span class="home-map-road road-one"></span><span class="home-map-road road-two"></span>
+                        <span class="home-map-building"><i class="fa-solid fa-school"></i></span>
+                        <span class="home-map-pin"><i class="fa-solid fa-location-dot"></i></span>
+                        <span class="home-map-label">จุดรับขยะ</span>
+                    </div>
+                    <div class="home-drop-details">
+                        <strong>จุดรับขยะหน้าอาคารเรียน</strong>
+                        <span><i class="fa-regular fa-clock"></i> จันทร์–ศุกร์ · 08:00–16:30 น.</span>
+                        <span><i class="fa-solid fa-recycle"></i> รับขวด PET, กระดาษ, กระป๋อง, ขวดแก้ว</span>
+                    </div>
+                    <a class="home-outline-link" href="send-waste.html"><i class="fa-solid fa-paper-plane"></i> บันทึกการส่งขยะ</a>
+                </section>
+
+                <!-- <section class="home-panel home-challenge-panel" aria-labelledby="class-challenge-title">
+                    <div class="home-panel-heading">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="home-panel-icon is-challenge"><i class="fa-solid fa-people-group"></i></span>
+                            <div><h2 id="class-challenge-title">ภารกิจห้องเรียน</h2><p>ห้อง ม.2 รักษ์โลก</p></div>
+                        </div>
+                        <span class="home-challenge-rank">อันดับ 3</span>
+                    </div>
+                    <div class="home-challenge-value"><strong>18.5</strong><span> / 25 กก.</span></div>
+                    <div class="progress home-challenge-progress" role="progressbar" aria-label="ความคืบหน้าภารกิจห้องเรียน" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: 74%;"></div>
+                    </div>
+                    <p class="home-challenge-note">อีก 6.5 กก. จะถึงเป้าหมายของห้อง</p>
+                </section> -->
+
+                <section class="home-panel home-accepted-panel" aria-labelledby="accepted-title">
+                    <div class="home-panel-heading">
+                        <div><h2 id="accepted-title">เริ่มเก็บอะไรดี?</h2><p>ขยะรีไซเคิลที่รับแลกแต้ม</p></div>
+                    </div>
+                    <div class="home-accepted-list">
+                        <span><i class="fa-solid fa-bottle-water"></i> ขวด PET</span>
+                        <span><i class="fa-solid fa-box"></i> กระดาษ</span>
+                        <span><i class="fa-solid fa-glass-water-droplet"></i> กระป๋อง</span>
+                        <span><i class="fa-solid fa-wine-bottle"></i> ขวดแก้ว</span>
+                    </div>
+                    <a class="home-small-link" href="education.html">เรียนรู้การแยกขยะ <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                </section>
+            </aside>
+        </div>
+
+        <footer class="waste-footer">
+            <span>EcoPoint · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-graduation-cap me-1"></i> ต้นแบบเพื่อการศึกษา</span>
+        </footer>
+    </main>
+
+    <dialog class="home-redeem-dialog" id="home-redeem-dialog" aria-labelledby="redeem-dialog-title">
+        <div class="home-redeem-dialog-shell">
+            <div class="home-redeem-dialog-heading">
+                <span class="home-redeem-dialog-icon"><i class="fa-solid fa-gift"></i></span>
+                <button class="home-redeem-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-redeem><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2 id="redeem-dialog-title">ยืนยันการแลกรางวัล</h2>
+            <p class="home-redeem-dialog-copy">คุณกำลังแลกรางวัล</p>
+            <strong class="home-redeem-dialog-reward" id="redeem-dialog-reward"></strong>
+            <div class="home-redeem-breakdown">
+                <span>แต้มที่ใช้ <strong><span id="redeem-dialog-cost"></span> แต้ม</strong></span>
+                <span>แต้มคงเหลือ <strong><span id="redeem-dialog-balance"></span> แต้ม</strong></span>
+            </div>
+            <p class="home-redeem-dialog-note"><i class="fa-solid fa-circle-info"></i> หลังยืนยัน รับรางวัลที่จุดรับขยะหน้าอาคารเรียน</p>
+            <div class="home-redeem-dialog-actions">
+                <button class="home-redeem-cancel" type="button" data-close-redeem>ยกเลิก</button>
+                <button class="home-redeem-confirm" type="button" id="confirm-redemption"><i class="fa-solid fa-check"></i> ยืนยันแลก</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!--  Bootstrap JS  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+
+  <script>
+    // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const pointsValue = document.querySelector('#home-points');
+    const rewardMessage = document.querySelector('#reward-message');
+    const rewardDialog = document.querySelector('#home-redeem-dialog');
+    const redemptionHistory = document.querySelector('#home-redemption-history');
+    const redemptionList = document.querySelector('#home-redemption-list');
+    const storageKey = 'ecopoint-student-rewards';
+    
+    let pendingRewardButton = null;
+    let studentState = { points: 0, redemptions: [] };
+
+    // โหลดประวัติการแลกรางวัลจาก localStorage
+    function loadLocalRedemptions() {
+        try {
+            const savedState = JSON.parse(localStorage.getItem(storageKey));
+            if (savedState && Array.isArray(savedState.redemptions)) {
+                studentState.redemptions = savedState.redemptions;
+            }
+        } catch {
+            studentState.redemptions = [];
+        }
+    }
+
+    function saveLocalRedemptions() {
+        try {
+            localStorage.setItem(storageKey, JSON.stringify({ redemptions: studentState.redemptions }));
+        } catch {
+            if (rewardMessage) {
+                rewardMessage.hidden = false;
+                rewardMessage.textContent = 'บันทึกในอุปกรณ์นี้ไม่ได้ แต่รายการแลกยังแสดงในหน้านี้';
+            }
+        }
+    }
+
+    // 2. ดึงแต้มสะสมและน้ำหนักขยะจริงจาก Supabase (ตาราง SendWaste ที่ Status = 1)
+    async function fetchStudentPointsFromSupabase() {
+        const savedUser = localStorage.getItem('currentUser');
+        if (!savedUser || !supabaseClient) return;
+     
+        localStorage.removeItem('ecopoint-student-rewards');
+
+        try {
+            const user = JSON.parse(savedUser);
+            const currentUserId = Number(user.id);
+            
+            // 🌟 ดึงข้อมูลรายการส่งขยะทั้งหมดของนักเรียนคนนี้จาก Supabase
+            const { data, error } = await supabaseClient
+                .from('SendWaste')
+                .select('EarnedPoints, WeightWaste, Status')
+                .or(`UserIdRequest.eq.${currentUserId},UserIdRequest.eq.${user.id}`);
+
+            if (error) throw error;
+
+            const records = data || [];
+
+            // 1. คะแนนสะสม: คิดเฉพาะรายการที่อนุมัติแล้ว (Status === 1) เหมือนกับหน้าประวัติ
+            const approvedRecords = records.filter(row => Number(row.Status) === 1);
+            const totalEarned = approvedRecords.reduce((sum, row) => sum + Number(row.EarnedPoints || 0), 0);
+            
+            // 2. น้ำหนักขยะสะสม: รวมน้ำหนักจากทุกสถานะ (หรือเฉพาะอนุมัติ ให้ปรับตามหน้าประวัติครับ ปกติหน้าประวัติรวมน้ำหนักทั้งหมดหรือเฉพาะอนุมัติ ดูจากภาพคือรวมน้ำหนักทุกรายการที่ส่ง)
+            const totalWeight = records.reduce((sum, row) => {
+                // ถ้าหน้าประวัติรวมน้ำหนักทุกสถานะ ให้ใช้บรรทัดนี้:
+                return sum + Number(row.WeightWaste || 0);
+                // แต่ถ้าหน้าประวัติรวมเฉพาะที่อนุมัติ ให้เปลี่ยนเป็นยอดจาก approvedRecords ครับ
+            }, 0);
+
+            // 3. ลด CO₂ (คำนวณจากน้ำหนักรวม x 0.7)
+            const totalCo2 = totalWeight * 0.7;
+
+            // หักลบด้วยแต้มที่ใช้แลกรางวัลไปแล้ว
+            const totalSpent = studentState.redemptions.reduce((sum, item) => sum + Number(item.cost || 0), 0);
+
+            studentState.points = Math.max(0, totalEarned - (totalSpent > totalEarned ? 0 : totalSpent));
+            studentState.totalWeight = totalWeight;
+            studentState.totalCo2 = totalCo2;
+
+            renderStudentState();
+            renderRecentActivities(records);
+
+        } catch (err) {
+            console.error('Error fetching student stats from Supabase:', err);
+        }
+    }
+
+    function renderRedemptionHistory() {
+        if (!redemptionList || !redemptionHistory) return;
+        redemptionList.replaceChildren();
+        redemptionHistory.hidden = studentState.redemptions.length === 0;
+        
+        studentState.redemptions.slice(0, 4).forEach(redemption => {
+            const entry = document.createElement('div');
+            entry.className = 'home-redemption-entry';
+            entry.innerHTML = `<span class="home-redemption-check"><i class="fa-solid fa-check"></i></span><span class="home-redemption-info"><strong></strong><small></small></span><span class="home-redemption-state">รอรับ</span>`;
+            entry.querySelector('strong').textContent = redemption.reward;
+            entry.querySelector('small').textContent = `${redemption.cost} แต้ม · ${redemption.date} · รหัส ${redemption.code}`;
+            redemptionList.append(entry);
+        });
+    }
+
+   function renderStudentState() {
+        // (โค้ดเดิมสำหรับแสดงแต้มและน้ำหนักรวม...)
+        if (pointsValue) pointsValue.textContent = String(studentState.points);
+        
+        const weightEl = document.querySelector('#home-total-weight');
+        const co2El = document.querySelector('#home-total-co2');
+        if (weightEl) weightEl.textContent = (studentState.totalWeight || 0).toFixed(1);
+        if (co2El) co2El.textContent = (studentState.totalCo2 || 0).toFixed(1);
+
+        const targetWeight = 5.0;
+        const currentWeight = studentState.totalWeight || 0;
+        const percent = Math.min(100, Math.round((currentWeight / targetWeight) * 100));
+        const remaining = Math.max(0, targetWeight - currentWeight);
+
+        const goalBadge = document.querySelector('#goal-remaining-text');
+        const goalAccumulated = document.querySelector('#goal-accumulated-text');
+        const goalPercent = document.querySelector('#goal-percent-text');
+        const goalProgressBar = document.querySelector('#goal-progress-bar');
+        const goalProgressContainer = document.querySelector('.home-goal-progress');
+
+        if (goalBadge) {
+            goalBadge.textContent = remaining > 0 ? `เหลืออีก ${remaining.toFixed(1)} กก.` : '🎉 สำเร็จเป้าหมายแล้ว!';
+        }
+        if (goalAccumulated) {
+            goalAccumulated.textContent = `สะสมแล้ว ${currentWeight.toFixed(1)} กก.`;
+        }
+        if (goalPercent) {
+            goalPercent.textContent = `${percent}%`;
+        }
+        if (goalProgressBar) {
+            goalProgressBar.style.width = `${percent}%`;
+        }
+        if (goalProgressContainer) {
+            goalProgressContainer.setAttribute('aria-valuenow', percent);
+        }
+
+        renderRedemptionHistory();
+    }
+
+    // แมปประเภทขยะ (TypeWaste) เพื่อแสดงชื่อและไอคอนให้ตรงกัน
+    const typeWasteConfig = {
+        1: { name: 'RDF พิเศษ', icon: 'fa-fire', color: 'is-green' },
+        2: { name: 'RDF แบบปกติ', icon: 'fa-fire-flame-curved', color: 'is-green' },
+        3: { name: 'ขยะทั่วไป', icon: 'fa-trash-can', color: 'is-paper' },
+        4: { name: 'ถังพลาสติก', icon: 'fa-bottle-water', color: 'is-blue' },
+        5: { name: 'ขวดกระป๋องอะลูมิเนียม', icon: 'fa-can-food', color: 'is-metal' },
+        6: { name: 'ขวดแก้ว', icon: 'fa-wine-bottle', color: 'is-blue' },
+        7: { name: 'กระดาษ', icon: 'fa-newspaper', color: 'is-paper' },
+        8: { name: 'ขยะอันตราย', icon: 'fa-triangle-exclamation', color: 'is-metal' },
+        9: { name: 'ถังเศษอาหาร', icon: 'fa-seedling', color: 'is-green' },
+        10: { name: 'ถังน้ำและเครื่องดื่ม', icon: 'fa-cup-straw', color: 'is-blue' },
+        11: { name: 'ขยะอันตรายติดเชื้อ', icon: 'fa-biohazard', color: 'is-metal' }
+    };
+
+    function renderRecentActivities(records) {
+        const listContainer = document.querySelector('#home-recent-activities');
+        if (!listContainer) return;
+
+        listContainer.replaceChildren();
+
+        if (!records || records.length === 0) {
+            listContainer.innerHTML = `<div class="text-center text-muted py-3 small">ยังไม่มีประวัติการส่งขยะ</div>`;
+            return;
+        }
+
+        const sortedRecords = [...records].sort((a, b) => new Date(b.SubmissionDatetime || b.created_at) - new Date(a.SubmissionDatetime || a.created_at));
+        const latestThree = sortedRecords.slice(0, 3);
+
+        latestThree.forEach(record => {
+            const subDate = new Date(record.SubmissionDatetime || record.created_at);
+            const dateFormatted = subDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+            const timeFormatted = subDate.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
+            
+            const typeConfig = typeWasteConfig[record.TypeWaste] || { name: 'ขยะรีไซเคิล', icon: 'fa-recycle', color: 'is-blue' };
+            const statusNum = Number(record.Status);
+            
+            let statusBadge = '';
+            if (statusNum === 1) {
+                statusBadge = `<span class="home-activity-points">+${record.EarnedPoints || 0} <i class="fa-solid fa-star"></i></span><span class="home-activity-status">อนุมัติแล้ว</span>`;
+            } else if (statusNum === 2 || statusNum === 3) {
+                statusBadge = `<span class="home-activity-points is-pending">ไม่ผ่าน</span><span class="home-activity-status text-danger">ปฏิเสธ</span>`;
+            } else {
+                statusBadge = `<span class="home-activity-points is-pending"><i class="fa-regular fa-clock"></i> รอตรวจ</span>`;
+            }
+
+            const itemLink = document.createElement('a');
+            itemLink.className = 'home-activity-row';
+            itemLink.href = 'history.html';
+            itemLink.innerHTML = `
+                <span class="home-activity-icon ${typeConfig.color}"><i class="fa-solid ${typeConfig.icon}"></i></span>
+                <span class="home-activity-description"><strong>${typeConfig.name}</strong><small>${dateFormatted} · ${Number(record.WeightWaste || 0).toFixed(1)} กก.</small></span>
+                ${statusBadge}
+            `;
+            listContainer.append(itemLink);
+        });
+    }
+
+    document.querySelectorAll('.home-redeem-button').forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.disabled) return;
+            pendingRewardButton = button;
+            const cost = Number(button.dataset.cost);
+            
+            const rReward = document.querySelector('#redeem-dialog-reward');
+            const rCost = document.querySelector('#redeem-dialog-cost');
+            const rBalance = document.querySelector('#redeem-dialog-balance');
+
+            if (rReward) rReward.textContent = button.dataset.reward;
+            if (rCost) rCost.textContent = String(cost);
+            if (rBalance) rBalance.textContent = String(studentState.points - cost);
+            
+            if (rewardDialog) rewardDialog.showModal();
+        });
+    });
+
+    document.querySelectorAll('[data-close-redeem]').forEach(button => {
+        button.addEventListener('click', () => rewardDialog?.close());
+    });
+
+    const confirmRedemptionBtn = document.querySelector('#confirm-redemption');
+    if (confirmRedemptionBtn) {
+        confirmRedemptionBtn.addEventListener('click', () => {
+            if (!pendingRewardButton) return;
+            const cost = Number(pendingRewardButton.dataset.cost);
+            const reward = pendingRewardButton.dataset.reward;
+            
+            if (studentState.points < cost) {
+                rewardDialog?.close();
+                if (rewardMessage) {
+                    rewardMessage.hidden = false;
+                    rewardMessage.textContent = 'แต้มของคุณไม่เพียงพอสำหรับรางวัลนี้';
+                }
+                return;
+            }
+
+            studentState.points -= cost;
+            studentState.redemptions.unshift({
+                reward,
+                cost,
+                date: new Intl.DateTimeFormat('th-TH', { dateStyle: 'medium' }).format(new Date()),
+                code: `EP-${Date.now().toString().slice(-6)}`
+            });
+
+            saveLocalRedemptions();
+            renderStudentState();
+            
+            if (rewardMessage) {
+                rewardMessage.hidden = false;
+                rewardMessage.textContent = `แลก ${reward} สำเร็จ โปรดแสดงรหัสรับของในรายการแลกรางวัล`;
+            }
+            rewardDialog?.close();
+            pendingRewardButton = null;
+        });
+    }
+
+    if (rewardDialog) {
+        rewardDialog.addEventListener('click', event => {
+            if (event.target === rewardDialog) rewardDialog.close();
+        });
+    }
+
+    // เริ่มต้นทำงานเมื่อโหลดหน้าเว็บ
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('currentUser');
+        
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            
+            const nameSpan = document.getElementById('textUser');
+            const nameSpanSecond = document.getElementById('textUser_second');
+            const nameSpanThree = document.getElementById('textUser_three');
+            
+            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName} (รหัส: ${user.userName})`;
+            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+            if (nameSpanThree) nameSpanThree.textContent = `${user.fullName} ${user.lastName}`;
+
+            // โหลดประวัติแลกรางวัลและดึงแต้มจาก Supabase
+            loadLocalRedemptions();
+            fetchStudentPointsFromSupabase();
+        } else {
+            window.location.href = 'index.html';
+        }
+
+        const logoutButton = document.getElementById('logout-btn');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performLogout();
+                        }
+                    });
+                } else {
+                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                        performLogout();
+                    }
+                }
+            });
+        }
+    });
+
+    function performLogout() {
+        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+        localStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>

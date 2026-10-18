@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TATC แลก Point - เรียนรู้การแยกขยะ 11 ประเภท</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Kanit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #f4f8f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            background: #ffffff;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sidebar-brand {
+            padding: 20px 24px;
+        }
+        .brand-title {
+            color: #198754;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+        .sidebar-menu {
+            padding: 0 16px;
+            list-style: none;
+            margin: 0;
+        }
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        .sidebar-menu li a i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-menu li.active a, .sidebar-menu li a:hover {
+            background-color: #198754;
+            color: #ffffff;
+        }
+        .sidebar-profile-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar-profile-card img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        .sidebar-footer-banner {
+            padding: 16px;
+            text-align: center;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            margin-left: 260px;
+            padding: 24px;
+        }
+
+        /* Top Header Navbar */
+        .top-navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .top-icon-btn {
+            background: #ffffff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #495057;
+            position: relative;
+        }
+        .top-user-pill {
+            background: #ffffff;
+            border-radius: 50px;
+            padding: 6px 16px 6px 6px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .top-user-pill img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 24px;
+            padding: 30px;
+            position: relative;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .hero-banner h1 {
+            color: #1b5e20;
+            font-weight: 700;
+        }
+        .speech-bubble {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: inline-block;
+            position: relative;
+        }
+
+        /* Category Cards Row */
+        .category-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 16px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            height: 100%;
+        }
+        .category-card.active {
+            border-color: #198754;
+            background: #fdfdfd;
+        }
+        .cat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        /* Lesson Main Card */
+        .lesson-main-card {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            border-radius: 24px;
+            color: #ffffff;
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        /* Lesson Content Container */
+        .content-box {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            margin-bottom: 24px;
+        }
+        
+        /* Stepper List */
+        .stepper-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .stepper-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            background: #f8f9fa;
+            font-weight: 500;
+            color: #495057;
+        }
+        .stepper-item.active {
+            background: #e8f5e9;
+            color: #198754;
+            border-left: 4px solid #198754;
+        }
+        .stepper-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            margin-right: 12px;
+            font-weight: 600;
+        }
+        .stepper-item.active .stepper-number {
+            background: #198754;
+            color: #ffffff;
+        }
+
+        /* Info Highlight Box */
+        .info-highlight {
+            background: #fff8e1;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #ffe082;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Video Mockup */
+        .video-mockup {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1532996122724-e3c3fa4a0d5d?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 16px;
+        }
+
+        /* Quiz Card Styling */
+        .quiz-option {
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quiz-option.selected-correct {
+            border-color: #198754;
+            background: #f4fcf6;
+        }
+        .quiz-badge-letter {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        .quiz-option.selected-correct .quiz-badge-letter {
+            background: #198754;
+            color: #fff;
+        }
+
+        /* Mission Progress Footer */
+        .mission-step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #198754;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        :root {
+            --eco-green: #218b5a;
+            --eco-ink: #28463b;
+            --eco-muted: #74867f;
+            --eco-line: #e2eee8;
+            --eco-canvas: #f2f8f8;
+        }
+
+        body {
+            background: var(--eco-canvas);
+            color: var(--eco-ink);
+        }
+
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(180deg, #f4fbff 0%, #f6fbfa 72%, #eaf7f3 100%);
+            border-right: 1px solid #e2eff1;
+            box-shadow: 3px 0 18px rgba(42, 90, 76, 0.04);
+        }
+
+        .sidebar-brand {
+            padding: 17px 18px 22px;
+        }
+
+        .brand-title {
+            font-size: 1.35rem;
+            color: var(--eco-green);
+        }
+
+        .sidebar-menu {
+            padding: 0 10px;
+        }
+
+        .sidebar-menu li a {
+            min-height: 42px;
+            padding: 9px 12px;
+            border-radius: 9px;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu li.active a,
+        .sidebar-menu li a:hover {
+            background: var(--eco-green);
+            box-shadow: 0 5px 12px rgba(33, 139, 90, 0.17);
+        }
+
+        .sidebar-profile-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e4efec;
+            border-radius: 12px;
+        }
+
+        .sidebar-footer-banner img {
+            object-position: center;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 16px 18px 20px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .top-navbar {
+            min-height: 36px;
+            margin-bottom: 10px;
+        }
+
+        .top-icon-btn,
+        .top-user-pill {
+            border: 1px solid #e7efed;
+            box-shadow: 0 3px 12px rgba(47, 88, 73, 0.06);
+        }
+
+        .hero-banner {
+            min-height: 108px;
+            margin-bottom: 14px;
+            padding: 18px 24px;
+            border: 1px solid rgba(184, 223, 227, 0.8);
+            border-radius: 14px;
+            background-color: #fffbe7;
+            background-image: linear-gradient(90deg, rgba(255, 252, 232, 0.94) 0%, rgba(255, 252, 232, 0.78) 40%, rgba(255, 252, 232, 0.12) 100%), url('https://media.istockphoto.com/id/2163483555/th/%E0%B9%80%E0%B8%A7%E0%B8%84%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%84%E0%B8%99%E0%B8%97%E0%B9%8D%E0%B8%B2%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B0%E0%B8%AD%E0%B8%B2%E0%B8%94%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%AA%E0%B8%B2%E0%B8%98%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%B0%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87-%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%81%E0%B8%8A%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%94%E0%B9%87%E0%B8%81%E0%B8%AB%E0%B8%8D%E0%B8%B4%E0%B8%87%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%9A%E0%B8%82%E0%B8%A2%E0%B8%B0%E0%B8%9E%E0%B8%A5%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%B4%E0%B8%81%E0%B8%A3%E0%B9%88%E0%B8%A7%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%94-%E0%B8%97%E0%B8%B5%E0%B8%A1%E0%B9%80.jpg?s=612x612&w=0&k=20&c=bIt_rWW-5ENW_3-uXwUyqMyyF5CviFqL4nyTFK23V7U=');
+            background-position: center center, center center;
+            background-size: cover;
+        }
+
+        .hero-banner h1 {
+            color: #174c3b;
+        }
+
+        .hero-banner {
+            min-height: 160px;
+            margin-right: -18px;
+            margin-left: -18px;
+            border: 0;
+            border-radius: 0;
+            position: relative;
+            overflow: visible;
+            background-color: transparent;
+            background-size: 0 0;
+        }
+
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: -60px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #fffbe7;
+            background-image: inherit;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            pointer-events: none;
+        }
+
+        .category-card {
+            padding: 12px;
+            border: 1px solid #e8efec;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(48, 88, 73, 0.045);
+        }
+
+        .category-card.active {
+            border-color: #bce5cf;
+            background: #f1fbf4;
+        }
+
+        .cat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 9px;
+        }
+
+        .lesson-main-card {
+            min-height: 104px;
+            margin-bottom: 14px;
+            padding: 17px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            background-image: linear-gradient(90deg, rgba(31, 143, 91, 0.68) 0%, rgba(39, 157, 101, 0.38) 57%, rgba(39, 157, 101, 0.12) 100%), url('https://i.pinimg.com/736x/43/e3/24/43e3244cbaf8cad4c52251a75f16fbd8.jpg');
+            background-position: center center, center center;
+            background-size: cover;
+        }
+
+        .lesson-main-card .row {
+            min-height: 68px;
+        }
+
+        .content-box {
+            padding: 17px;
+            border: 1px solid #e5efed;
+            border-radius: 13px;
+            box-shadow: 0 5px 18px rgba(47, 88, 73, 0.04);
+            margin-bottom: 14px;
+        }
+
+        .stepper-item {
+            padding: 9px 10px;
+            border-radius: 9px;
+        }
+
+        .stepper-item.active {
+            border-left-width: 3px;
+        }
+
+        .info-highlight {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .video-mockup {
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border-radius: 11px;
+            background-position: center;
+        }
+
+        .video-overlay {
+            padding: 12px;
+        }
+
+        .quiz-option {
+            padding: 9px 11px;
+            border-radius: 10px;
+        }
+
+        .quiz-option span {
+            min-width: 0;
+        }
+
+        .mission-track {
+            min-width: 0;
+        }
+
+        /* ------------------------------------
+           Horizontal Scroll สำหรับหน้าจอโทรศัพท์ 
+        ------------------------------------ */
+        @media (max-width: 767.98px) {
+            .waste-category-scroll {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 12px !important;
+                margin-right: -12px !important;
+                margin-left: -12px !important;
+                padding-right: 12px !important;
+                padding-left: 12px !important;
+                scroll-behavior: smooth;
+            }
+
+            .waste-category-scroll::-webkit-scrollbar {
+                display: none;
+            }
+            .waste-category-scroll {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            .waste-category-scroll > .col {
+                flex: 0 0 200px !important;
+                max-width: 200px !important;
+                scroll-snap-align: start;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: 0;
+                box-shadow: 0 3px 14px rgba(42, 90, 76, 0.05);
+            }
+
+            .sidebar > div:first-child {
+                min-width: 0;
+            }
+
+            .sidebar-brand {
+                padding: 11px 16px 7px;
+            }
+
+            .brand-subtitle,
+            .sidebar-profile-card,
+            .sidebar-footer-banner {
+                display: none;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                gap: 4px;
+                overflow-x: auto;
+                padding: 0 12px 10px;
+                scrollbar-width: thin;
+            }
+
+            .sidebar-menu li {
+                flex: 0 0 auto;
+            }
+
+            .sidebar-menu li a {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+
+            .sidebar-menu li a i {
+                margin-right: 7px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 14px 16px 20px;
+            }
+
+            .hero-banner {
+                margin-right: -12px;
+                margin-left: -12px;
+                min-height: 100px;
+            }
+
+            .top-navbar {
+                margin-bottom: 12px;
+            }
+
+            .lesson-main-card .col-md-4 {
+                text-align: left !important;
+                margin-top: 10px;
+            }
+
+            .content-box > .row > .border-end {
+                border-right: 0 !important;
+                border-bottom: 1px solid var(--eco-line);
+                padding-bottom: 12px;
+                margin-bottom: 15px;
+            }
+
+            .stepper-list {
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+                padding-bottom: 4px;
+                scrollbar-width: thin;
+            }
+
+            .stepper-item {
+                flex: 0 0 170px;
+                margin-bottom: 0;
+            }
+
+            .category-card {
+                padding: 10px;
+            }
+
+            .category-card h6 {
+                font-size: 0.88rem;
+            }
+
+            .category-card .d-flex.justify-content-between.align-items-center.text-muted {
+                align-items: flex-start !important;
+                gap: 4px;
+            }
+
+            .lesson-main-card {
+                padding: 15px;
+                background-position: center, 62% center;
+            }
+
+            .lesson-main-card h3 {
+                font-size: 1.25rem;
+            }
+
+            .lesson-main-card p {
+                line-height: 1.45;
+            }
+
+            .content-box {
+                padding: 14px;
+            }
+
+            .content-box .ps-md-4 {
+                padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+            }
+
+            .mission-track {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px 6px;
+                padding: 8px 0 !important;
+            }
+
+            .mission-track hr {
+                display: none;
+            }
+
+            .mission-track > div {
+                min-width: 0;
+            }
+
+            .mission-track > div span {
+                display: block;
+                line-height: 1.35;
+            }
+
+            .main-content > .row.g-4 {
+                --bs-gutter-y: 0.75rem;
+            }
+
+            .main-content > .d-flex.justify-content-between.align-items-center.mt-5 {
+                flex-wrap: wrap;
+                justify-content: center !important;
+                gap: 10px;
+                margin-top: 1.5rem !important;
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .main-content {
+                padding-right: 28px;
+                padding-left: 28px;
+            }
+
+            .hero-banner {
+                margin-right: -28px;
+                margin-left: -28px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .sidebar-brand {
+                padding: 14px 12px 18px;
+            }
+
+            .sidebar-menu {
+                padding: 0 8px;
+            }
+
+            .sidebar-menu li a {
+                padding: 8px 9px;
+                font-size: 0.8rem;
+            }
+
+            .sidebar-menu li a i {
+                width: 20px;
+                margin-right: 8px;
+                font-size: 1rem;
+            }
+
+            .sidebar-profile-card {
+                margin: 10px;
+                padding: 9px;
+            }
+
+            .sidebar-profile-card img {
+                width: 34px;
+                height: 34px;
+                margin-right: 8px;
+            }
+
+            .sidebar-footer-banner {
+                padding: 10px;
+            }
+
+            .sidebar-footer-banner img {
+                width: 74px !important;
+                height: 74px !important;
+            }
+
+            .main-content {
+                margin-left: 190px;
+                padding: 14px 12px 18px;
+            }
+
+            .hero-banner {
+                margin-right: -12px;
+                margin-left: -12px;
+            }
+        }
+
+        @media (min-width: 840px) and (max-width: 991.98px) {
+            .main-content > .row.g-4 {
+                --bs-gutter-x: 1rem;
+            }
+
+            .main-content > .row.g-4 > .col-lg-8 {
+                width: 66.666667%;
+            }
+
+            .main-content > .row.g-4 > .col-lg-4 {
+                width: 33.333333%;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .sidebar-menu li a {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+
+            .top-user-pill {
+                padding-right: 10px;
+            }
+
+            .top-user-pill span {
+                max-width: 110px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .info-highlight {
+                align-items: flex-start;
+            }
+
+            .info-highlight img {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            .quiz-option {
+                align-items: flex-start;
+            }
+
+            .quiz-option .quiz-badge-letter {
+                flex: 0 0 28px;
+            }
+
+            .mission-track {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <h2 class="brand-title">TATC</h2>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                <li class="active"><a href="#"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
+                <!-- <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบขยะ (กรรมการ)</a></li>
+                <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li>
+                <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li> -->
+            </ul>
+        </div>
+
+        <div>
+            <div class="sidebar-footer-banner text-center">
+                <div class="fw-bold text-success" style="font-size: 0.9rem;">แยกขยะ... เริ่มได้จากตัวเรา</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" class="img-fluid rounded-circle mt-2" style="width: 100px; height: 100px; object-fit: cover;" alt="Earth">
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+        
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+           <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Header Banner -->
+        <div class="hero-banner d-flex justify-content-between align-items-center">
+            <div>
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fa-solid fa-book-bookmark text-success fs-2 me-3"></i>
+                    <h1 class="mb-0 fs-2">เรียนรู้การแยกขยะ 11 ประเภท</h1>
+                </div>
+                <p class="text-muted mb-0" style="font-size: 0.95rem;">เรียนรู้การคัดแยกขยะอย่างละเอียดทั้ง 11 ประเภท เพื่อการรีไซเคิลและการกำจัดอย่างถูกวิธี</p>
+            </div>
+            <div class="text-end d-none d-lg-block">
+                <div class="speech-bubble mb-2">
+                    รู้วิธีแยกขยะ คือก้าวแรกของการรักษ์โลก 🌱
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=120&q=80" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="Globe Mascot">
+                </div>
+            </div>
+        </div>
+
+        <!-- 11 Category Cards Grid (เพิ่ม class waste-category-scroll เพื่อรองรับการปัดขวาบนมือถือ) -->
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 mb-4 waste-category-scroll" style="cursor: pointer;">
+            
+            <!-- 1. RDF แบบปกติ -->
+            <div class="col">
+                <div class="category-card" data-category="1">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-secondary"><i class="fa-solid fa-box-open"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">RDF แบบปกติ</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">พลาสติกอ่อนและฟิล์มพลาสติกไม่มีฟอยล์</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 2. RDF พิเศษ -->
+            <div class="col">
+                <div class="category-card" data-category="2">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-secondary"><i class="fa-solid fa-mug-saucer"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">RDF พิเศษ</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">พลาสติกแข็งและบรรจุภัณฑ์สะอาด</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 3. ขยะทั่วไป -->
+            <div class="col">
+                <div class="category-card" data-category="3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-secondary"><i class="fa-solid fa-trash-can"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">ขยะทั่วไป</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">ขยะย่อยยากมีฟอยล์</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 4. ขวดพลาสติก -->
+            <div class="col">
+                <div class="category-card" data-category="4">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-primary"><i class="fa-solid fa-bottle-water"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">ขวดพลาสติก</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">ขวดใสและขวดขุ่นรีไซเคิลได้</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 5. กระป๋อง/โลหะ -->
+            <div class="col">
+                <div class="category-card" data-category="5">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-warning text-dark"><i class="fa-solid fa-glass-water-droplet"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">กระป๋อง/โลหะ</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">กระป๋องกาแฟ เครื่องดื่มชูกำลัง</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 6. ขวดแก้ว (ค่าเริ่มต้น Active) -->
+            <div class="col">
+                <div class="category-card active" data-category="6">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-success"><i class="fa-solid fa-wine-bottle"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">ขวดแก้ว</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">ขวดสปอนเซอร์ และเครื่องดื่มชูกำลัง</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;">
+                        <span>เลือกแล้ว</span>
+                        <i class="fa-solid fa-circle-check text-success"></i>
+                    </div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-success" style="width: 100%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 7. กระดาษ -->
+            <div class="col">
+                <div class="category-card" data-category="7">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-info text-white"><i class="fa-solid fa-newspaper"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">กระดาษ</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">กระดาษ A4 หนังสือพิมพ์ กล่องลัง</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 8. ถังเศษอาหาร -->
+            <div class="col">
+                <div class="category-card" data-category="8">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-warning text-dark"><i class="fa-solid fa-bowl-food"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">เศษอาหาร</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">ขยะอินทรีย์ย่อยสลายง่าย</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 9. ถังน้ำและเครื่องดื่ม -->
+            <div class="col">
+                <div class="category-card" data-category="9">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-primary"><i class="fa-solid fa-glass-water"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">จุดเทน้ำ</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">เทน้ำหรือน้ำแข็งทิ้งก่อนแยกขวด</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 10. ขยะอันตราย -->
+            <div class="col">
+                <div class="category-card" data-category="10">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-danger"><i class="fa-solid fa-skull-crossbones"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">ขยะอันตราย</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">ปากกาเคมี แบตเตอรี่ หลอดไฟ</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+
+            <!-- 11. ขยะติดเชื้อ -->
+            <div class="col">
+                <div class="category-card" data-category="11">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="cat-icon bg-dark text-white"><i class="fa-solid fa-mask-face"></i></div>
+                        <i class="fa-solid fa-arrow-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1">ขยะติดเชื้อ</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.75rem;">หน้ากากอนามัย ถุงมือ ชุดตรวจ ATK</p>
+                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.7rem;"><span>บทเรียน</span></div>
+                    <div class="progress mt-2" style="height: 4px;"><div class="progress-bar bg-secondary" style="width: 0%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ส่วนแสดงผลบทเรียนด้านล่าง (ใส่ ID เพื่อให้ JavaScript เปลี่ยนข้อความตามหมวดหมู่ได้) -->
+        <div class="container-fluid px-0">
+            <div class="lesson-main-card p-4 rounded-4 shadow-sm mb-4 bg-success text-white" id="lesson-banner">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bg-white text-success rounded-circle p-3 me-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 60px; height: 60px;">
+                                <i class="fa-solid fa-wine-bottle fs-3" id="banner-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="fw-bold mb-1" id="banner-title">ขวดแก้ว</h2>
+                                <p class="text-light opacity-90 mb-0" id="banner-desc" style="font-size: 0.95rem;">บรรจุภัณฑ์ประเภทแก้ว เช่น ขวดเครื่องดื่มชูกำลัง ขวดน้ำอัดลมแก้ว ขวดซอสต่างๆ สามารถนำกลับมารีไซเคิลหลอมใหม่ได้</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-md-end mt-3 mt-md-0">
+                        <span class="badge bg-white text-success px-3 py-2 rounded-pill me-2 fw-semibold" id="current-step-badge">หัวข้อที่ 1 / 4</span>
+                        <span class="badge bg-dark bg-opacity-25 border border-light px-3 py-2 rounded-pill"><i class="fa-solid fa-book-open me-1"></i> บทเรียนการคัดแยก</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stepper Navigation Bar -->
+            <div class="content-box p-3 mb-4 rounded-4 shadow-sm bg-white">
+                <div class="row text-center g-2" style="cursor: pointer;">
+                    <div class="col">
+                        <div class="stepper-tab active p-2 rounded-3 border transition-all" data-step="1" id="tab-1">
+                            <div class="fw-bold text-success" style="font-size: 0.9rem;"><i class="fa-solid fa-circle-check me-1"></i>1. ทำความรู้จัก</div>
+                            <small class="text-muted" style="font-size: 0.75rem;" id="step-sub-1">ขยะประเภทนี้คืออะไร</small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stepper-tab p-2 rounded-3 border transition-all" data-step="2" id="tab-2">
+                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">2. ตัวอย่างขยะ</div>
+                            <small class="text-muted" style="font-size: 0.75rem;" id="step-sub-2">ตัวอย่างสิ่งที่ทิ้งได้</small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stepper-tab p-2 rounded-3 border transition-all" data-step="3" id="tab-3">
+                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">3. วิธีเตรียมขยะ</div>
+                            <small class="text-muted" style="font-size: 0.75rem;" id="step-sub-3">การทำความสะอาด</small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stepper-tab p-2 rounded-3 border transition-all" data-step="4" id="tab-4">
+                            <div class="fw-bold text-dark" style="font-size: 0.9rem;">4. ข้อควรระวัง</div>
+                            <small class="text-muted" style="font-size: 0.75rem;" id="step-sub-4">ความปลอดภัยและคำแนะนำ</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Display Area -->
+            <div class="content-box p-4 rounded-4 shadow-sm bg-white">
+                
+                <!-- ขั้นตอนที่ 1 -->
+                <div class="step-content-pane" id="pane-1">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h4 class="fw-bold text-success mb-3" id="content-title-1"><i class="fa-solid fa-seedling me-2"></i>ทำความรู้จักขยะประเภทนี้</h4>
+                            <p class="text-muted" id="content-desc-1" style="font-size: 1rem; line-height: 1.7;">
+                                เลือกหมวดหมู่ขยะด้านบนเพื่อดูรายละเอียดข้อมูลเชิงลึกตามคู่มือการคัดแยกขยะ
+                            </p>
+                            <div class="p-4 bg-light rounded-4 border text-center">
+                                <i class="fa-solid fa-recycle text-success display-3 mb-3" id="content-box-icon"></i>
+                                <h6 class="fw-bold" id="content-box-title">โครงการขยะแลกแต้ม TATC</h6>
+                                <p class="text-muted small mb-0" id="content-box-desc">ร่วมมือกันคัดแยกขยะเพื่อสิ่งแวดล้อมที่ยั่งยืน</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 text-center">
+                            <div class="text-center my-3">
+                                <img src="https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type6.jfif" alt="แนวทางการแยกขยะ" id="category-image" class="img-fluid rounded-4 shadow-sm border" style="max-height: 400px; object-fit: contain;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ขั้นตอนที่ 2 -->
+                <div class="step-content-pane d-none" id="pane-2">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h4 class="fw-bold text-success mb-3"><i class="fa-solid fa-box-open me-2"></i>ตัวอย่างสิ่งที่ทิ้งได้</h4>
+                            <p class="text-muted" id="content-desc-2" style="font-size: 1rem; line-height: 1.7;">-</p>
+                        </div>
+                        <div class="col-lg-5 text-center">
+                            <div class="p-4 bg-light rounded-4 border">
+                                <i class="fa-solid fa-list-check text-primary display-3 mb-3"></i>
+                                <h6 class="fw-bold">รายการตัวอย่างขยะ</h6>
+                                <p class="text-muted small mb-0" id="content-box-ex">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ขั้นตอนที่ 3 -->
+                <div class="step-content-pane d-none" id="pane-3">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h4 class="fw-bold text-success mb-3"><i class="fa-solid fa-hands-cleaning me-2"></i>วิธีเตรียมขยะก่อนส่ง</h4>
+                            <p class="text-muted" id="content-desc-3" style="font-size: 1rem; line-height: 1.7;">-</p>
+                        </div>
+                        <div class="col-lg-5 text-center">
+                            <div class="p-4 bg-light rounded-4 border">
+                                <i class="fa-solid fa-faucet-drip text-info display-3 mb-3"></i>
+                                <h6 class="fw-bold">การจัดการเบื้องต้น</h6>
+                                <p class="text-muted small mb-0" id="content-box-prep">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ขั้นตอนที่ 4 -->
+                <div class="step-content-pane d-none" id="pane-4">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h4 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-2"></i>ข้อควรระวังสำคัญ</h4>
+                            <p class="text-muted" id="content-desc-4" style="font-size: 1rem; line-height: 1.7;">-</p>
+                        </div>
+                        <div class="col-lg-5 text-center">
+                            <div class="p-4 bg-light rounded-4 border border-danger">
+                                <i class="fa-solid fa-shield-halved text-danger display-3 mb-3"></i>
+                                <h6 class="fw-bold text-danger">ความปลอดภัย</h6>
+                                <p class="text-muted small mb-0" id="content-box-warn">ปฏิบัติตามคำแนะนำอย่างเคร่งครัด</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mission & Knowledge Summary Footer (แถบภารกิจและความรู้ด้านล่าง) -->
+            <div class="row g-4  mb-4">
+                <!-- กล่องภารกิจประจำบทเรียน (ฝั่งซ้าย) -->
+                <div class="col-lg-8">
+                    <div class="content-box p-4 rounded-4 shadow-sm bg-white h-100 d-flex flex-column justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                            <div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="fa-solid fa-gift text-danger fs-4 me-2"></i>
+                                    <h5 class="fw-bold mb-0">ภารกิจประจำบทเรียน</h5>
+                                </div>
+                                <!-- 🌟 เพิ่ม id ให้ข้อความภารกิจเปลี่ยนตามบทได้ -->
+                                <p class="text-muted mb-0" id="mission-desc" style="font-size: 0.85rem;">ศึกษาเนื้อหาบทเรียนนี้ครบทุกหัวข้อ รับทันที 5 แต้มสะสมเข้าบัญชี!</p>
+                            </div>
+                            <div class="bg-warning bg-opacity-10 border border-warning rounded-4 p-2 px-4 text-center">
+                                <div class="text-warning fw-bold" style="font-size: 1rem;"><i class="fa-solid fa-coins"></i> +5 แต้ม</div>
+                                <button class="btn btn-success btn-sm rounded-pill mt-1 px-4 py-1 fw-semibold" style="font-size: 0.80rem;" id="mission-btn">รับรางวัลแล้ว</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- กล่องสรุปความรู้ที่คุณได้รับ (ฝั่งขวา) -->
+                <div class="col-lg-4">
+                    <div class="content-box p-4 rounded-4 shadow-sm bg-white h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-award text-primary fs-5 me-2"></i>
+                            <h6 class="fw-bold mb-0">สรุปความรู้ที่คุณได้รับ</h6>
+                        </div>
+                        <!-- 🌟 ใส่ id="summary-list" ตรงนี้เพื่อให้ JavaScript เปลี่ยนข้อความได้ -->
+                        <ul class="list-unstyled mb-0" id="summary-list" style="font-size: 0.85rem;">
+                            <li class="d-flex align-items-center mb-2 text-muted">
+                                <i class="fa-solid fa-circle-check text-success me-2"></i> รู้จักเกณฑ์และประเภทขยะขวดแก้ว
+                            </li>
+                            <li class="d-flex align-items-center mb-2 text-muted">
+                                <i class="fa-solid fa-circle-check text-success me-2"></i> เข้าใจตัวอย่างขยะ เช่น เครื่องดื่มชูกำลัง
+                            </li>
+                            <li class="d-flex align-items-center text-muted">
+                                <i class="fa-solid fa-circle-check text-success me-2"></i> ตระหนักถึงความปลอดภัยและข้อควรระวัง
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Info -->
+        <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top text-muted" style="font-size: 0.8rem;">
+            <div>TATC แลก Point &middot; Learn better &middot; Sort smarter &middot; Live greener</div>
+            <div class="badge bg-light text-success border border-success px-3 py-2 rounded-pill">
+                <i class="fa-solid fa-graduation-cap me-1"></i> ต้นแบบเพื่อการศึกษา
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+        const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const wasteDatabase = {
+            1: { name: "RDF แบบปกติ", categoryType: "ประเภทที่ 1", desc: "พลาสติกอ่อนและฟิล์มพลาสติกไม่มีฟอยล์ สำหรับทำเชื้อเพลิงขยะคุณภาพ", icon: "fa-box-open", ex: "หลอดพลาสติก ถุงแกง ถุงพลาสติกทั่วไป ซองขนมแบบไม่มีฟอยล์ด้านใน ไม้เสียบลูกชิ้น ถุงบรรจุอาหารจากเซเว่น เช่น ถุงโบโลน่า ไส้กรอก", prep: "เทเศษอาหารและล้างคราบออกคร่าวๆ ก่อนทิ้งเพื่อให้เป็นเชื้อเพลิงขยะที่มีคุณภาพ", warn: "ห้ามมีส่วนผสมของอลูมิเนียมฟอยล์ปะปน เพราะจะทำให้ระบบเผาไหม้พลังงานเสียหาย", summary: ["รู้จักเกณฑ์ RDF แบบปกติ", "เข้าใจตัวอย่างถุงและพลาสติกอ่อน", "ระวังห้ามมีฟอยล์ปะปน"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type1.jfif" },
+            2: { name: "RDF พิเศษ", categoryType: "ประเภทที่ 2", desc: "พลาสติกแข็งและบรรจุภัณฑ์พลาสติกสะอาด", icon: "fa-mug-saucer", ex: "แก้วพลาสติก แก้วน้ำปั่น ถ้วยมาม่าพลาสติกที่ปนเปื้อนเล็กน้อย กล่องข้าวเซเว่นชนิดที่ไม่มีฟอยล์", prep: "เทเศษอาหารและล้างคราบออกคร่าวๆ ก่อนทิ้ง", warn: "ต้องเป็นชนิดที่ไม่มีฟอยล์ เพื่อให้เป็นเชื้อเพลิงขยะที่มีคุณภาพ", summary: ["รู้จักเกณฑ์ RDF พิเศษ", "เข้าใจตัวอย่างพลาสติกแข็งและแก้วน้ำ", "ระวังเรื่องคราบและความสะอาด"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type2.jfif" },
+            3: { name: "ขยะทั่วไป", categoryType: "ประเภทที่ 3", desc: "ขยะย่อยยากที่ไม่คุ้มค่ารีไซเคิลและมีส่วนประกอบของฟอยล์", icon: "fa-trash-can", ex: "ซองขนมหรือถุงที่มีฟอยล์เคลือบด้านใน ถ้วยมาม่าชนิดกระดาษ กระดาษทิชชู กระดาษชำระที่ใช้งานแล้ว", prep: "รวบรวมเพื่อนำไปกำจัดด้วยวิธีฝังกลบหรือเผาทำลายทั่วไป", warn: "ไม่สามารถนำมาแปรรูปเป็นพลังงาน RDF ได้", summary: ["รู้จักเกณฑ์ขยะทั่วไป", "เข้าใจตัวอย่างขยะเคลือบฟอยล์และทิชชู", "ทราบวิธีฝังกลบหรือเผาทำลาย"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type3.jfif" },
+            4: { name: "ขวดพลาสติก", categoryType: "ประเภทที่ 4", desc: "ขวดพลาสติกใสและขวดพลาสติกขุ่นรีไซเคิลได้", icon: "fa-bottle-water", ex: "ขวดน้ำดื่มใส ขวดพลาสติกขุ่น ขวดครีมทาผิว ขวดแชมพู", prep: "ควรถอดฝาและล้างคราบด้านในออก บีบขวดให้แบนเพื่อประหยัดพื้นที่จัดเก็บ", warn: "ควรถอดฝาและบีบขวดให้แบนก่อนทิ้งทุกครั้ง", summary: ["รู้จักเกณฑ์ขวดพลาสติกใสและขุ่น", "เข้าใจตัวอย่างขวดแชมพูและน้ำดื่ม", "ตระหนักถึงการบีบขวดเพื่อประหยัดพื้นที่"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type4.jfif" },
+            5: { name: "กระป๋อง/โลหะ", categoryType: "ประเภทที่ 5", desc: "กระป๋องโลหะและอลูมิเนียม", icon: "fa-glass-water-droplet", ex: "กระป๋องกาแฟ กระป๋องเครื่องดื่มชูกำลัง กระป๋องน้ำอัดลม", prep: "ควรเทน้ำให้หมดและล้างคราบเหนียว", warn: "ป้องกันกลิ่นและแมลงสาบมารบกวน", summary: ["รู้จักเกณฑ์กระป๋องโลหะและอลูมิเนียม", "เข้าใจตัวอย่างกระป๋องน้ำอัดลม", "ป้องกันกลิ่นและแมลงสาบ"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type5.jfif" },
+            6: { name: "ขวดแก้ว", categoryType: "ประเภทที่ 6", desc: "บรรจุภัณฑ์ประเภทแก้ว เช่น ขวดเครื่องดื่มชูกำลัง ขวดน้ำอัดลมแก้ว ขวดซอสต่างๆ", icon: "fa-wine-bottle", ex: "ขวดเครื่องดื่มชูกำลังชนิดแก้ว ขวดน้ำอัดลมแก้ว ขวดซอสต่างๆ", prep: "เทของเหลวและทำความสะอาดคราบด้านในออก", warn: "ระมัดระวังเรื่องความคม ห้ามทิ้งขวดแก้วที่แตกปะปนกับแก้วปกติเพื่อความปลอดภัยของเจ้าหน้าที่", summary: ["รู้จักเกณฑ์และประเภทขยะขวดแก้ว", "เข้าใจตัวอย่างขยะ เช่น เครื่องดื่มชูกำลัง", "ตระหนักถึงความปลอดภัยและข้อควรระวังเรื่องความคม"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type6.jfif" },
+            7: { name: "กระดาษ", categoryType: "ประเภทที่ 7", desc: "กระดาษใช้งานแล้วทุกชนิดที่แห้งสะอาด", icon: "fa-newspaper", ex: "กระดาษ A4 กระดาษหนังสือพิมพ์ กล่องกระดาษลัง สมุดเก่า", prep: "ต้องเป็นกระดาษแห้ง ไม่เปียกชื้น", warn: "ไม่มีคราบน้ำมันหรือคราบอาหารเปื้อนเปรอะ", summary: ["รู้จักเกณฑ์กระดาษรีไซเคิล", "เข้าใจตัวอย่างกระดาษลังและหนังสือพิมพ์", "ตรวจสอบความแห้งและปราศจากคราบมัน"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type7.jfif" },
+            8: { name: "เศษอาหาร", categoryType: "ประเภทที่ 8", desc: "ขยะอินทรีย์ที่ย่อยสลายได้ง่าย", icon: "fa-bowl-food", ex: "เศษอาหารที่กินเหลือ เปลือกผลไม้ เศษผัก", prep: "เหมาะสำหรับนำไปทำปุ๋ยหมักหรืออาหารสัตว์", warn: "ควรปิดฝาถังให้มิดชิดเพื่อป้องกันกลิ่นเหม็นและแมลงวัน", summary: ["รู้จักเกณฑ์ขยะอินทรีย์เศษอาหาร", "เข้าใจตัวอย่างเปลือกผลไม้และเศษผัก", "ป้องกันกลิ่นและแมลงด้วยการปิดฝาถัง"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type8.jfif" },
+            9: { name: "จุดเทน้ำ/เครื่องดื่ม", categoryType: "ประเภทที่ 9", desc: "ของเหลวเหลือทิ้งก่อนคัดแยกภาชนะ", icon: "fa-glass-water", ex: "น้ำที่เหลือจากการกิน น้ำแข็งละลาย เศษเครื่องดื่มจากแก้วพลาสติก", prep: "จัดเตรียมไว้เพื่อให้ผู้ร่วมโครงการเทน้ำหรือน้ำแข็งทิ้งก่อนนำแก้วหรือขวดไปแยก", warn: "ป้องกันถังอื่นๆ เปียกชื้น", summary: ["รู้จักจุดเทน้ำและของเหลวเหลือทิ้ง", "เข้าใจวิธีการเทน้ำแข็งก่อนแยกภาชนะ", "ป้องกันความเปียกชื้นในถังอื่น"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type9.jfif" },
+            10: { name: "ขยะอันตราย", categoryType: "ประเภทที่ 10", desc: "ขยะมีพิษหรือเคมีภัณฑ์ใกล้ตัว", icon: "fa-skull-crossbones", ex: "ปากกาเคมี น้ำยาลบคำผิด แบตเตอรี่ หลอดไฟ", prep: "รวบรวมใส่บรรจุภัณฑ์หรือจุดรับทิ้งขยะอันตรายเฉพาะทาง", warn: "ห้ามทิ้งปะปนกับขยะทั่วไปเด็ดขาดเพราะอาจก่อให้เกิดสารพิษตกค้างหรือประกายไฟ", summary: ["รู้จักเกณฑ์ขยะอันตรายและสารเคมี", "เข้าใจตัวอย่างแบตเตอรี่และหลอดไฟ", "ห้ามทิ้งปะปนเด็ดขาดเพื่อป้องกันประกายไฟ"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type10.jfif" },
+            11: { name: "ขยะติดเชื้อ", categoryType: "ประเภทที่ 11", desc: "ขยะปนเปื้อนสารคัดหลั่งหรืออุปกรณ์ทางการแพทย์ส่วนบุคคล", icon: "fa-mask-face", ex: "หน้ากากอนามัย ถุงมือยางใช้แล้ว ชุดตรวจ ATK ที่ใช้แล้ว", prep: "ควรมัดปากถุงให้แน่นสนิทก่อนทิ้ง", warn: "ป้องกันการแพร่กระจายของเชื้อโรคสู่ผู้อื่น", summary: ["รู้จักเกณฑ์ขยะติดเชื้อทางการแพทย์", "เข้าใจตัวอย่างหน้ากากอนามัยและชุดตรวจ ATK", "มัดปากถุงให้แน่นเพื่อป้องกันเชื้อโรค"], img: "https://isowhsbdzyzbitdocrol.supabase.co/storage/v1/object/public/waste-bucket/waste-images/ImageDefault/Type11.jfif" }
+        };
+
+        // ตัวเก็บสถานะบทเรียนปัจจุบัน และประวัติการกดแท็บแยกตามบทเรียน
+        let currentCategoryId = 1; 
+        let visitedStepsPerChapter = {};
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        const categoryCards = document.querySelectorAll('.category-card');
+        const stepperTabs = document.querySelectorAll('.stepper-tab');
+        const panes = document.querySelectorAll('.step-content-pane');
+        const badgeStep = document.getElementById('current-step-badge');
+
+        // ตรวจสอบ User Login
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            const nameSpan = document.getElementById('textUser');
+            const nameSpanSecond = document.getElementById('textUser_second');
+            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
+            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+
+            // 🌟 1. โหลดข้อมูลบทเรียนทั้งหมดที่เคยเรียนจบแล้ว เพื่อแสดงเส้นสีเขียวที่การ์ด
+            await loadAllCompletedChapters(user.UserName || user.id);
+
+            // โหลดค่าเริ่มต้นบทที่ 1
+            updateLessonContent(1);
+            checkEducationProgress(user.UserName || user.id, 1);
+        } else {
+            window.location.href = 'index.html';
+        }
+
+        // 1. กดเปลี่ยนหมวดหมู่ขยะ (การ์ดด้านบน)
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const catId = parseInt(card.getAttribute('data-category'));
+                currentCategoryId = catId; // อัปเดตบทเรียนปัจจุบัน
+
+                // สลับคลาส Active การ์ด
+                categoryCards.forEach(c => {
+                    c.classList.remove('active');
+                });
+
+                card.classList.add('active');
+
+                // อัปเดตเนื้อหาบทเรียนนั้นๆ
+                updateLessonContent(catId);
+
+                // เช็คสถานะการเรียนของบทนี้จาก Supabase
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    const user = JSON.parse(savedUser);
+                    checkEducationProgress(user.UserName || user.id, catId);
+                }
+
+                // รีเซ็ต Stepper ไปที่แท็บ 1 เสมอ
+                stepperTabs.forEach(t => {
+                    t.classList.remove('border-success', 'bg-success', 'bg-opacity-10');
+                    t.querySelector('div').className = 'fw-bold text-dark';
+                });
+                document.getElementById('tab-1').classList.add('border-success', 'bg-success', 'bg-opacity-10');
+                document.getElementById('tab-1').querySelector('div').className = 'fw-bold text-success';
+
+                panes.forEach(p => p.classList.add('d-none'));
+                document.getElementById('pane-1').classList.remove('d-none');
+                if(badgeStep) badgeStep.textContent = `หัวข้อที่ 1 / 4`;
+            });
+        });
+
+        // 2. กดเปลี่ยนหัวข้อเนื้อหาย่อย (Stepper ด้านใน)
+        stepperTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const step = tab.getAttribute('data-step');
+
+                if (!visitedStepsPerChapter[currentCategoryId]) {
+                    visitedStepsPerChapter[currentCategoryId] = new Set(['1']);
+                }
+                visitedStepsPerChapter[currentCategoryId].add(step);
+
+                stepperTabs.forEach(t => {
+                    t.classList.remove('border-success', 'bg-success', 'bg-opacity-10');
+                    t.querySelector('div').className = 'fw-bold text-dark';
+                });
+                tab.classList.add('border-success', 'bg-success', 'bg-opacity-10');
+                tab.querySelector('div').className = 'fw-bold text-success';
+
+                panes.forEach(pane => pane.classList.add('d-none'));
+                const activePane = document.getElementById(`pane-${step}`);
+                if (activePane) activePane.classList.remove('d-none');
+                if (badgeStep) badgeStep.textContent = `หัวข้อที่ ${step} / 4`;
+
+                // ถ้าคลิกครบทั้ง 4 แท็บ ให้ทำการบันทึกและให้แต้ม
+                if (visitedStepsPerChapter[currentCategoryId].size === 4) {
+                    markChapterAsCompleted(currentCategoryId);
+                }
+            });
+        });
+
+        const logoutButton = document.getElementById('logout-btn');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performLogout();
+                        }
+                    });
+                } else {
+                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                        performLogout();
+                    }
+                }
+            });
+        }
+    });
+
+        function performLogout() {
+        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+        localStorage.removeItem('currentUser');
+        // หรือถ้ามีคีย์อื่นๆ เพิ่มเติม สามารถremoveItem เพิ่มได้ที่นี่ครับ
+        
+        // พาผู้ใช้กลับไปหน้า Login
+        window.location.href = 'index.html';
+    }
+
+        // ฟังก์ชันอัปเดตข้อมูลเนื้อหา ภารกิจ และสรุปความรู้ตามหมวดหมู่
+        async function updateLessonContent(catId) {
+            const data = wasteDatabase[catId];
+            if(!data) return;
+
+            document.getElementById('banner-title').textContent = data.name;
+            document.getElementById('banner-desc').textContent = data.desc;
+            document.getElementById('banner-icon').className = `fa-solid ${data.icon} fs-3`;
+
+            document.getElementById('content-title-1').innerHTML = `<i class="fa-solid fa-seedling me-2"></i>ทำความรู้จัก ${data.name} (${data.categoryType})`;
+            document.getElementById('content-desc-1').textContent = `ขยะ${data.name} คือ ${data.desc} ในโครงการขยะแลกแต้ม TATC การคัดแยกขยะประเภทนี้อย่างถูกต้องจะช่วยลดปริมาณขยะและเพิ่มประสิทธิภาพในการรีไซเคิล`;
+            document.getElementById('content-box-title').textContent = data.name;
+            document.getElementById('content-box-desc').textContent = data.desc;
+
+            document.getElementById('content-desc-2').textContent = `ตัวอย่างสิ่งของที่สามารถนำมาทิ้งในหมวด ${data.name} ได้แก่: ${data.ex}`;
+            document.getElementById('content-box-ex').textContent = data.ex;
+
+            document.getElementById('content-desc-3').textContent = `วิธีเตรียมขยะก่อนส่ง: ${data.prep}`;
+            document.getElementById('content-box-prep').textContent = data.prep;
+
+            document.getElementById('content-desc-4').textContent = `ข้อควรระวังสำคัญ: ${data.warn}`;
+            document.getElementById('content-box-warn').textContent = data.warn;
+
+            const imgEl = document.getElementById('category-image');
+            if(imgEl) imgEl.src = data.img;
+
+            const missionDesc = document.getElementById('mission-desc');
+            if(missionDesc) {
+                missionDesc.textContent = `ศึกษาเนื้อหาบทเรียน "${data.name}" ครบทุกหัวข้อ รับทันที 5 แต้มสะสม!`;
+            }
+
+            const summaryList = document.getElementById('summary-list');
+            if(summaryList && data.summary) {
+                summaryList.innerHTML = `
+                    <li class="d-flex align-items-center mb-2 text-muted"><i class="fa-solid fa-circle-check text-success me-2"></i> ${data.summary[0]}</li>
+                    <li class="d-flex align-items-center mb-2 text-muted"><i class="fa-solid fa-circle-check text-success me-2"></i> ${data.summary[1]}</li>
+                    <li class="d-flex align-items-center text-muted"><i class="fa-solid fa-circle-check text-success me-2"></i> ${data.summary[2]}</li>
+                `;
+            }
+        }
+        // 🌟 ฟังก์ชันดึงประวัติบทเรียนที่เรียนจบแล้วทั้งหมดจาก Supabase มาแสดงผลเส้นสีเขียวที่การ์ด
+        async function loadAllCompletedChapters(userId) {
+        if (!supabaseClient) return;
+
+        try {
+            const { data: completedList, error } = await supabaseClient
+                .from('Education')
+                .select('Chapter')
+                .eq('UserId', userId)
+                .eq('Status', 1);
+
+            if (error) {
+                console.error('Error loading completed chapters:', error.message);
+                return;
+            }
+
+            if (completedList && completedList.length > 0) {
+                completedList.forEach(item => {
+                    updateCardUIAsCompleted(item.Chapter);
+                });
+            }
+        } catch (err) {
+            console.error('Error fetching completed chapters:', err);
+        }
+    }
+        
+       // ฟังก์ชันบันทึกสถานะจบบทเรียนลง Supabase (รับ parameter chapterId ตามบทที่กำลังเรียน)
+        async function markChapterAsCompleted(chapterId) {
+            if (!supabaseClient) return;
+
+            const savedUser = localStorage.getItem('currentUser');
+            if (!savedUser) return;
+            const user = JSON.parse(savedUser);
+            const userId = user.UserName || user.id;
+
+            try {
+                const { data: existing, error: checkError } = await supabaseClient
+                    .from('Education')
+                    .select('*')
+                    .eq('UserId', userId)
+                    .eq('Chapter', chapterId)
+                    .maybeSingle();
+
+                if (checkError) return;
+
+                if (!existing) {
+                    const { error: insertError } = await supabaseClient
+                        .from('Education')
+                        .insert([
+                            { UserId: userId, Chapter: chapterId, Status: 1, Points: 5 }
+                        ]);
+
+                    if (insertError) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: 'ไม่สามารถบันทึกสถานะบทเรียนได้',
+                            confirmButtonText: 'ตกลง',
+                            confirmButtonColor: '#198754'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'ยินดีด้วย!',
+                            html: `บันทึกสถานะจบบทเรียนเรียบร้อยแล้ว<br><strong class="text-success fs-5">+5 แต้มสะสม! 🎉</strong>`,
+                            confirmButtonText: 'ยอดเยี่ยม',
+                            confirmButtonColor: '#198754',
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+                        
+                        // 🌟 อัปเดต UI ของการ์ดให้มีเส้นเขียวทันทีหลังจากเรียนจบ
+                        updateCardUIAsCompleted(chapterId);
+                        updateMissionUICompleted();
+                    }
+                }
+            } catch (err) {
+                console.error('Error saving education progress:', err);
+            }
+        }
+        // ฟังก์ชันตรวจสอบสถานะจาก Supabase ตามบทเรียนที่เลือก
+        async function checkEducationProgress(userId, chapterId) {
+            if (!supabaseClient) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('Education')
+                    .select('*')
+                    .eq('UserId', userId)
+                    .eq('Chapter', chapterId)
+                    .maybeSingle();
+
+                if (error) return;
+
+                if (data && data.Status === 1) {
+                    updateMissionUICompleted();
+                } else {
+                    resetMissionUI();
+                }
+            } catch (err) {
+                console.error('Error checking progress:', err);
+            }
+        }
+
+        // ฟังก์ชันปรับหน้าตา UI ปุ่มภารกิจเมื่อเรียนจบแล้ว
+        function updateMissionUICompleted() {
+            const rewardButton = document.getElementById('mission-btn') || document.querySelector('.bg-warning button');
+            if (rewardButton) {
+                rewardButton.textContent = 'รับแล้ว';
+                rewardButton.classList.remove('btn-success');
+                rewardButton.classList.add('btn-secondary');
+                rewardButton.disabled = true;
+            }
+        }
+
+        function updateCardUIAsCompleted(chapterId) {
+        const card = document.querySelector(`.category-card[data-category="${chapterId}"]`);
+        if (!card) return;
+
+        // เปลี่ยนเส้น Progress bar เป็นสีเขียว 100%
+        const progressBar = card.querySelector('.progress-bar');
+        if (progressBar) {
+            progressBar.classList.remove('bg-secondary');
+            progressBar.classList.add('bg-success');
+            progressBar.style.width = '100%';
+        }
+
+        // เพิ่มไอคอนติ๊กถูกสีเขียว (ถ้ายังไม่มี)
+        const headerFlex = card.querySelector('.d-flex.justify-content-between.align-items-center');
+        if (headerFlex && !card.querySelector('.fa-circle-check')) {
+            const spanText = headerFlex.querySelector('span');
+            if (spanText) spanText.textContent = 'จบแล้ว 1/1';
+            headerFlex.insertAdjacentHTML('beforeend', '<i class="fa-solid fa-circle-check text-success"></i>');
+        }
+    }
+
+        // ฟังก์ชันรีเซ็ตปุ่มภารกิจเมื่อบทนั้นยังไม่เคยเรียน
+        function resetMissionUI() {
+            const rewardButton = document.getElementById('mission-btn') || document.querySelector('.bg-warning button');
+            if (rewardButton) {
+                rewardButton.textContent = 'ยังไม่ได้รับ';
+                rewardButton.classList.remove('btn-secondary');
+                rewardButton.classList.add('btn-success');
+                rewardButton.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

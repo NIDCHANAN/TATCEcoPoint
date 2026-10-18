@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - ตรวจสอบการส่งขยะ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="review-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TATC</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <!-- <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li> -->
+                    <li class="active"><a href="review.html" aria-current="page"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการส่งขยะ</a></li>
+                    <!-- <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <!-- <div class="sidebar-profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="รูปโปรไฟล์กรรมการ">
+                <div class="review-sidebar-user">
+                    <div class="text-muted">กรรมการตรวจรับ</div>
+                    <div class="fw-bold" id="textUser"></div>
+                    <span class="badge bg-success-subtle text-success mt-1">ผู้ตรวจสอบ</span>
+                </div>
+            </div> -->
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success review-sidebar-tagline">ตรวจครบ ถูกต้อง<br>แต้มถึงมือนักเรียน</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-navbar">
+            <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-clipboard-check text-success review-hero-icon" aria-hidden="true"></i>
+                    <h1>ตรวจสอบการส่งขยะ</h1>
+                </div>
+                <p>ตรวจหลักฐาน ยืนยันน้ำหนัก และบันทึกรับขยะเข้าระบบ</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">ตรวจรายการให้ครบ ก่อนอนุมัติแต้ม</div>
+        </header>
+
+        
+
+        <section class="review-metric-grid" aria-label="สรุปงานตรวจรับ">
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-regular fa-clock"></i></span>
+                <div><small>รอตรวจสอบ</small><strong id="review-pending-count">0</strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-green"><i class="fa-solid fa-circle-check"></i></span>
+                <div><small>อนุมัติแล้ว</small><strong id="review-approved-count">0</strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-blue"><i class="fa-solid fa-weight-hanging"></i></span>
+                <div><small>จำนวนรับเข้าระบบ</small><strong><span id="review-total-weight">0</span> <small class="d-inline">ชิ้น</small></strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span>
+                <div><small>แต้มที่อนุมัติ</small><strong id="review-total-points">0</strong></div>
+            </article>
+        </section>
+
+       <div class="review-toolbar">
+            <div class="review-tabs" role="group" aria-label="กรองรายการตามสถานะ">
+                <button class="review-tab is-active" type="button" data-review-filter="all" aria-pressed="true">ทั้งหมด <span id="review-filter-all">0</span></button>
+                <button class="review-tab" type="button" data-review-filter="pending" aria-pressed="false">รอตรวจ <span id="review-filter-pending">0</span></button>
+                <button class="review-tab" type="button" data-review-filter="approved" aria-pressed="false">อนุมัติแล้ว <span id="review-filter-approved">0</span></button>
+                <button class="review-tab" type="button" data-review-filter="rejected" aria-pressed="false">ไม่รับ <span id="review-filter-rejected">0</span></button>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-sm px-3 fw-bold shadow-sm" id="open-walkin-modal" type="button">
+                    <i class="fa-solid fa-plus-circle me-1"></i> บันทึกรับขยะด่วน (Walk-in)
+                </button>
+                <label class="review-search mb-0"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="visually-hidden">ค้นหารายการตรวจ</span><input id="review-search-input" type="search" placeholder="ค้นหาชื่อนักเรียนหรือประเภทขยะ"></label>
+            </div>
+        </div>
+
+        <div class="review-workspace">
+            <section class="review-queue-panel" aria-label="คิวรายการส่งขยะ">
+                <div class="review-queue-heading"><span>รายการส่งเข้ามา</span><span id="review-queue-caption">เรียงจากรายการล่าสุด</span></div>
+                <div class="review-table-head" aria-hidden="true">
+                    <span>ผู้ส่ง / วันที่</span><span>ประเภทขยะ</span><span>น้ำหนัก</span><span>แต้ม</span><span>สถานะ</span><span></span>
+                </div>
+                <div class="review-record-list" id="review-record-list"></div>
+                <div class="review-empty" id="review-empty" hidden><i class="fa-solid fa-inbox"></i><span>ไม่มีรายการที่ตรงกับตัวกรอง</span></div>
+            </section>
+
+            <aside class="review-detail-panel" aria-label="รายละเอียดรายการที่เลือก">
+                <div class="review-detail-heading">
+                    <h2><i class="fa-solid fa-file-circle-check"></i> รายละเอียดการส่ง</h2>
+                    <span class="review-status" id="detail-status">เลือกรายการ</span>
+                </div>
+                <div class="review-detail-content" id="review-detail-content">
+                    <div class="review-detail-placeholder"><i class="fa-solid fa-arrow-left"></i><span>เลือกรายการจากคิวเพื่อตรวจสอบ</span></div>
+                </div>
+                <div class="review-actions" id="review-actions" hidden>
+                    <button class="review-reject-button" id="reject-record" type="button"><i class="fa-solid fa-xmark"></i> ไม่รับรายการ</button>
+                    <button class="review-accept-button" id="accept-record" type="button"><i class="fa-solid fa-check"></i> รับขยะเข้าระบบ</button>
+                </div>
+                <div class="review-decision-message" id="review-decision-message" role="status" hidden></div>
+            </aside>
+        </div>
+
+        <footer class="waste-footer">
+            <span>TATC · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-shield-halved me-1"></i> ระบบตรวจรับขยะ</span>
+        </footer>
+    </main>
+
+    <dialog id="walkin-modal" class="p-0 rounded-4 shadow border-0" style="max-width: 650px; width: 100%;">
+        <div class="modal-content p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0 text-success"><i class="fa-solid fa-circle-plus me-2"></i>บันทึกรับขยะด่วน (Walk-in หลายรายการ)</h5>
+                <button type="button" class="btn-close" id="close-walkin-modal"></button>
+            </div>
+            <form id="walkin-form">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">รหัสนักศึกษา (6 หลัก) หรือ ID ผู้ส่ง</label>
+                        <input type="text" id="walkin-userid" class="form-control" placeholder="เช่น 680101" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">แผนกวิชา / ภาค</label>
+                        <select id="walkin-department" class="form-select">
+                            <option value="AT">AT</option>
+                            <option value="AM">AM</option>
+                            <option value="SA">SA</option>
+                            <option value="BP">BP</option>
+                            <option value="EV">EV</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ส่วนรายการขยะที่สามารถเพิ่มได้หลายแถว -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="form-label small fw-bold mb-0">รายการขยะที่นำมาส่ง</label>
+                        <button type="button" class="btn btn-outline-success btn-sm" id="add-waste-row">
+                            <i class="fa-solid fa-plus me-1"></i> เพิ่มชนิดขยะ
+                        </button>
+                    </div>
+                    <div id="waste-items-container" class="d-flex flex-column gap-2">
+                        <!-- แถวแรก (Default) -->
+                        <div class="waste-item-row card p-2 bg-light border-0 shadow-sm">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-5">
+                                    <label class="form-label small text-muted mb-1">ประเภทขยะ</label>
+                                    <select class="form-select form-select-sm item-typewaste" required>
+                                        <option value="1">RDF พิเศษ</option>
+                                        <option value="2">RDF แบบปกติ</option>
+                                        <option value="3">ขยะทั่วไป</option>
+                                        <option value="4">ถังพลาสติก</option>
+                                        <option value="5">ขวดกระป๋องอะลูมิเนียม</option>
+                                        <option value="6">ขวดแก้ว</option>
+                                        <option value="7" selected>กระดาษ</option>
+                                        <option value="8">ขยะอันตราย</option>
+                                        <option value="9">ถังเศษอาหาร</option>
+                                        <option value="10">ถังน้ำและเครื่องดื่ม</option>
+                                        <option value="11">ขยะอันตรายติดเชื้อ</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small text-muted mb-1">น้ำหนัก (ชิ้น)</label>
+                                    <input type="number" step="1" class="form-control form-control-sm item-weight" value="1" min="1" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small text-muted mb-1">แต้มที่ได้</label>
+                                    <input type="number" class="form-control form-control-sm item-points" value="5" min="0" required>
+                                </div>
+                                <div class="col-md-1 text-end d-flex align-items-end justify-content-center">
+                                    <!-- ปุ่มลบแถว (แถวแรกซ่อนไว้หรือกดไม่ได้) -->
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-row-btn" style="visibility: hidden;"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">จุดรับขยะ / สถานที่</label>
+                        <input type="text" id="walkin-location" class="form-control" value="จุดรับขยะหน้าอาคารเรียน" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">หมายเหตุเพิ่มเติม</label>
+                        <input type="text" id="walkin-note" class="form-control" value="รับขยะหน้างาน (Walk-in หลายรายการ)">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light btn-sm px-3" id="cancel-walkin-modal">ยกเลิก</button>
+                    <button type="submit" class="btn btn-success btn-sm px-4 fw-bold"><i class="fa-solid fa-check me-1"></i> บันทึกทุกรายการทันที</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog class="review-detail-modal" id="review-detail-modal" aria-labelledby="review-detail-modal-title">
+        <div class="review-detail-modal-shell">
+            <div class="review-detail-modal-heading">
+                <h2 id="review-detail-modal-title"><i class="fa-solid fa-file-circle-check"></i> รายละเอียดการส่ง</h2>
+                <div class="review-detail-modal-tools">
+                    <span class="review-status" id="modal-record-status">รอตรวจ</span>
+                    <button class="review-dialog-close" type="button" id="close-review-detail" aria-label="ปิดรายละเอียด"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="review-detail-modal-content" id="review-detail-modal-content"></div>
+            <div class="review-detail-modal-actions" id="review-detail-modal-actions">
+                <button class="review-reject-button" type="button" id="modal-reject-record"><i class="fa-solid fa-xmark"></i> ไม่รับรายการ</button>
+                <button class="review-accept-button" type="button" id="modal-accept-record"><i class="fa-solid fa-check"></i> รับขยะเข้าระบบ</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog class="review-dialog" id="reject-dialog" aria-labelledby="reject-dialog-title">
+        <form class="review-dialog-shell" id="reject-form">
+            <div class="review-dialog-heading">
+                <span class="review-dialog-icon is-reject"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <button class="review-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-reject><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2 id="reject-dialog-title">ระบุเหตุผลที่ไม่รับ</h2>
+            <label class="review-form-label" for="reject-reason">เหตุผล</label>
+            <select class="review-form-control" id="reject-reason" required>
+                <option value="">เลือกเหตุผล</option>
+                <option>ขยะไม่ตรงประเภทที่รับ</option>
+                <option>มีสิ่งปนเปื้อนหรือไม่สะอาด</option>
+                <option>น้ำหนักหรือหลักฐานไม่ชัดเจน</option>
+                <option>รายการซ้ำ</option>
+                <option value="other">อื่น ๆ</option>
+            </select>
+            <label class="review-form-label mt-2" for="reject-note">หมายเหตุสำหรับนักเรียน</label>
+            <textarea class="review-form-control" id="reject-note" rows="2" maxlength="180" placeholder="ระบุสิ่งที่ควรแก้ไขก่อนส่งใหม่"></textarea>
+            <div class="review-dialog-actions">
+                <button class="review-dialog-cancel" type="button" data-close-reject>ยกเลิก</button>
+                <button class="review-dialog-confirm is-reject" type="submit">ยืนยันไม่รับ</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="review-dialog" id="approve-dialog" aria-labelledby="approve-dialog-title">
+        <div class="review-dialog-shell">
+            <div class="review-dialog-heading">
+                <span class="review-dialog-icon"><i class="fa-solid fa-circle-check"></i></span>
+                <button class="review-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-approve><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2 id="approve-dialog-title">ยืนยันรับขยะเข้าระบบ</h2>
+            <p class="review-dialog-description" id="approve-description"></p>
+            <div class="review-dialog-actions">
+                <button class="review-dialog-cancel" type="button" data-close-approve>ตรวจอีกครั้ง</button>
+                <button class="review-dialog-confirm" type="button" id="confirm-approve"><i class="fa-solid fa-check"></i> ยืนยันรับ</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Bootstrap JS  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+
+   <script>
+     // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const fallbackPhoto = 'https://i.pinimg.com/736x/43/e3/24/43e3244cbaf8cad4c52251a75f16fbd8.jpg';
+    
+    // แมปตัวเลข TypeWaste เป็นชื่อประเภทขยะ ไอคอน และหมวดหมู่
+    const typeWasteMap = {
+        1: { name: 'RDF พิเศษ', type: 'ขยะเชื้อเพลิง', category: 'recycle', icon: 'fa-fire-flame-curved' },
+        2: { name: 'RDF แบบปกติ', type: 'ขยะเชื้อเพลิง', category: 'recycle', icon: 'fa-fire' },
+        3: { name: 'ขยะทั่วไป', type: 'วัสดุอื่น ๆ', category: 'general', icon: 'fa-trash-can' },
+        4: { name: 'ถังพลาสติก', type: 'ขยะรีไซเคิล', category: 'recycle', icon: 'fa-bottle-water' },
+        5: { name: 'ขวดกระป๋องอะลูมิเนียม', type: 'โลหะ', category: 'recycle', icon: 'fa-glass-water-droplet' },
+        6: { name: 'ขวดแก้ว', type: 'แก้ว', category: 'recycle', icon: 'fa-wine-bottle' },
+        7: { name: 'กระดาษ', type: 'กระดาษลัง', category: 'recycle', icon: 'fa-box' },
+        8: { name: 'ขยะอันตราย', type: 'อันตราย', category: 'hazardous', icon: 'fa-triangle-exclamation' },
+        9: { name: 'ถังเศษอาหาร', type: 'เศษอาหาร', category: 'organic', icon: 'fa-seedling' },
+        10: { name: 'ถังน้ำและเครื่องดื่ม', type: 'เครื่องดื่ม', category: 'recycle', icon: 'fa-glass-water' },
+        11: { name: 'ขยะอันตรายติดเชื้อ', type: 'ติดเชื้อ', category: 'hazardous', icon: 'fa-kit-medical' }
+    };
+
+    const recordList = document.querySelector('#review-record-list');
+    const searchInput = document.querySelector('#review-search-input');
+    const emptyState = document.querySelector('#review-empty');
+    const detailStatus = document.querySelector('#detail-status');
+    const detailContent = document.querySelector('#review-detail-content');
+    const actionButtons = document.querySelector('#review-actions');
+    const decisionMessage = document.querySelector('#review-decision-message');
+    const approveDialog = document.querySelector('#approve-dialog');
+    const rejectDialog = document.querySelector('#reject-dialog');
+    const rejectForm = document.querySelector('#reject-form');
+    const detailModal = document.querySelector('#review-detail-modal');
+    const detailModalContent = document.querySelector('#review-detail-modal-content');
+    const detailModalStatus = document.querySelector('#modal-record-status');
+    const detailModalActions = document.querySelector('#review-detail-modal-actions');
+    
+    let reviewRecords = [];
+    let currentFilter = 'all';
+    let selectedRecordId = null;
+
+    const walkinModal = document.querySelector('#walkin-modal');
+    const openWalkinBtn = document.querySelector('#open-walkin-modal');
+    const closeWalkinBtn = document.querySelector('#close-walkin-modal');
+    const cancelWalkinBtn = document.querySelector('#cancel-walkin-modal');
+    const walkinForm = document.querySelector('#walkin-form');
+    const addWasteRowBtn = document.querySelector('#add-waste-row');
+    const wasteItemsContainer = document.querySelector('#waste-items-container');
+
+    if (openWalkinBtn && walkinModal) {
+        openWalkinBtn.addEventListener('click', () => walkinModal.showModal());
+    }
+    if (closeWalkinBtn && walkinModal) {
+        closeWalkinBtn.addEventListener('click', () => walkinModal.close());
+    }
+    if (cancelWalkinBtn && walkinModal) {
+        cancelWalkinBtn.addEventListener('click', () => walkinModal.close());
+    }
+    if (walkinModal) {
+        walkinModal.addEventListener('click', (e) => {
+            if (e.target === walkinModal) walkinModal.close();
+        });
+    }
+
+    // 🌟 ฟังก์ชันกดปุ่ม "เพิ่มชนิดขยะ" เพื่อสร้างแถวใหม่
+    if (addWasteRowBtn && wasteItemsContainer) {
+        addWasteRowBtn.addEventListener('click', () => {
+            const newRow = document.createElement('div');
+            newRow.className = 'waste-item-row card p-2 bg-light border-0 shadow-sm';
+            newRow.innerHTML = `
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                        <select class="form-select form-select-sm item-typewaste" required>
+                            <option value="1">RDF พิเศษ</option>
+                            <option value="2">RDF แบบปกติ</option>
+                            <option value="3">ขยะทั่วไป</option>
+                            <option value="4">ถังพลาสติก</option>
+                            <option value="5">ขวดกระป๋องอะลูมิเนียม</option>
+                            <option value="6">ขวดแก้ว</option>
+                            <option value="7">กระดาษ</option>
+                            <option value="8">ขยะอันตราย</option>
+                            <option value="9">ถังเศษอาหาร</option>
+                            <option value="10">ถังน้ำและเครื่องดื่ม</option>
+                            <option value="11">ขยะอันตรายติดเชื้อ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" step="0.1" class="form-control form-control-sm item-weight" value="1.0" min="0.1" required>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control form-control-sm item-points" value="5" min="0" required>
+                    </div>
+                    <div class="col-md-1 text-end d-flex align-items-center justify-content-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm remove-row-btn"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+
+            // กดปุ่มลบแถว
+            newRow.querySelector('.remove-row-btn').addEventListener('click', () => {
+                newRow.remove();
+            });
+
+            wasteItemsContainer.appendChild(newRow);
+        });
+    }
+
+    // บันทึกข้อมูลหลายรายการลง Supabase (Status = 1 อนุมัติทันที)
+    if (walkinForm) {
+    walkinForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userIdInput = document.querySelector('#walkin-userid').value.trim();
+        const departmentVal = document.querySelector('#walkin-department').value;
+        const locationVal = document.querySelector('#walkin-location').value;
+        const noteVal = document.querySelector('#walkin-note').value;
+
+        // ดึงชื่อกรรมการผู้ตรวจปัจจุบันจาก localStorage
+        let approverName = 'กรรมการระบบ';
+        try {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                approverName = user.id;
+            }
+        } catch (err) {}
+
+        if (supabaseClient) {
+            try {
+                // 🌟 ใช้ .maybeSingle() แทน .single() เพื่อป้องกัน Error กรณีค้นหาไม่เจอ
+                const { data: userData, error: userError } = await supabaseClient
+                    .from('User')
+                    .select('id')
+                    .or(`UserName.eq.${userIdInput},id.eq.${userIdInput}`)
+                    .maybeSingle();
+
+                if (userError) {
+                    console.warn('User lookup warning:', userError.message);
+                }
+
+                // ถ้าหาไม่เจอ ให้ใช้ตัวเลขที่กรอก หรือกำหนดเป็น ID 1 (หรือแจ้งเตือน)
+                const resolvedUserId = userData ? userData.id : (Number(userIdInput) || 1);
+
+                // รวบรวมข้อมูลทุกแถวในฟอร์ม
+                const rowElements = wasteItemsContainer.querySelectorAll('.waste-item-row');
+                const recordsToInsert = [];
+
+                rowElements.forEach(row => {
+                    const typeWaste = Number(row.querySelector('.item-typewaste').value);
+                    const weight = Number(row.querySelector('.item-weight').value);
+                    const points = Number(row.querySelector('.item-points').value);
+
+                    recordsToInsert.push({
+                        UserIdRequest: resolvedUserId,
+                        TypeWaste: typeWaste,
+                        // Department: departmentVal,
+                        WeightWaste: weight,
+                        EarnedPoints: points,
+                        CollectionPoint: locationVal,
+                        Reson: noteVal,
+                        Status: 1, // อนุมัติทันที
+                        ApproveById: approverName,
+                        ImageUrl: fallbackPhoto,
+                        SubmissionDatetime: new Date().toISOString()
+                    });
+                });
+
+                // ส่งข้อมูลทั้งหมดเข้าไปบันทึกแบบ Batch Insert
+                const { error: insertError } = await supabaseClient
+                    .from('SendWaste')
+                    .insert(recordsToInsert);
+
+                if (insertError) {
+                    console.error('Supabase Insert Error Details:', insertError.message, insertError.details, insertError.hint);
+                    
+                    // แจ้งเตือนด้วย SweetAlert2 กรณีเกิดข้อผิดพลาด
+                    if (window.Swal) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'บันทึกไม่สำเร็จ',
+                            text: insertError.message,
+                            confirmButtonColor: '#198754'
+                        });
+                    } else {
+                        alert(`บันทึกไม่สำเร็จ: ${insertError.message}`);
+                    }
+                    return;
+                }
+
+                walkinModal.close();
+                walkinForm.reset();
+                
+                wasteItemsContainer.innerHTML = `
+                    <div class="waste-item-row card p-2 bg-light border-0 shadow-sm">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-md-5">
+                                <select class="form-select form-select-sm item-typewaste" required>
+                                    <option value="1">RDF พิเศษ</option>
+                                    <option value="2">RDF แบบปกติ</option>
+                                    <option value="3">ขยะทั่วไป</option>
+                                    <option value="4">ถังพลาสติก</option>
+                                    <option value="5">ขวดกระป๋องอะลูมิเนียม</option>
+                                    <option value="6">ขวดแก้ว</option>
+                                    <option value="7" selected>กระดาษ</option>
+                                    <option value="8">ขยะอันตราย</option>
+                                    <option value="9">ถังเศษอาหาร</option>
+                                    <option value="10">ถังน้ำและเครื่องดื่ม</option>
+                                    <option value="11">ขยะอันตรายติดเชื้อ</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3"><input type="number" step="0.1" class="form-control form-control-sm item-weight" value="1.0" min="0.1" required></div>
+                            <div class="col-md-3"><input type="number" class="form-control form-control-sm item-points" value="5" min="0" required></div>
+                            <div class="col-md-1 text-end d-flex align-items-center justify-content-center"><button type="button" class="btn btn-outline-danger btn-sm remove-row-btn" style="visibility: hidden;"><i class="fa-solid fa-trash"></i></button></div>
+                        </div>
+                    </div>
+                `;
+
+                // 🌟 แจ้งเตือนความสำเร็จด้วย SweetAlert2 สวยๆ
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'บันทึกรับขยะสำเร็จ!',
+                        text: `บันทึกรายการ Walk-in จำนวน ${recordsToInsert.length} รายการ และอนุมัติแต้มเรียบร้อยแล้ว`,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                } else {
+                    setDecisionMessage(`บันทึกรับขยะ Walk-in จำนวน ${recordsToInsert.length} รายการ และอนุมัติแต้มเรียบร้อยแล้ว`, 'success');
+                }
+
+                loadRecordsFromSupabase();
+            } catch (err) {
+                console.error('Catch Error:', err);
+                if (window.Swal) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้',
+                        confirmButtonColor: '#198754'
+                    });
+                } else {
+                    setDecisionMessage('เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล', 'error');
+                }
+            }
+        }
+    });
+}
+    
+    function getStatusLabel(status) {
+        return status === 'approved' ? 'อนุมัติแล้ว' : status === 'rejected' ? 'ไม่รับรายการ' : 'รอตรวจ';
+    }
+
+    function getStatusClass(status) {
+        return status === 'approved' ? 'is-approved' : status === 'rejected' ? 'is-rejected' : 'is-pending';
+    }
+
+    function setDecisionMessage(message, type = 'success') {
+        if (!decisionMessage) return;
+        decisionMessage.hidden = !message;
+        decisionMessage.className = `review-decision-message ${type === 'error' ? 'is-error' : ''}`;
+        decisionMessage.textContent = message;
+    }
+
+    // 2. ฟังก์ชันดึงข้อมูลทั้งหมดจาก Supabase ตาราง SendWaste
+    
+    async function loadRecordsFromSupabase() {
+    if (!supabaseClient) {
+        console.error('Supabase Client not initialized');
+        return;
+    }
+
+    try {
+        // 🌟 ทำการ Join ตาราง User ผ่านฟิลด์ UserIdRequest
+        const { data, error } = await supabaseClient
+            .from('SendWaste')
+            .select(`
+                *,
+                User:UserIdRequest (
+                    id,
+                    FullName,
+                    LastName,
+                    UserName,
+                    Status
+                )
+            `)
+            .order('SubmissionDatetime', { ascending: false });
+
+        if (error) throw error;
+
+        // แปลงข้อมูลและดึงชื่อจากตาราง User ที่ Join มาแสดงผล
+        reviewRecords = (data || []).map(record => {
+            const subDate = new Date(record.SubmissionDatetime || record.created_at);
+            const dateFormatted = subDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+            const timeFormatted = subDate.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
+            const dateISO = subDate.toISOString().split('T')[0];
+
+            let status = 'pending';
+            if (record.Status === 1) status = 'approved';
+            else if (record.Status === 2 || record.Status === 3) status = 'rejected';
+
+            const wasteInfo = typeWasteMap[record.TypeWaste] || { name: 'ขยะทั่วไป', type: 'ทั่วไป', category: 'general', icon: 'fa-recycle' };
+
+            // 🌟 ดึงชื่อจริงและนามสกุลจากตาราง User ที่ Join มา (ถ้ามี)
+            const userInfo = record.User;
+            const studentFullName = userInfo ? `${userInfo.FullName} ${userInfo.LastName}` : `ผู้ส่ง ID: ${record.UserIdRequest}`;
+
+            return {
+                id: String(record.id),
+                student: studentFullName, // แสดงชื่อ-นามสกุลจริงของผู้ใช้
+                className: record.Department || 'ไม่ระบุแผนก',
+                item: wasteInfo.name,
+                type: wasteInfo.type,
+                category: wasteInfo.category,
+                icon: wasteInfo.icon,
+                weight: Number(record.WeightWaste || 0),
+                points: status === 'rejected' ? 0 : Number(record.EarnedPoints || 0),
+                date: dateISO,
+                dateLabel: dateFormatted,
+                time: timeFormatted,
+                location: record.CollectionPoint || 'จุดรับขยะกลาง',
+                note: record.Reson || 'ไม่มีหมายเหตุ',
+                reviewNote: record.ReviewNote || '',
+                photo: record.ImageUrl || fallbackPhoto,
+                status: status,
+                credited: record.Status === 1
+            };
+        });
+
+        if (reviewRecords.length) {
+            selectedRecordId = reviewRecords.find(r => r.status === 'pending')?.id || reviewRecords[0].id;
+        }
+
+        renderStats();
+        renderRecordList();
+        if (selectedRecordId) {
+            const rec = reviewRecords.find(r => r.id === selectedRecordId);
+            if (rec) renderDetail(rec);
+        }
+
+    } catch (err) {
+        console.error('Error fetching records from Supabase:', err);
+        setDecisionMessage('ไม่สามารถโหลดข้อมูลจากฐานข้อมูลได้', 'error');
+    }
+}
+
+    function renderStats() {
+        const pendingCount = reviewRecords.filter(record => record.status === 'pending').length;
+        const approvedRecords = reviewRecords.filter(record => record.status === 'approved');
+        const approvedWeight = approvedRecords.reduce((total, record) => total + Number(record.weight), 0);
+        const issuedPoints = approvedRecords.reduce((total, record) => total + Number(record.points), 0);
+        
+        const elPending = document.querySelector('#review-pending-count');
+        const elApproved = document.querySelector('#review-approved-count');
+        const elWeight = document.querySelector('#review-total-weight');
+        const elPoints = document.querySelector('#review-total-points');
+        const elFilterAll = document.querySelector('#review-filter-all');
+        const elFilterPending = document.querySelector('#review-filter-pending');
+        const elFilterApproved = document.querySelector('#review-filter-approved');
+        const elFilterRejected = document.querySelector('#review-filter-rejected');
+
+        if (elPending) elPending.textContent = String(pendingCount);
+        if (elApproved) elApproved.textContent = String(approvedRecords.length);
+        if (elWeight) elWeight.textContent = approvedWeight.toFixed(1);
+        if (elPoints) elPoints.textContent = String(issuedPoints);
+        if (elFilterAll) elFilterAll.textContent = String(reviewRecords.length);
+        if (elFilterPending) elFilterPending.textContent = String(pendingCount);
+        if (elFilterApproved) elFilterApproved.textContent = String(approvedRecords.length);
+        if (elFilterRejected) elFilterRejected.textContent = String(reviewRecords.filter(record => record.status === 'rejected').length);
+    }
+
+    function renderRecordList() {
+        if (!recordList) return;
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const visibleRecords = reviewRecords.filter(record => {
+            const matchesStatus = currentFilter === 'all' || record.status === currentFilter;
+            const searchText = `${record.student} ${record.className} ${record.item} ${record.type} ${record.status}`.toLowerCase();
+            return matchesStatus && (!query || searchText.includes(query));
+        });
+
+        if (!visibleRecords.some(record => record.id === selectedRecordId)) {
+            selectedRecordId = visibleRecords[0]?.id ?? null;
+        }
+
+        recordList.replaceChildren();
+        if (emptyState) emptyState.hidden = visibleRecords.length > 0;
+
+        visibleRecords.forEach(record => {
+            const row = document.createElement('button');
+            row.type = 'button';
+            row.className = `review-record-row${record.id === selectedRecordId ? ' is-selected' : ''}`;
+            row.setAttribute('aria-pressed', String(record.id === selectedRecordId));
+            row.innerHTML = `<span class="review-student-cell"><strong></strong><small></small></span><span class="review-item-cell"><i class="review-item-icon"></i><span><strong></strong><small></small></span></span><span class="review-weight-cell"></span><span class="review-points-cell"></span><span class="review-row-status"></span><i class="fa-solid fa-chevron-right review-row-arrow"></i>`;
+            
+            row.querySelector('.review-student-cell strong').textContent = record.student;
+            row.querySelector('.review-student-cell small').textContent = `${record.className} · ${record.dateLabel} ${record.time}`;
+            row.querySelector('.review-item-cell strong').textContent = record.item;
+            row.querySelector('.review-item-cell small').textContent = record.type;
+            row.querySelector('.review-item-icon').className = `review-item-icon fa-solid ${record.icon || 'fa-recycle'}`;
+            row.querySelector('.review-weight-cell').textContent = `${Number(record.weight).toFixed(1)} ชิ้น`;
+            row.querySelector('.review-points-cell').innerHTML = `<i class="fa-solid fa-star"></i> ${Number(record.points)} แต้ม`;
+            
+            const status = row.querySelector('.review-row-status');
+            status.textContent = getStatusLabel(record.status);
+            status.classList.add(getStatusClass(record.status));
+
+            row.addEventListener('click', event => {
+                const openModal = Boolean(event.target.closest('.review-row-arrow')) || event.detail === 0;
+                selectRecord(record.id);
+                if (openModal) openRecordModal(record);
+            });
+            recordList.append(row);
+        });
+
+        const selectedRecord = visibleRecords.find(record => record.id === selectedRecordId);
+        if (selectedRecord) {
+            renderDetail(selectedRecord);
+        } else if (detailContent) {
+            detailStatus.textContent = 'ไม่มีรายการ';
+            detailStatus.className = 'review-status';
+            detailContent.innerHTML = '<div class="review-detail-placeholder"><i class="fa-solid fa-inbox"></i><span>ไม่มีรายการที่ตรงกับการค้นหา</span></div>';
+            if (actionButtons) actionButtons.hidden = true;
+        }
+    }
+
+   function renderDetail(record) {
+        if (!detailContent) return;
+        detailStatus.textContent = getStatusLabel(record.status);
+        detailStatus.className = `review-status ${getStatusClass(record.status)}`;
+        
+        const photo = record.photo || fallbackPhoto;
+        // เพิ่ม input สำหรับแก้แต้ม (รหัส id="edit-earned-points")
+        detailContent.innerHTML = `
+            <img class="review-proof-photo" alt="หลักฐานขยะ">
+            <div class="review-student-meta"><strong></strong><span></span></div>
+            <div class="review-record-meta"><span><i class="fa-regular fa-calendar"></i><span class="review-date"></span></span><span><i class="fa-solid fa-location-dot"></i><span class="review-location"></span></span></div>
+            <div class="review-record-item"><span class="review-detail-icon"><i class="fa-solid fa-recycle"></i></span><span><strong class="review-item-name"></strong><small class="review-category"></small></span></div>
+            <div class="review-detail-metrics">
+                <span><small>น้ำหนักที่ส่ง</small><strong class="review-detail-weight"></strong></span>
+                <span><small>แต้มที่ได้รับ (แก้ไขได้)</small>
+                    <input type="number" id="edit-earned-points" class="form-control form-control-sm mt-1" value="${Number(record.points)}" min="0" ${record.status !== 'pending' ? 'disabled' : ''}>
+                </span>
+            </div>
+            <h3>หมายเหตุจากผู้ส่ง</h3><p class="review-submitter-note"></p>
+            <p class="review-rejection-note" hidden></p>
+            <div class="review-evidence-meta"><i class="fa-solid fa-image"></i><span class="review-photo-name">มีรูปหลักฐานแนบ</span></div>
+        `;
+        
+        detailContent.querySelector('.review-proof-photo').src = photo;
+        detailContent.querySelector('.review-student-meta strong').textContent = record.student;
+        detailContent.querySelector('.review-student-meta span').textContent = `นักเรียน · ${record.className}`;
+        detailContent.querySelector('.review-date').textContent = `${record.dateLabel} เวลา ${record.time}`;
+        detailContent.querySelector('.review-location').textContent = record.location;
+        detailContent.querySelector('.review-item-name').textContent = record.item;
+        detailContent.querySelector('.review-category').textContent = record.type;
+        detailContent.querySelector('.review-detail-weight').textContent = `${Number(record.weight).toFixed(1)} กก.`;
+        detailContent.querySelector('.review-submitter-note').textContent = record.note || 'ไม่มีหมายเหตุ';
+        
+        const rejectionNote = detailContent.querySelector('.review-rejection-note');
+        if (record.status === 'rejected' && record.reviewNote) {
+            rejectionNote.hidden = false;
+            rejectionNote.textContent = `เหตุผลที่ไม่รับ: ${record.reviewNote}`;
+        }
+        if (actionButtons) actionButtons.hidden = record.status !== 'pending';
+    }
+    function selectRecord(recordId) {
+        selectedRecordId = recordId;
+        const record = reviewRecords.find(item => item.id === recordId);
+        if (!record) return;
+        renderRecordList();
+        setDecisionMessage('');
+    }
+
+    function openRecordModal(record) {
+        if (!detailModal || !detailModalContent) return;
+        detailModalContent.replaceChildren(detailContent.cloneNode(true));
+        detailModalStatus.textContent = getStatusLabel(record.status);
+        detailModalStatus.className = `review-status ${getStatusClass(record.status)}`;
+        if (detailModalActions) detailModalActions.hidden = record.status !== 'pending';
+        detailModal.showModal();
+    }
+
+    // 3. ฟังก์ชันอัปเดตสถานะการอนุมัติ/ปฏิเสธลงใน Supabase Database จริง
+    async function decideRecord(status, reviewNote = '') {
+        const record = reviewRecords.find(item => item.id === selectedRecordId);
+        if (!record || record.status !== 'pending') return;
+
+        const dbStatus = status === 'approved' ? 1 : 2; // 1 = อนุมัติ, 2 = ไม่ผ่าน
+
+        // 1. ดึงค่าแต้มที่กรรมการแก้ไขจาก Input หน้าจอ
+        const pointsInput = document.querySelector('#edit-earned-points');
+        const newPoints = pointsInput ? Number(pointsInput.value) || 0 : Number(record.points);
+
+        // 2. ดึงข้อมูล User ปัจจุบันที่กำลัง Login อยู่ (เพื่อเอามาบันทึกใน ApproveBy)
+        let approverId = 'กรรมการระบบ';
+        try {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                approverId = user.id;
+            }
+        } catch (e) {
+            console.warn('Cannot get current user for ApproveBy');
+        }
+
+        if (supabaseClient) {
+            try {
+                // 3. ทำการ Update ข้อมูลลงตาราง SendWaste รวมถึงฟิลด์ ApproveBy และ EarnedPoints
+                const updatePayload = {
+                    Status: dbStatus,
+                    EarnedPoints: status === 'approved' ? newPoints : 0,
+                    ApproveById: approverId, // บันทึกชื่อหรือ ID ของกรรมการผู้ตรวจสอบ
+                    Reson: reviewNote ? `${record.note} [หมายเหตุผู้ตรวจ: ${reviewNote}]` : record.note
+                };
+
+                const { error } = await supabaseClient
+                    .from('SendWaste')
+                    .update(updatePayload)
+                    .eq('id', record.id);
+
+                if (error) throw error;
+            } catch (err) {
+                console.error('Error updating status in Supabase:', err);
+                setDecisionMessage('เกิดข้อผิดพลาดในการบันทึกข้อมูลลงฐานข้อมูล', 'error');
+                return;
+            }
+        }
+
+        // อัปเดตข้อมูลใน State หน้าจอ
+        record.status = status;
+        record.points = status === 'approved' ? newPoints : 0;
+        record.reviewNote = reviewNote;
+        record.credited = status === 'approved';
+
+        renderStats();
+        renderRecordList();
+        renderDetail(record);
+        
+        setDecisionMessage(
+            status === 'approved' 
+                ? `รับขยะเข้าระบบแล้ว เพิ่ม ${record.weight} กก. และ ${newPoints} แต้มให้ ${record.student} (ตรวจสอบโดย: ${approverName})` 
+                : `บันทึกไม่รับรายการแล้ว: ${reviewNote}`, 
+            status === 'approved' ? 'success' : 'error'
+        );
+    }
+
+    // Event Listeners ต่างๆ
+    document.querySelectorAll('[data-review-filter]').forEach(button => button.addEventListener('click', () => {
+        currentFilter = button.dataset.reviewFilter;
+        document.querySelectorAll('[data-review-filter]').forEach(filterButton => {
+            const active = filterButton === button;
+            filterButton.classList.toggle('is-active', active);
+            filterButton.setAttribute('aria-pressed', String(active));
+        });
+        renderRecordList();
+    }));
+
+    if (searchInput) searchInput.addEventListener('input', renderRecordList);
+
+    const btnAccept = document.querySelector('#accept-record');
+    if (btnAccept) btnAccept.addEventListener('click', () => {
+        const record = reviewRecords.find(item => item.id === selectedRecordId);
+        if (!record || record.status !== 'pending') return;
+
+        const pointsInput = document.querySelector('#edit-earned-points');
+        const currentPoints = pointsInput ? Number(pointsInput.value) || 0 : Number(record.points);
+
+        record.points = currentPoints;
+
+        const desc = document.querySelector('#approve-description');
+        if (desc) {
+            desc.textContent = `รับ ${record.item} จำนวน ${Number(record.weight).toFixed(1)} ชิ้น จาก ${record.student} และเพิ่ม ${currentPoints} แต้มเข้าบัญชีหรือไม่`;
+        }
+        
+        if (approveDialog) approveDialog.showModal();
+    });
+
+    const modalAccept = document.querySelector('#modal-accept-record');
+    if (modalAccept) modalAccept.addEventListener('click', () => {
+        if (detailModal) detailModal.close();
+        if (btnAccept) btnAccept.click();
+    });
+
+    const modalReject = document.querySelector('#modal-reject-record');
+    if (modalReject) modalReject.addEventListener('click', () => {
+        if (detailModal) detailModal.close();
+        const btnReject = document.querySelector('#reject-record');
+        if (btnReject) btnReject.click();
+    });
+
+    const closeReviewDetail = document.querySelector('#close-review-detail');
+    if (closeReviewDetail) closeReviewDetail.addEventListener('click', () => {
+        if (detailModal) detailModal.close();
+    });
+
+    if (detailModal) {
+        detailModal.addEventListener('click', event => {
+            if (event.target === detailModal) detailModal.close();
+        });
+    }
+
+    const confirmApprove = document.querySelector('#confirm-approve');
+    if (confirmApprove) confirmApprove.addEventListener('click', () => {
+        if (approveDialog) approveDialog.close();
+        decideRecord('approved');
+    });
+
+    const btnRejectRecord = document.querySelector('#reject-record');
+    if (btnRejectRecord) btnRejectRecord.addEventListener('click', () => {
+        if (rejectDialog) rejectDialog.showModal();
+    });
+
+    document.querySelectorAll('[data-close-reject]').forEach(button => button.addEventListener('click', () => {
+        if (rejectDialog) rejectDialog.close();
+    }));
+
+    document.querySelectorAll('[data-close-approve]').forEach(button => button.addEventListener('click', () => {
+        if (approveDialog) approveDialog.close();
+    }));
+
+    if (rejectForm) {
+        rejectForm.addEventListener('submit', event => {
+            event.preventDefault();
+            const reasonSelect = document.querySelector('#reject-reason');
+            const noteInput = document.querySelector('#reject-note');
+            const reason = reasonSelect ? reasonSelect.value : '';
+            const note = noteInput ? noteInput.value.trim() : '';
+            if (!reason) return;
+            if (rejectDialog) rejectDialog.close();
+            decideRecord('rejected', reason === 'other' ? note || 'กรุณาติดต่อกรรมการ' : note ? `${reason} · ${note}` : reason);
+            rejectForm.reset();
+        });
+    }
+
+    [approveDialog, rejectDialog].forEach(dialog => {
+        if (dialog) {
+            dialog.addEventListener('click', event => {
+                if (event.target === dialog) dialog.close();
+            });
+        }
+    });
+
+    // เริ่มต้นโหลดข้อมูลจาก Supabase ทันทีเมื่อเปิดหน้า
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('currentUser');
+        
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            
+            const nameSpan = document.getElementById('textUser');
+            const nameSpanSecond = document.getElementById('textUser_second');
+            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
+            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+
+            // โหลดข้อมูลจริงจาก Supabase
+            loadRecordsFromSupabase();
+        } else {
+            window.location.href = 'index.html';
+        }
+
+        const logoutButton = document.getElementById('logout-btn');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performLogout();
+                        }
+                    });
+                } else {
+                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                        performLogout();
+                    }
+                }
+            });
+        }
+    });
+
+    function performLogout() {
+        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+        localStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>

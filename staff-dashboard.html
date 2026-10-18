@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - ภาพรวม TAT/TMT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="staff-dashboard-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TCTA</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <!-- <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
+                    <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการส่งขยะ</a></li>
+                    <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li> -->
+                    <li class="active"><a href="staff-dashboard.html" aria-current="page"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <!-- <div class="sidebar-profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="รูปผู้ใช้งาน">
+                <div class="staff-sidebar-user">
+                    <div class="text-muted">เจ้าหน้าที่</div>
+                    <div class="fw-bold" id="textUser_second"></div>
+                    <span class="badge bg-info-subtle text-info mt-1">TAT/TMT</span>
+                </div>
+            </div> -->
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success staff-sidebar-tagline">ข้อมูลชัดเจน<br>จัดการขยะได้ดีขึ้น</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-navbar">
+            <!-- <button class="top-icon-btn" type="button" aria-label="การแจ้งเตือน"><i class="fa-regular fa-bell"></i></button> -->
+            <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-success staff-hero-icon" aria-hidden="true"></i>
+                    <h1>ภาพรวมการส่งขยะ</h1>
+                </div>
+                <p>ติดตามปริมาณขยะ คะแนน และสถานะการตรวจรับ</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">ข้อมูลรวมสำหรับ TAT/TMT</div>
+        </header>
+
+        <section class="staff-dashboard-toolbar" aria-label="เลือกช่วงเวลารายงาน">
+            <div class="staff-period-control" role="group" aria-label="ช่วงเวลารายงาน">
+                <button class="staff-period-button" type="button" data-period="day" aria-pressed="false">รายวัน</button>
+                <button class="staff-period-button is-active" type="button" data-period="week" aria-pressed="true">รายสัปดาห์</button>
+                <button class="staff-period-button" type="button" data-period="month" aria-pressed="false">รายเดือน</button>
+            </div>
+            <div class="staff-report-date"><i class="fa-regular fa-calendar"></i><span id="report-date-range"></span></div>
+        </section>
+
+        <section class="staff-summary-grid" aria-label="สรุปผลตามช่วงเวลา">
+            <article class="home-metric-card"><span class="home-metric-icon is-blue"><i class="fa-solid fa-inbox"></i></span><div><small>รายการที่ส่ง</small><strong><span id="summary-submissions">0</span> <small class="d-inline">รายการ</small></strong></div></article>
+            <article class="home-metric-card"><span class="home-metric-icon is-green"><i class="fa-solid fa-weight-hanging"></i></span><div><small>จำนวนรับเข้าระบบ</small><strong><span id="summary-weight">0</span> <small class="d-inline">ชิ้น</small></strong></div></article>
+            <article class="home-metric-card"><span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span><div><small>แต้มที่อนุมัติ</small><strong><span id="summary-points">0</span> <small class="d-inline">แต้ม</small></strong></div></article>
+            <article class="home-metric-card"><span class="home-metric-icon is-leaf"><i class="fa-regular fa-clock"></i></span><div><small>รอตรวจสอบ</small><strong><span id="summary-pending">0</span> <small class="d-inline">รายการ</small></strong></div></article>
+        </section>
+
+        <div class="staff-dashboard-grid">
+            <section class="staff-panel staff-chart-panel" aria-labelledby="activity-chart-title">
+                <div class="staff-panel-heading">
+                    <div><h2 id="activity-chart-title">น้ำหนักขยะที่รับเข้าระบบ</h2><p id="activity-chart-caption">แยกตามวันในสัปดาห์</p></div>
+                    <span class="staff-chart-unit">กิโลกรัม</span>
+                </div>
+                <div class="staff-chart" id="activity-chart" role="img" aria-label="กราฟน้ำหนักขยะที่อนุมัติแล้ว"></div>
+                <div class="staff-chart-legend"><span><i></i> อนุมัติแล้ว</span><span id="chart-total-label">รวม 0 ชิ้น</span></div>
+            </section>
+
+            <section class="staff-panel staff-status-panel" aria-labelledby="status-breakdown-title">
+                <div class="staff-panel-heading"><div><h2 id="status-breakdown-title">สถานะรายการ</h2><p id="status-breakdown-caption">ภาพรวมรายการในช่วงเวลา</p></div></div>
+                <div class="staff-status-total"><strong id="status-total">0</strong><span>รายการ</span></div>
+                <div class="staff-status-bar" aria-hidden="true">
+                    <span class="is-approved" id="status-bar-approved"></span>
+                    <span class="is-pending" id="status-bar-pending"></span>
+                    <span class="is-rejected" id="status-bar-rejected"></span>
+                </div>
+                <div class="staff-status-legend">
+                    <div><span class="staff-status-dot is-approved"></span><span>อนุมัติแล้ว</span><strong id="status-approved">0</strong></div>
+                    <div><span class="staff-status-dot is-pending"></span><span>รอตรวจ</span><strong id="status-pending">0</strong></div>
+                    <div><span class="staff-status-dot is-rejected"></span><span>ไม่รับ</span><strong id="status-rejected">0</strong></div>
+                </div>
+                <a class="staff-review-link" href="review.html"><i class="fa-solid fa-clipboard-check"></i> ไปหน้าตรวจรับ <i class="fa-solid fa-arrow-right"></i></a>
+            </section>
+        </div>
+
+        <section class="staff-panel staff-category-panel" aria-labelledby="category-breakdown-title">
+            <div class="staff-panel-heading">
+                <div><h2 id="category-breakdown-title">ประเภทขยะที่ส่งเข้ามา</h2><p>รวมน้ำหนักและจำนวนรายการในช่วงเวลาที่เลือก รวมรายการรอตรวจสอบ</p></div>
+                <span class="staff-chart-unit">ชิ้น / รายการ</span>
+            </div>
+            <div class="staff-category-list" id="category-breakdown"></div>
+        </section>
+
+        <section class="staff-panel staff-table-panel" aria-labelledby="detail-table-title">
+            <div class="staff-panel-heading staff-table-heading">
+                <div><h2 id="detail-table-title">รายละเอียดการส่งขยะ</h2><p id="detail-table-caption">รายการทั้งหมดในช่วงเวลา</p></div>
+                <div class="staff-table-tools">
+                    <label class="staff-record-search"><i class="fa-solid fa-magnifying-glass"></i><span class="visually-hidden">ค้นหารายการ</span><input id="record-search" type="search" placeholder="ค้นหานักเรียนหรือประเภทขยะ"></label>
+                    <a class="staff-export-link" href="history.html"><i class="fa-solid fa-clock-rotate-left"></i><span>ประวัติทั้งหมด</span></a>
+                </div>
+            </div>
+            <div class="staff-table-scroll">
+                <table class="staff-record-table">
+                    <thead><tr><th>วันที่</th><th>นักเรียน</th><th>ประเภท / รายการ</th><th>น้ำหนัก</th><th>แต้ม</th><th>สถานะ</th><th></th></tr></thead>
+                    <tbody id="staff-record-rows"></tbody>
+                </table>
+            </div>
+            <div class="staff-table-empty" id="staff-table-empty" hidden>ไม่มีรายการในช่วงเวลานี้</div>
+        </section>
+
+        <footer class="waste-footer">
+            <span>EcoPoint · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-chart-simple me-1"></i> ภาพรวม TAT/TMT</span>
+        </footer>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+
+   <script>
+    // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // แมปตัวเลข TypeWaste กลับเป็นชื่อประเภทขยะและหมวดหมู่
+    const typeWasteMap = {
+        1: { name: 'RDF พิเศษ', type: 'ขยะเชื้อเพลิง', category: 'recycle' },
+        2: { name: 'RDF แบบปกติ', type: 'ขยะเชื้อเพลิง', category: 'recycle' },
+        3: { name: 'ขยะทั่วไป', type: 'วัสดุอื่น ๆ', category: 'general' },
+        4: { name: 'ถังพลาสติก', type: 'ขยะรีไซเคิล', category: 'recycle' },
+        5: { name: 'ขวดกระป๋องอะลูมิเนียม', type: 'โลหะ', category: 'recycle' },
+        6: { name: 'ขวดแก้ว', type: 'แก้ว', category: 'recycle' },
+        7: { name: 'กระดาษ', type: 'กระดาษลัง', category: 'recycle' },
+        8: { name: 'ขยะอันตราย', type: 'อันตราย', category: 'hazardous' },
+        9: { name: 'ถังเศษอาหาร', type: 'เศษอาหาร', category: 'organic' },
+        10: { name: 'ถังน้ำและเครื่องดื่ม', type: 'เครื่องดื่ม', category: 'recycle' },
+        11: { name: 'ขยะอันตรายติดเชื้อ', type: 'ติดเชื้อ', category: 'hazardous' }
+    };
+
+    const periodButtons = [...document.querySelectorAll('.staff-period-button')];
+    const chartElement = document.querySelector('#activity-chart');
+    const tableBody = document.querySelector('#staff-record-rows');
+    const searchInput = document.querySelector('#record-search');
+    let allRecords = [];
+    let currentPeriod = 'week';
+
+    // 2. ฟังก์ชันดึงข้อมูลทั้งหมดจาก Supabase ตาราง SendWaste พร้อม Join ตาราง User
+  async function loadRecordsFromSupabase() {
+        if (!supabaseClient) {
+            console.error('Supabase Client not initialized');
+            return;
+        }
+
+        try {
+            const { data, error } = await supabaseClient
+                .from('SendWaste')
+                .select(`
+                    *,
+                    User:UserIdRequest (
+                        id,
+                        FullName,
+                        LastName
+                    )
+                `)
+                .order('SubmissionDatetime', { ascending: false });
+
+            if (error) throw error;
+
+            allRecords = (data || []).map(record => {
+                const subDate = new Date(record.SubmissionDatetime || record.created_at);
+                
+                // 🌟 ใช้ en-CA เพื่อบังคับรูปแบบ YYYY-MM-DD ตามเวลาไทยโดยไม่มีเครื่องหมายคอมมามากวนใจ
+                const dateISO = new Intl.DateTimeFormat('en-CA', {
+                    timeZone: 'Asia/Bangkok',
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }).format(subDate);
+
+                const dateFormatted = subDate.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', day: 'numeric', month: 'short', year: 'numeric' });
+                const timeFormatted = subDate.toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' }) + ' น.';
+
+                let status = 'pending';
+                if (record.Status === 1) status = 'approved';
+                else if (record.Status === 2 || record.Status === 3) status = 'rejected';
+
+                const wasteInfo = typeWasteMap[record.TypeWaste] || { name: 'ขยะทั่วไป', type: 'ทั่วไป', category: 'general' };
+                const userInfo = record.User;
+                const studentName = userInfo ? `${userInfo.FullName} ${userInfo.LastName}` : `ผู้ส่ง ID: ${record.UserIdRequest}`;
+                const className = record.Department || (userInfo ? userInfo.Department : '') || '—';
+
+                return {
+                    id: String(record.id),
+                    student: studentName,
+                    className: className,
+                    item: wasteInfo.name,
+                    type: wasteInfo.type,
+                    category: wasteInfo.category,
+                    weight: Number(record.WeightWaste || 0),
+                    points: status === 'rejected' ? 0 : Number(record.EarnedPoints || 0),
+                    date: dateISO,
+                    dateLabel: dateFormatted,
+                    time: timeFormatted,
+                    status: status
+                };
+            });
+
+            renderDashboard();
+
+        } catch (err) {
+            console.error('Error fetching dashboard records from Supabase:', err);
+        }
+    }
+   function startOfWeek(date) {
+        const d = date ? new Date(date) : new Date();
+        const start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        const daysSinceMonday = (start.getDay() + 6) % 7;
+        start.setDate(start.getDate() - daysSinceMonday);
+        return start;
+    }
+
+    function dateKey(date) {
+        const d = date ? new Date(date) : new Date();
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function periodRange(period) {
+        const today = new Date();
+        
+        // 🌟 ดึงค่าปี เดือน วัน ตามเวลาท้องถิ่นของเครื่อง (Local Time) 100% ป้องกันปัญหา Timezone UTC
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const todayStr = `${year}-${month}-${day}`;
+        
+        if (period === 'day' || period === 'daily') {
+            return {
+                startDate: todayStr,
+                endDate: todayStr,
+                type: 'day'
+            };
+        } else if (period === 'week') {
+            const startOfWeekDate = startOfWeek(today);
+            const swYear = startOfWeekDate.getFullYear();
+            const swMonth = String(startOfWeekDate.getMonth() + 1).padStart(2, '0');
+            const swDay = String(startOfWeekDate.getDate()).padStart(2, '0');
+            return {
+                startDate: `${swYear}-${swMonth}-${swDay}`,
+                endDate: todayStr,
+                type: 'week'
+            };
+        } else {
+            const startOfMonth = `${year}-${month}-01`;
+            return {
+                startDate: startOfMonth,
+                endDate: todayStr,
+                type: 'month'
+            };
+        }
+    }
+
+    function recordsInPeriod(period) {
+        const range = periodRange(period);
+        
+        return allRecords.filter(record => {
+            if (!record.date) return false;
+            const recordDateOnly = record.date.split('T')[0];
+
+            if (range.type === 'day') {
+                return recordDateOnly === range.startDate;
+            } else {
+                return recordDateOnly >= range.startDate && recordDateOnly <= range.endDate;
+            }
+        });
+    }
+
+    // function recordsInPeriod(period) {
+    //     const { start, end } = periodRange(period);
+    //     return allRecords.filter(record => {
+    //         if (!record.date) return false;
+    //         const date = new Date(`${record.date}T12:00:00`);
+    //         return date >= start && date <= end;
+    //     });
+    // }
+
+    function formatRange(period) {
+        const { start, end } = periodRange(period);
+        const formatter = new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+        return `${formatter.format(start)} – ${formatter.format(end)}`;
+    }
+
+   function chartGroups(period) {
+        const range = periodRange(period);
+        const today = new Date();
+
+        if (period === 'day' || period === 'daily') {
+            return [8, 10, 12, 14, 16, 18, 20].map(hour => ({ key: hour, label: `${String(hour).padStart(2, '0')}:00` }));
+        }
+        
+        if (period === 'week') {
+            const startDate = new Date(range.startDate);
+            return Array.from({ length: 7 }, (_, index) => {
+                const date = new Date(startDate);
+                date.setDate(date.getDate() + index);
+                return { key: dateKey(date), label: new Intl.DateTimeFormat('th-TH', { weekday: 'short' }).format(date), date };
+            }).filter(group => group.date <= today);
+        }
+
+        return Array.from({ length: 5 }, (_, index) => ({ key: index + 1, label: `สัปดาห์ ${index + 1}` }));
+    }
+
+   function groupValue(record, period, group) {
+        console.log(record);
+        const isApproved = record.status === 'approved' || record.status === 1 || record.Status === 1;
+        if (!isApproved) return 0;
+
+        if (period === 'day' || period === 'daily') {
+            // 🌟 เช็คแค่วันที่ตรงกันว่าเป็นวันเดียวกันหรือไม่
+            const recordDateOnly = (record.date || '').split('T')[0];
+            const todayStr = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
+            
+            if (recordDateOnly !== todayStr) return 0;
+
+            // ดึงชั่วโมงจากเวลา record.time
+            const timeStr = String(record.time || '');
+            const hourMatch = timeStr.match(/(\d{1,2})/);
+            
+            // ถ้าดึงชั่วโมงได้ ให้ลงแท่งกราฟตามชั่วโมงนั้น ถ้าไม่ได้ให้ลงที่ช่วง 10:00 หรือ 12:00 เป็นค่าเริ่มต้น
+            const recordHour = hourMatch ? Number(hourMatch[1]) : 10;
+            const targetHour = Number(group.key);
+            
+            return recordHour === targetHour ? Number(record.weight || record.WeightWaste || 0) : 0;
+        }
+        
+        if (period === 'week') {
+            const recordDateOnly = (record.date || '').split('T')[0];
+            const groupKeyOnly = String(group.key).split('T')[0];
+            return recordDateOnly === groupKeyOnly ? Number(record.weight || record.WeightWaste || 0) : 0;
+        }
+        
+        const day = Number((record.date || '').slice(-2));
+        return Math.ceil(day / 7) === group.key ? Number(record.weight || record.WeightWaste || 0) : 0;
+    }
+
+    function renderChart(records) {
+        const groups = chartGroups(currentPeriod);
+        const values = groups.map(group => records.reduce((total, record) => total + groupValue(record, currentPeriod, group), 0));
+        const maxValue = Math.max(...values, 1);
+        if (chartElement) chartElement.replaceChildren();
+        groups.forEach((group, index) => {
+            const column = document.createElement('div');
+            column.className = 'staff-chart-column';
+            const value = document.createElement('span');
+            value.className = 'staff-chart-value';
+            value.textContent = values[index] ? values[index].toFixed(1) : '';
+            const track = document.createElement('div');
+            track.className = 'staff-chart-track';
+            const bar = document.createElement('span');
+            bar.className = 'staff-chart-bar';
+            bar.style.height = `${values[index] ? Math.max(6, (values[index] / maxValue) * 100) : 2}%`;
+            track.append(bar);
+            const label = document.createElement('small');
+            label.textContent = group.label;
+            column.append(value, track, label);
+            if (chartElement) chartElement.append(column);
+        });
+        const totalWeight = values.reduce((total, value) => total + value, 0);
+        
+        const elTotalLabel = document.querySelector('#chart-total-label');
+        const elChartCaption = document.querySelector('#activity-chart-caption');
+        const elDetailCaption = document.querySelector('#detail-table-caption');
+        const elReportRange = document.querySelector('#report-date-range');
+
+        if (elTotalLabel) elTotalLabel.textContent = `รวม ${totalWeight.toFixed(1)} ชิ้น`;
+        if (elChartCaption) elChartCaption.textContent = currentPeriod === 'day' ? 'แยกตามช่วงเวลา' : currentPeriod === 'week' ? 'แยกตามวันในสัปดาห์' : 'แยกตามสัปดาห์ในเดือน';
+        if (elDetailCaption) elDetailCaption.textContent = currentPeriod === 'day' ? 'รายการของวันนี้' : currentPeriod === 'week' ? 'รายการของสัปดาห์นี้' : 'รายการของเดือนนี้';
+        if (elReportRange) elReportRange.textContent = currentPeriod === 'day' ? new Intl.DateTimeFormat('th-TH', { dateStyle: 'medium' }).format(periodRange(currentPeriod).today) : formatRange(currentPeriod);
+    }
+
+    function renderStatusBreakdown(records) {
+        const counts = {
+            approved: records.filter(record => record.status === 1).length,
+            pending: records.filter(record => record.status === 0).length,
+            rejected: records.filter(record => record.status === 2).length
+        };
+        const total = records.length || 1;
+
+        const elStatusTotal = document.querySelector('#status-total');
+        const elStatusApproved = document.querySelector('#status-approved');
+        const elStatusPending = document.querySelector('#status-pending');
+        const elStatusRejected = document.querySelector('#status-rejected');
+        const elBarApproved = document.querySelector('#status-bar-approved');
+        const elBarPending = document.querySelector('#status-bar-pending');
+        const elBarRejected = document.querySelector('#status-bar-rejected');
+
+        if (elStatusTotal) elStatusTotal.textContent = String(records.length);
+        if (elStatusApproved) elStatusApproved.textContent = String(counts.approved);
+        if (elStatusPending) elStatusPending.textContent = String(counts.pending);
+        if (elStatusRejected) elStatusRejected.textContent = String(counts.rejected);
+        if (elBarApproved) elBarApproved.style.width = `${(counts.approved / total) * 100}%`;
+        if (elBarPending) elBarPending.style.width = `${(counts.pending / total) * 100}%`;
+        if (elBarRejected) elBarRejected.style.width = `${(counts.rejected / total) * 100}%`;
+    }
+
+    function getWasteCategory(record) {
+        const value = `${record.category || ''} ${record.type || ''} ${record.item || ''}`.toLowerCase();
+        if (value.includes('hazard') || value.includes('อันตราย')) return 'hazardous';
+        if (value.includes('organic') || value.includes('อินทรีย์') || value.includes('เศษอาหาร')) return 'organic';
+        if (value.includes('general') || value.includes('ทั่วไป')) return 'general';
+        return 'recycle';
+    }
+
+    function renderWasteCategories(records) {
+        // 🌟 กำหนดรายการครบทั้ง 11 ประเภทตามระบบ TypeWaste
+        const definitions = [
+            { id: 1, label: 'RDF พิเศษ', icon: 'fa-fire', cat: 'recycle' },
+            { id: 2, label: 'RDF แบบปกติ', icon: 'fa-fire-flame-curved', cat: 'recycle' },
+            { id: 3, label: 'ขยะทั่วไป', icon: 'fa-trash-can', cat: 'general' },
+            { id: 4, label: 'ถังพลาสติก', icon: 'fa-bottle-water', cat: 'recycle' },
+            { id: 5, label: 'ขวดกระป๋องอะลูมิเนียม', icon: 'fa-glass-water-droplet', cat: 'recycle' },
+            { id: 6, label: 'ขวดแก้ว', icon: 'fa-wine-bottle', cat: 'recycle' },
+            { id: 7, label: 'กระดาษ', icon: 'fa-newspaper', cat: 'recycle' },
+            { id: 8, label: 'ขยะอันตราย', icon: 'fa-triangle-exclamation', cat: 'hazardous' },
+            { id: 9, label: 'ถังเศษอาหาร', icon: 'fa-seedling', cat: 'organic' },
+            { id: 10, label: 'ถังน้ำและเครื่องดื่ม', icon: 'fa-glass-water', cat: 'recycle' },
+            { id: 11, label: 'ขยะอันตรายติดเชื้อ', icon: 'fa-biohazard', cat: 'hazardous' }
+        ];
+
+        const totals = definitions.map(definition => {
+            // กรองเรคคอร์ดที่ตรงกับ TypeWaste ของแต่ละประเภท
+            const categoryRecords = records.filter(record => {
+                // เทียบจากรหัส TypeWaste หรือชื่อประเภท
+                return record.TypeWaste === definition.id || 
+                       `${record.item || ''}`.includes(definition.label);
+            });
+
+            return {
+                ...definition,
+                count: categoryRecords.length,
+                weight: categoryRecords.reduce((total, record) => total + Number(record.weight || record.WeightWaste || 0), 0),
+                approvedWeight: categoryRecords.filter(record => record.status === 'approved' || record.Status === 1).reduce((total, record) => total + Number(record.weight || record.WeightWaste || 0), 0),
+                pendingCount: categoryRecords.filter(record => record.status === 'pending' || record.Status === 0).length
+            };
+        });
+
+        const maxWeight = Math.max(...totals.map(item => item.weight), 1);
+        const list = document.querySelector('#category-breakdown');
+        if (!list) return;
+        
+        list.replaceChildren();
+        
+        totals.forEach(item => {
+            const row = document.createElement('div');
+            row.className = `staff-category-row is-${item.cat || 'recycle'} mb-2`;
+            row.innerHTML = `
+                <span class="staff-category-icon"><i class="fa-solid ${item.icon}"></i></span>
+                <span class="staff-category-name"><strong></strong><small></small><span class="staff-category-track"><i></i></span></span>
+                <span class="staff-category-total"><strong></strong><small></small></span>
+            `;
+            row.querySelector('.staff-category-name strong').textContent = item.label;
+            row.querySelector('.staff-category-name small').textContent = `${item.count} รายการ · อนุมัติแล้ว ${item.approvedWeight.toFixed(1)} กก.${item.pendingCount ? ` · รอตรวจ ${item.pendingCount}` : ''}`;
+            row.querySelector('.staff-category-track i').style.width = `${item.weight ? Math.max(4, (item.weight / maxWeight) * 100) : 0}%`;
+            row.querySelector('.staff-category-total strong').textContent = `${item.weight.toFixed(1)} กก.`;
+            row.querySelector('.staff-category-total small').textContent = `${item.count} รายการ`;
+            list.append(row);
+        });
+    }
+
+    function renderTable(records) {
+        if (!tableBody) return;
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const filteredRecords = records.filter(record => `${record.student} ${record.item} ${record.type} ${record.status}`.toLowerCase().includes(query));
+        
+        tableBody.replaceChildren();
+        const emptyEl = document.querySelector('#staff-table-empty');
+        if (emptyEl) emptyEl.hidden = filteredRecords.length > 0;
+
+        filteredRecords.sort((first, second) => `${second.date} ${second.time}`.localeCompare(`${first.date} ${first.time}`)).forEach(record => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td><strong class="staff-table-date"></strong><small class="staff-table-time"></small></td><td><strong class="staff-table-student"></strong><small class="staff-table-class"></small></td><td><strong class="staff-table-item"></strong><small class="staff-table-type"></small></td><td class="staff-table-number"></td><td class="staff-table-points"></td><td><span class="staff-table-status"></span></td><td><a class="staff-table-action" href="review.html" aria-label="ตรวจรายการ"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></td>`;
+            
+            row.querySelector('.staff-table-date').textContent = record.dateLabel;
+            row.querySelector('.staff-table-time').textContent = record.time;
+            row.querySelector('.staff-table-student').textContent = record.student;
+            row.querySelector('.staff-table-class').textContent = record.className || '';
+            row.querySelector('.staff-table-item').textContent = record.item;
+            row.querySelector('.staff-table-type').textContent = record.type;
+            row.querySelector('.staff-table-number').textContent = `${Number(record.weight).toFixed(1)} ชิ้น`;
+            row.querySelector('.staff-table-points').textContent = record.status === 'approved' ? `${record.points} แต้ม` : '—';
+            
+            const status = row.querySelector('.staff-table-status');
+            status.textContent = record.status === 'approved' ? 'อนุมัติแล้ว' : record.status === 'rejected' ? 'ไม่รับ' : 'รอตรวจ';
+            status.className = `staff-table-status ${record.status === 'approved' ? 'is-approved' : record.status === 'rejected' ? 'is-rejected' : 'is-pending'}`;
+            tableBody.append(row);
+        });
+    }
+
+    function renderDashboard() {
+        const records = recordsInPeriod(currentPeriod);
+        const approved = records.filter(record => record.status === 'approved');
+        const weight = approved.reduce((total, record) => total + Number(record.weight), 0);
+        const points = approved.reduce((total, record) => total + Number(record.points), 0);
+        const pending = records.filter(record => record.status === 'pending').length;
+
+        const elSub = document.querySelector('#summary-submissions');
+        const elWeight = document.querySelector('#summary-weight');
+        const elPoints = document.querySelector('#summary-points');
+        const elPending = document.querySelector('#summary-pending');
+
+        if (elSub) elSub.textContent = String(records.length);
+        if (elWeight) elWeight.textContent = weight.toFixed(1);
+        if (elPoints) elPoints.textContent = String(points);
+        if (elPending) elPending.textContent = String(pending);
+
+        renderChart(records);
+        renderStatusBreakdown(records);
+        renderWasteCategories(records);
+        renderTable(records);
+    }
+
+    periodButtons.forEach(button => button.addEventListener('click', () => {
+        let p = button.dataset.period || button.getAttribute('data-period');
+        if (p === 'daily') p = 'day'; // เผื่อปุ่มใช้ชื่อ daily
+        currentPeriod = p;
+
+        periodButtons.forEach(item => {
+            const itemP = item.dataset.period || item.getAttribute('data-period');
+            const active = (itemP === currentPeriod) || (currentPeriod === 'day' && itemP === 'daily');
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+        });
+
+        renderDashboard();
+    }));
+
+    if (searchInput) searchInput.addEventListener('input', renderDashboard);
+
+    // เริ่มต้นโหลดข้อมูลจริงจาก Supabase เมื่อเปิดหน้าเว็บ
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            const nameSpan = document.getElementById('textUser');
+            const nameSpanSecond = document.getElementById('textUser_second');
+            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
+            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+        }
+        
+        loadRecordsFromSupabase();
+
+        const logoutButton = document.getElementById('logout-btn');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performLogout();
+                        }
+                    });
+                } else {
+                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                        performLogout();
+                    }
+                }
+            });
+        }
+    });
+
+    function performLogout() {
+        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+        localStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>

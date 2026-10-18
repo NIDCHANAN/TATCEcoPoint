@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - จัดการผู้ใช้งาน</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="users-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TATC</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <!-- <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
+                    <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการส่งขยะ</a></li> -->
+                    <li class="active"><a href="users.html" aria-current="page"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <!-- <div class="sidebar-profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="รูปผู้ดูแลระบบ">
+                <div class="users-sidebar-profile">
+                    <div class="text-muted">ผู้ดูแลระบบ</div>
+                    <div class="fw-bold" id="textUser"></div>
+                    <span class="badge bg-success-subtle text-success mt-1">Admin</span>
+                </div>
+            </div> -->
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success users-sidebar-tagline">จัดการสิทธิ์<br>อย่างปลอดภัย</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-navbar">
+            <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-users-gear text-success users-hero-icon" aria-hidden="true"></i>
+                    <h1>จัดการผู้ใช้งาน</h1>
+                </div>
+                <p>ดูแลบัญชีและกำหนดสิทธิ์การใช้งานของระบบ EcoPoint</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">จัด role ให้ตรงกับหน้าที่ของแต่ละคน</div>
+        </header>
+
+        <section class="users-metric-grid" aria-label="สรุปบัญชีผู้ใช้งาน">
+            <article class="home-metric-card"><span class="home-metric-icon is-blue"><i class="fa-solid fa-users"></i></span><div><small>ผู้ใช้ทั้งหมด</small><strong id="users-total">0</strong></div></article>
+            <article class="home-metric-card"><span class="home-metric-icon is-green"><i class="fa-solid fa-circle-check"></i></span><div><small>กำลังใช้งาน</small><strong id="users-active">0</strong></div></article>
+            <article class="home-metric-card"><span class="home-metric-icon is-gold"><i class="fa-solid fa-user-shield"></i></span><div><small>ผู้ดูแล / เจ้าหน้าที่</small><strong id="users-admin-staff">0</strong></div></article>
+            <article class="home-metric-card"><span class="home-metric-icon is-leaf"><i class="fa-solid fa-user-graduate"></i></span><div><small>นักเรียน</small><strong id="users-students">0</strong></div></article>
+        </section>
+
+        <div class="users-toolbar">
+            <div class="users-filters" role="group" aria-label="กรองตาม role">
+                <button class="users-filter is-active" type="button" data-user-filter="all" aria-pressed="true">ทั้งหมด <span id="users-filter-all">0</span></button>
+                <button class="users-filter" type="button" data-user-filter="admin" aria-pressed="false">Admin <span id="users-filter-admin">0</span></button>
+                <button class="users-filter" type="button" data-user-filter="staff" aria-pressed="false">TAT/TMT <span id="users-filter-staff">0</span></button>
+                <button class="users-filter" type="button" data-user-filter="committee" aria-pressed="false">กรรมการ <span id="users-filter-committee">0</span></button>
+                <button class="users-filter" type="button" data-user-filter="student" aria-pressed="false">นักเรียน <span id="users-filter-student">0</span></button>
+            </div>
+            <div class="users-toolbar-actions">
+                <label class="users-search"><i class="fa-solid fa-magnifying-glass"></i><span class="visually-hidden">ค้นหาผู้ใช้งาน</span><input id="users-search-input" type="search" placeholder="ค้นหาชื่อ อีเมล หรือ username"></label>
+                <label class="visually-hidden" for="users-status-filter">กรองสถานะบัญชี</label>
+                <select class="users-status-filter" id="users-status-filter"><option value="all">ทุกสถานะ</option><option value="active">ใช้งาน</option><option value="suspended">ระงับ</option></select>
+                <button class="users-add-button" id="add-user-button" type="button"><i class="fa-solid fa-user-plus"></i><span>เพิ่มผู้ใช้</span></button>
+            </div>
+        </div>
+
+        <div class="users-workspace">
+            <section class="users-list-panel" aria-label="รายชื่อผู้ใช้งาน">
+                <div class="users-list-heading"><strong>บัญชีผู้ใช้งาน</strong><span id="users-list-count">0 บัญชี</span></div>
+                <div class="users-table-head" aria-hidden="true"><span>ชื่อผู้ใช้</span><span>Username / Email</span><span>Role</span><span>สถานะ</span><span></span></div>
+                <div class="users-list" id="users-list"></div>
+                <div class="users-empty-state" id="users-empty" hidden><i class="fa-solid fa-user-slash"></i><span>ไม่พบบัญชีที่ตรงกับการค้นหา</span></div>
+            </section>
+
+            <aside class="users-detail-panel" aria-label="รายละเอียดบัญชีผู้ใช้">
+                <div class="users-detail-header">
+                    <h2><i class="fa-solid fa-id-card"></i> รายละเอียดผู้ใช้</h2>
+                    <span class="users-account-status" id="detail-user-status">เลือกบัญชี</span>
+                </div>
+                <div class="users-detail-body" id="users-detail-body">
+                    <div class="users-detail-placeholder"><i class="fa-solid fa-arrow-left"></i><span>เลือกบัญชีจากรายชื่อเพื่อดูรายละเอียด</span></div>
+                </div>
+                <div class="users-detail-actions" id="users-detail-actions" hidden>
+                    <button class="users-secondary-button" id="edit-user-button" type="button"><i class="fa-solid fa-pen"></i> แก้ไขข้อมูล</button>
+                    <button class="users-toggle-button" id="toggle-user-button" type="button"></button>
+                </div>
+                <div class="users-feedback" id="users-feedback" role="status" hidden></div>
+            </aside>
+        </div>
+
+        <footer class="waste-footer">
+            <span>EcoPoint · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-shield-halved me-1"></i> จัดการสิทธิ์ผู้ใช้งาน</span>
+        </footer>
+    </main>
+
+    <dialog class="users-dialog" id="user-dialog" aria-labelledby="user-dialog-title">
+    <form class="users-dialog-shell" id="user-form">
+        <div class="users-dialog-heading">
+            <span class="users-dialog-icon"><i class="fa-solid fa-user-pen"></i></span>
+            <button class="users-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-user-dialog><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <h2 id="user-dialog-title">เพิ่มผู้ใช้งาน</h2>
+        <input type="hidden" id="user-id">
+        
+        <div class="users-form-grid">
+            <!-- รหัสประจำตัว (6 หลัก) -->
+            <div class="users-form-field">
+                <label for="user-username">รหัสประจำตัว (6 หลัก) *</label>
+                <input class="users-form-control" id="user-username" required maxlength="6" placeholder="เช่น 123456" autocomplete="off">
+            </div>
+
+            <!-- Role / สถานะ -->
+            <div class="users-form-field">
+                <label for="user-role">Role (สถานะ) *</label>
+                <select class="users-form-control" id="user-role" required>
+                    <option value="student">นักเรียน (Status 1)</option>
+                    <option value="committee">กรรมการ (Status 2)</option>
+                    <option value="admin">Admin (Status 3)</option>
+                    <option value="staff">TAT/TMT (Status 4)</option>
+                </select>
+            </div>
+
+            <!-- ชื่อจริง -->
+            <div class="users-form-field">
+                <label for="user-firstname">ชื่อจริง *</label>
+                <input class="users-form-control" id="user-firstname" required maxlength="50" placeholder="เช่น สมชาย">
+            </div>
+
+            <!-- นามสกุล -->
+            <div class="users-form-field">
+                <label for="user-lastname">นามสกุล *</label>
+                <input class="users-form-control" id="user-lastname" required maxlength="50" placeholder="เช่น สมชาย">
+            </div>
+
+            <!-- สาขาวิชา / แผนก (AT, AM, SA, BP, EV) -->
+            <div class="users-form-field">
+                <label for="user-group">สาขาวิชา / แผนก *</label>
+                <select class="users-form-control" id="user-group" required>
+                    <option value="AT">AT</option>
+                    <option value="AM">AM</option>
+                    <option value="SA">SA</option>
+                    <option value="BP">BP</option>
+                    <option value="EV">EV</option>
+                </select>
+            </div>
+
+            <!-- รหัสผ่าน (กรณีเพิ่มผู้ใช้ใหม่) -->
+            <div class="users-form-field" id="password-field-wrapper">
+                <label for="user-password">รหัสผ่านเริ่มต้น *</label>
+                <input class="users-form-control" id="user-password" type="password" placeholder="อย่างน้อย 6 หลัก" minlength="6">
+            </div>
+        </div>
+
+        <p class="users-dialog-message" id="user-dialog-message" role="status" hidden></p>
+        <div class="users-dialog-actions">
+            <button class="users-secondary-button" type="button" data-close-user-dialog>ยกเลิก</button>
+            <button class="users-save-button" type="submit"><i class="fa-solid fa-floppy-disk"></i> บันทึกผู้ใช้</button>
+        </div>
+    </form>
+    </dialog>
+
+    <!--  Bootstrap JS  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+    <script>
+    // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+    const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+    const roleLabels = { admin: 'Admin', staff: 'TAT/TMT', committee: 'กรรมการ', student: 'นักเรียน' };
+    const rolePermissions = {
+        admin: ['จัดการบัญชีและกำหนด role', 'ตรวจรับขยะและดูภาพรวมระบบ', 'ดูแลคะแนนและรายการแลกรางวัล'],
+        staff: ['ดูภาพรวมกิจกรรมของหน่วยงาน', 'จัดการข้อมูลจุดรับขยะ', 'ติดตามรายการส่งขยะ'],
+        committee: ['ตรวจหลักฐานและน้ำหนักขยะ', 'รับหรือปฏิเสธรายการ', 'อนุมัติแต้มให้ผู้ส่ง'],
+        student: ['ส่งขยะและติดตามสถานะ', 'ดูประวัติและแต้มสะสม', 'แลกรางวัลตามแต้มที่มี']
+    };
+
+    const usersList = document.querySelector('#users-list');
+    const searchInput = document.querySelector('#users-search-input');
+    const emptyState = document.querySelector('#users-empty');
+    const statusFilter = document.querySelector('#users-status-filter');
+    const detailBody = document.querySelector('#users-detail-body');
+    const detailStatus = document.querySelector('#detail-user-status');
+    const detailActions = document.querySelector('#users-detail-actions');
+    const feedback = document.querySelector('#users-feedback');
+    const userDialog = document.querySelector('#user-dialog');
+    const userForm = document.querySelector('#user-form');
+    const userDialogTitle = document.querySelector('#user-dialog-title');
+    const userDialogMessage = document.querySelector('#user-dialog-message');
+
+    let users = [];
+    let currentRoleFilter = 'all';
+    let currentStatusFilter = 'all';
+    let selectedUserId = null;
+
+    // แปลงค่า Status จาก Database เป็นโครงสร้าง UI
+    // สมมติ Status: 1=นักเรียน(student), 2=กรรมการ(committee), 3=Admin(admin), 4=TAT/TMT(staff) หรือเก็บเป็นตัวเลข/ข้อความ
+    function parseUserRole(statusNum) {
+        switch (Number(statusNum)) {
+            case 3: return 'admin';
+            case 4: return 'staff';
+            case 2: return 'committee';
+            default: return 'student';
+        }
+    }
+
+    function parseRoleToStatus(roleStr) {
+        switch (roleStr) {
+            case 'admin': return 3;
+            case 'staff': return 4;
+            case 'committee': return 2;
+            default: return 1;
+        }
+    }
+
+    // 2. ฟังก์ชันดึงข้อมูลผู้ใช้ทั้งหมดจาก Supabase ตาราง User
+    async function loadUsersFromSupabase() {
+        if (!supabaseClient) {
+            console.error('Supabase Client not initialized');
+            return;
+        }
+
+        try {
+            const { data, error } = await supabaseClient
+                .from('User')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            users = (data || []).map(row => {
+                const joinedDate = row.created_at ? new Date(row.created_at).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+                return {
+                    id: String(row.id),
+                    name: `${row.FullName || ''} ${row.LastName || ''}`.trim() || 'ไม่มีชื่อ',
+                    firstName: row.FullName || '',
+                    lastName: row.LastName || '',
+                    username: row.UserName || '',
+                    email: row.Email || `${row.UserName || row.id}@tatc.ac.th`,
+                    role: parseUserRole(row.Status),
+                    statusNum: row.Status || 1,
+                    group: row.Department || 'ทั่วไป',
+                    active: row.Active !== false, // ถ้าเป็น null หรือ true ให้ถือว่า Active
+                    joined: joinedDate
+                };
+            });
+
+            if (users.length && !users.some(u => u.id === selectedUserId)) {
+                selectedUserId = users[0].id;
+            }
+
+            renderUserStats();
+            renderUserList();
+
+        } catch (err) {
+            console.error('Error loading users from Supabase:', err);
+            showFeedback('ไม่สามารถโหลดข้อมูลผู้ใช้งานจากฐานข้อมูลได้', true);
+        }
+    }
+
+    function showFeedback(message, isError = false) {
+        if (!feedback) return;
+        feedback.hidden = !message;
+        feedback.className = `users-feedback${isError ? ' is-error' : ''}`;
+        feedback.textContent = message;
+    }
+
+    function renderUserStats() {
+        const total = users.length;
+        const activeCount = users.filter(user => user.active).length;
+        const adminStaffCount = users.filter(user => user.role === 'admin' || user.role === 'staff').length;
+        const studentCount = users.filter(user => user.role === 'student').length;
+
+        document.querySelector('#users-total').textContent = String(total);
+        document.querySelector('#users-active').textContent = String(activeCount);
+        document.querySelector('#users-admin-staff').textContent = String(adminStaffCount);
+        document.querySelector('#users-students').textContent = String(studentCount);
+        document.querySelector('#users-filter-all').textContent = String(total);
+        
+        Object.keys(roleLabels).forEach(role => {
+            const el = document.querySelector(`#users-filter-${role}`);
+            if (el) el.textContent = String(users.filter(user => user.role === role).length);
+        });
+    }
+
+    function renderUserList() {
+        if (!usersList) return;
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        
+        const visibleUsers = users.filter(user => {
+            const matchesRole = currentRoleFilter === 'all' || user.role === currentRoleFilter;
+            const matchesStatus = currentStatusFilter === 'all' || (user.active ? 'active' : 'suspended') === currentStatusFilter;
+            const searchText = `${user.name} ${user.username} ${user.email} ${user.group} ${roleLabels[user.role]}`.toLowerCase();
+            return matchesRole && matchesStatus && (!query || searchText.includes(query));
+        });
+
+        if (!visibleUsers.some(user => user.id === selectedUserId)) {
+            selectedUserId = visibleUsers[0]?.id ?? null;
+        }
+
+        usersList.replaceChildren();
+        if (emptyState) emptyState.hidden = visibleUsers.length > 0;
+
+        visibleUsers.forEach(user => {
+            const row = document.createElement('button');
+            row.type = 'button';
+            row.className = `users-row${user.id === selectedUserId ? ' is-selected' : ''}`;
+            row.setAttribute('aria-pressed', String(user.id === selectedUserId));
+            row.innerHTML = `<span class="users-name-cell"><span class="users-avatar"></span><span><strong></strong><small></small></span></span><span class="users-account-cell"><strong></strong><small></small></span><span class="users-role-badge"></span><span class="users-status-badge"></span><i class="fa-solid fa-chevron-right"></i>`;
+            
+            row.querySelector('.users-avatar').textContent = user.name.trim().charAt(0);
+            row.querySelector('.users-name-cell strong').textContent = user.name;
+            row.querySelector('.users-name-cell small').textContent = user.group;
+            row.querySelector('.users-account-cell strong').textContent = user.username;
+            row.querySelector('.users-account-cell small').textContent = user.email;
+            
+            const roleBadge = row.querySelector('.users-role-badge');
+            roleBadge.textContent = roleLabels[user.role];
+            roleBadge.classList.add(`role-${user.role}`);
+            
+            const statusBadge = row.querySelector('.users-status-badge');
+            statusBadge.textContent = user.active ? 'ใช้งาน' : 'ระงับ';
+            statusBadge.classList.add(user.active ? 'is-active' : 'is-suspended');
+            
+            row.addEventListener('click', () => selectUser(user.id));
+            usersList.append(row);
+        });
+
+        const selected = visibleUsers.find(user => user.id === selectedUserId);
+        if (selected) renderUserDetail(selected);
+        else clearUserDetail();
+    }
+
+    function renderUserDetail(user) {
+        if (!detailStatus || !detailBody) return;
+        detailStatus.textContent = user.active ? 'ใช้งาน' : 'ระงับ';
+        detailStatus.className = `users-account-status ${user.active ? 'is-active' : 'is-suspended'}`;
+        
+        detailBody.innerHTML = `<div class="users-detail-profile"><span class="users-detail-avatar"></span><div><strong class="users-detail-name"></strong><span class="users-detail-role"></span></div></div><dl class="users-detail-list"><div><dt>Username / ID</dt><dd class="users-detail-username"></dd></div><div><dt>อีเมล</dt><dd class="users-detail-email"></dd></div><div><dt>ห้อง / หน่วยงาน</dt><dd class="users-detail-group"></dd></div><div><dt>วันที่สร้างบัญชี</dt><dd class="users-detail-joined"></dd></div></dl><div class="users-permission-summary"><i class="fa-solid fa-shield-halved"></i><span class="users-permission-text"></span></div><h3 class="users-permission-heading">สิทธิ์ที่กำหนด</h3><ul class="users-permission-list"></ul>`;
+        
+        detailBody.querySelector('.users-detail-avatar').textContent = user.name.trim().charAt(0);
+        detailBody.querySelector('.users-detail-name').textContent = user.name;
+        detailBody.querySelector('.users-detail-role').textContent = roleLabels[user.role];
+        detailBody.querySelector('.users-detail-username').textContent = user.username;
+        detailBody.querySelector('.users-detail-email').textContent = user.email;
+        detailBody.querySelector('.users-detail-group').textContent = user.group || '—';
+        detailBody.querySelector('.users-detail-joined').textContent = user.joined;
+        detailBody.querySelector('.users-permission-text').textContent = `สิทธิ์ปัจจุบัน: ${roleLabels[user.role]}`;
+        
+        const permissionList = detailBody.querySelector('.users-permission-list');
+        (rolePermissions[user.role] || []).forEach(permission => {
+            const item = document.createElement('li');
+            item.innerHTML = '<i class="fa-solid fa-check"></i><span></span>';
+            item.querySelector('span').textContent = permission;
+            permissionList.append(item);
+        });
+
+        if (detailActions) detailActions.hidden = false;
+        const toggleButton = document.querySelector('#toggle-user-button');
+        if (toggleButton) {
+            toggleButton.className = `users-toggle-button${user.active ? ' is-suspend' : ' is-activate'}`;
+            toggleButton.innerHTML = user.active ? '<i class="fa-solid fa-user-slash"></i> ระงับบัญชี' : '<i class="fa-solid fa-user-check"></i> เปิดใช้งาน';
+        }
+    }
+
+    function clearUserDetail() {
+        if (!detailStatus || !detailBody) return;
+        detailStatus.textContent = 'ไม่มีบัญชี';
+        detailBody.innerHTML = '<div class="users-detail-placeholder"><i class="fa-solid fa-user-slash"></i><span>ไม่พบบัญชีที่ตรงกับการค้นหา</span></div>';
+        if (detailActions) detailActions.hidden = true;
+    }
+
+    function selectUser(userId) {
+        selectedUserId = userId;
+        renderUserList();
+        showFeedback('');
+    }
+
+  // ฟังก์ชันเปิด Modal (เพิ่ม หรือ แก้ไข)
+    function openUserDialog(user = null) {
+        if (!userForm) return;
+        userForm.reset();
+        if (userDialogMessage) {
+            userDialogMessage.hidden = true;
+            userDialogMessage.textContent = '';
+        }
+
+        document.querySelector('#user-id').value = user?.id ?? '';
+        document.querySelector('#user-username').value = user?.username ?? '';
+        document.querySelector('#user-role').value = user?.role ?? 'student';
+        document.querySelector('#user-firstname').value = user?.firstName ?? '';
+        document.querySelector('#user-lastname').value = user?.lastName ?? '';
+        document.querySelector('#user-group').value = user?.group ?? 'AT';
+
+        // ถ้าเป็นการแก้ไข ซ่อนช่องรหัสผ่านหรือเว้นว่างไว้ถ้าไม่ต้องการเปลี่ยน
+        const passWrapper = document.querySelector('#password-field-wrapper');
+        const passInput = document.querySelector('#user-password');
+        if (user) {
+            if (passWrapper) passWrapper.style.display = 'none';
+            if (passInput) passInput.removeAttribute('required');
+            if (userDialogTitle) userDialogTitle.textContent = 'แก้ไขผู้ใช้งาน';
+        } else {
+            if (passWrapper) passWrapper.style.display = 'block';
+            if (passInput) passInput.setAttribute('required', 'true');
+            if (userDialogTitle) userDialogTitle.textContent = 'เพิ่มผู้ใช้งาน';
+        }
+
+        if (userDialog) userDialog.showModal();
+    }
+
+    // ฟังก์ชันบันทึกข้อมูลผู้ใช้ลง Supabase
+    if (userForm) {
+        userForm.addEventListener('submit', async event => {
+            event.preventDefault();
+            if (!userForm.reportValidity()) return;
+
+            const userId = document.querySelector('#user-id').value;
+            const username = document.querySelector('#user-username').value.trim();
+            const role = document.querySelector('#user-role').value;
+            const firstName = document.querySelector('#user-firstname').value.trim();
+            const lastName = document.querySelector('#user-lastname').value.trim();
+            const department = document.querySelector('#user-group').value;
+            const password = document.querySelector('#user-password').value.trim();
+            
+            const statusNum = parseRoleToStatus(role); // แปลง Role เป็น Status (1, 2, 3, 4)
+
+            const payload = {
+                UserName: username,
+                FullName: firstName,
+                LastName: lastName,
+                Status: statusNum,
+                // Department: department,
+                Active: true
+            };
+
+            if (password && !userId) {
+                payload.Password = password;
+            }
+
+            if (supabaseClient) {
+                try {
+                    if (userId) {
+                        // อัปเดตข้อมูลผู้ใช้เดิม
+                        const { error } = await supabaseClient
+                            .from('User')
+                            .update(payload)
+                            .eq('id', userId);
+
+                        if (error) throw error;
+                        showFeedback(`บันทึกข้อมูล ${firstName} ${lastName} แล้ว`);
+                    } else {
+                        // เพิ่มผู้ใช้ใหม่
+                        if (!payload.Password) payload.Password = '123456'; // รหัสผ่านสำรอง
+                        const { error } = await supabaseClient
+                            .from('User')
+                            .insert([payload]);
+
+                        if (error) throw error;
+                        showFeedback(`เพิ่มบัญชี ${firstName} ${lastName} แล้ว`);
+                    }
+
+                    if (userDialog) userDialog.close();
+                    loadUsersFromSupabase(); // โหลดข้อมูลอัปเดตใหม่
+
+                } catch (err) {
+                    console.error('Error saving user:', err);
+                    if (userDialogMessage) {
+                        userDialogMessage.hidden = false;
+                        userDialogMessage.textContent = `บันทึกไม่สำเร็จ: ${err.message}`;
+                    }
+                }
+            }
+        });
+    }
+    // Event Listeners กรองสถานะและบทบาท
+    document.querySelectorAll('[data-user-filter]').forEach(button => button.addEventListener('click', () => {
+        currentRoleFilter = button.dataset.userFilter;
+        document.querySelectorAll('[data-user-filter]').forEach(filterButton => {
+            const active = filterButton === button;
+            filterButton.classList.toggle('is-active', active);
+            filterButton.setAttribute('aria-pressed', String(active));
+        });
+        renderUserList();
+    }));
+
+    if (searchInput) searchInput.addEventListener('input', renderUserList);
+    if (statusFilter) {
+        statusFilter.addEventListener('change', () => {
+            currentStatusFilter = statusFilter.value;
+            renderUserList();
+        });
+    }
+
+    const addUserBtn = document.querySelector('#add-user-button');
+    if (addUserBtn) addUserBtn.addEventListener('click', () => openUserDialog());
+
+    const editUserBtn = document.querySelector('#edit-user-button');
+    if (editUserBtn) {
+        editUserBtn.addEventListener('click', () => {
+            const user = users.find(item => item.id === selectedUserId);
+            if (user) openUserDialog(user);
+        });
+    }
+
+    // 3. ฟังก์ชันสลับสถานะ Active / ระงับบัญชี บน Supabase
+    const toggleUserBtn = document.querySelector('#toggle-user-button');
+    if (toggleUserBtn) {
+        toggleUserBtn.addEventListener('click', async () => {
+            const user = users.find(item => item.id === selectedUserId);
+            if (!user) return;
+
+            const newActiveState = !user.active;
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('User')
+                        .update({ Active: newActiveState })
+                        .eq('id', user.id);
+
+                    if (error) throw error;
+                } catch (err) {
+                    console.error('Error updating user status:', err);
+                    showFeedback('ไม่สามารถอัปเดตสถานะในฐานข้อมูลได้', true);
+                    return;
+                }
+            }
+
+            user.active = newActiveState;
+            renderUserStats();
+            renderUserList();
+            showFeedback(user.active ? `เปิดใช้งานบัญชี ${user.name} แล้ว` : `ระงับบัญชี ${user.name} แล้ว`);
+        });
+    }
+
+    document.querySelectorAll('[data-close-user-dialog]').forEach(button => button.addEventListener('click', () => {
+        if (userDialog) userDialog.close();
+    }));
+
+    if (userDialog) {
+        userDialog.addEventListener('click', event => {
+            if (event.target === userDialog) userDialog.close();
+        });
+    }
+
+    // 4. ฟังก์ชันบันทึกเพิ่ม/แก้ไขผู้ใช้งานลงตาราง User ใน Supabase
+    if (userForm) {
+        userForm.addEventListener('submit', async event => {
+            event.preventDefault();
+            if (!userForm.reportValidity()) return;
+
+            const userId = document.querySelector('#user-id').value;
+            const username = document.querySelector('#user-username').value.trim();
+            const fullName = document.querySelector('#user-name').value.trim();
+            const email = document.querySelector('#user-email').value.trim();
+            const role = document.querySelector('#user-role').value;
+            const group = document.querySelector('#user-group').value.trim();
+            const statusNum = parseRoleToStatus(role);
+
+            const payload = {
+                FullName: fullName,
+                UserName: username,
+                Email: email,
+                Status: statusNum,
+                Department: group,
+                Active: true
+            };
+
+            if (supabaseClient) {
+                try {
+                    if (userId) {
+                        // อัปเดตข้อมูลผู้ใช้เดิม
+                        const { error } = await supabaseClient
+                            .from('User')
+                            .update(payload)
+                            .eq('id', userId);
+
+                        if (error) throw error;
+                        showFeedback(`บันทึกข้อมูล ${fullName} แล้ว`);
+                    } else {
+                        // เพิ่มผู้ใช้ใหม่
+                        payload.Password = '123456'; // กำหนดรหัสผ่านเริ่มต้น
+                        const { error } = await supabaseClient
+                            .from('User')
+                            .insert([payload]);
+
+                        if (error) throw error;
+                        showFeedback(`เพิ่มบัญชี ${fullName} แล้ว`);
+                    }
+
+                    if (userDialog) userDialog.close();
+                    loadUsersFromSupabase(); // โหลดข้อมูลใหม่จากฐานข้อมูล
+
+                } catch (err) {
+                    console.error('Error saving user:', err);
+                    if (userDialogMessage) {
+                        userDialogMessage.hidden = false;
+                        userDialogMessage.textContent = `บันทึกไม่สำเร็จ: ${err.message}`;
+                    }
+                }
+            }
+        });
+    }
+
+    // เริ่มต้นโหลดข้อมูลผู้ใช้งานจริงจาก Supabase เมื่อเปิดหน้าเว็บ
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('currentUser');
+        
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            
+            const nameSpan = document.getElementById('textUser');
+            const nameSpanSecond = document.getElementById('textUser_second');
+            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
+            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+
+            // โหลดข้อมูลผู้ใช้ทั้งหมดจาก Supabase
+            loadUsersFromSupabase();
+        } else {
+            window.location.href = 'index.html';
+        }
+
+        const logoutButton = document.getElementById('logout-btn');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performLogout();
+                        }
+                    });
+                } else {
+                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                        performLogout();
+                    }
+                }
+            });
+        }
+    });
+
+    function performLogout() {
+        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+        localStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>

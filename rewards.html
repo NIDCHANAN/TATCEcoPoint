@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - คะแนนและรางวัล</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="rewards-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TATC</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li class="active"><a href="rewards.html" aria-current="page"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
+                    <!-- <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบขยะ (กรรมการ)</a></li>
+                    <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <!-- <div class="sidebar-profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="รูปโปรไฟล์">
+                <div class="home-sidebar-user">
+                    <div class="text-muted">ยินดีต้อนรับ</div>
+                    <div class="fw-bold" id="textUser"></div>
+                    <span class="badge bg-warning text-dark mt-1">Lv.2 Green Explorer</span>
+                    <div class="progress mt-1 home-sidebar-progress"><div class="progress-bar bg-success" id="sidebar-points-progress" style="width: 24%;"></div></div>
+                    <div class="text-muted mt-1"><span id="sidebar-points">120</span> / 500 แต้ม</div>
+                </div>
+            </div> -->
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success home-sidebar-tagline">แยกขยะ... เริ่มได้จากตัวเรา</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-navbar">
+           <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-award text-success home-hero-icon" aria-hidden="true"></i>
+                    <h1>คะแนนและรางวัล</h1>
+                </div>
+                <p>แต้มจากการแยกขยะ แลกเป็นรางวัลที่คุณเลือกได้</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">ทุกกิโลที่ส่ง ช่วยเพิ่มแต้มและลดขยะ</div>
+        </header>
+
+        <section class="rewards-summary-grid" aria-label="สรุปคะแนนและรางวัล">
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span>
+                <div><small>แต้มคงเหลือ</small><strong><span id="rewards-points"></span> <small class="d-inline">แต้ม</small></strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-green"><i class="fa-solid fa-gift"></i></span>
+                <div><small>รางวัลที่แลกได้</small><strong><span id="rewards-available"></span> <small class="d-inline">รายการ</small></strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-blue"><i class="fa-solid fa-ticket"></i></span>
+                <div><small>แลกไปแล้ว</small><strong><span id="rewards-redeemed-count"></span> <small class="d-inline">รายการ</small></strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-leaf"><i class="fa-solid fa-weight-hanging"></i></span>
+                <div><small>ขยะที่ส่งสะสม และได้รับการอนุมัติ</small><strong><span id="total-weight-display"></span> <small class="d-inline">ชิ้น</small></strong></div>
+            </article>
+        </section>
+
+        <div class="rewards-content-grid">
+            <div class="rewards-main-column">
+                <section class="home-panel rewards-next-panel" aria-labelledby="next-reward-title">
+                    <div class="home-panel-heading">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="home-panel-icon is-challenge"><i class="fa-solid fa-bullseye"></i></span>
+                            <div>
+                                <h2 id="next-reward-title">รางวัลถัดไป</h2>
+                                <p id="next-reward-name">ขวดน้ำพกพา · 180 แต้ม</p>
+                            </div>
+                        </div>
+                        <span class="rewards-gap-badge" id="next-reward-gap">อีก 60 แต้ม</span>
+                    </div>
+                    <div class="home-progress-label"><span id="next-reward-progress-label">ความคืบหน้าสู่รางวัล</span><strong id="next-reward-progress-value">67%</strong></div>
+                    <div class="progress home-goal-progress" role="progressbar" aria-label="ความคืบหน้าสู่รางวัลถัดไป" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" id="next-reward-progress-bar" style="width: 67%;"></div>
+                    </div>
+                </section>
+
+                <section class="home-panel" aria-labelledby="reward-catalog-title">
+                    <!-- ส่วนหัวข้อและตัวกรองหมวดหมู่ของรางวัล -->
+                    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                        <div>
+                            <h3 class="fw-bold mb-1">แคตตาล็อกของรางวัล</h3>
+                            <p class="text-muted mb-0">แลกรับของรางวัลสุดพิเศษด้วยแต้มสะสมจากโครงการขยะแลกแต้ม</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-success btn-sm rounded-pill px-3 is-active" data-reward-filter="all" aria-pressed="true">ทั้งหมด (<span id="filter-all-count">20</span>)</button>
+                            <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-reward-filter="available" aria-pressed="false">แลกได้ (<span id="filter-available-count">0</span>)</button>
+                            <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-reward-filter="redeemed" aria-pressed="false">แลกแล้ว (<span id="filter-redeemed-count">0</span>)</button>
+                        </div>
+                    </div>
+
+                    <!-- ตารางแสดงรายการของรางวัลทั้งหมด 20 รายการ -->
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
+                        
+                        <!-- 1. ปากกาน้ำเงิน -->
+                        <div class="col" data-reward-card data-reward="ปากกาน้ำเงิน" data-cost="40">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-pen text-primary fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ปากกาน้ำเงิน</h6>
+                                <p class="text-muted small mb-3">อุปกรณ์การเรียนใช้งานทั่วไป</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">40 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ปากกาน้ำเงิน" data-cost="40">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. ดินสอ -->
+                        <div class="col" data-reward-card data-reward="ดินสอ" data-cost="40">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-pencil text-warning fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ดินสอ</h6>
+                                <p class="text-muted small mb-3">อุปกรณ์การเรียนมาตรฐาน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">40 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ดินสอ" data-cost="40">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. เทปลบคำผิด -->
+                        <div class="col" data-reward-card data-reward="เทปลบคำผิด" data-cost="50">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-eraser text-info fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">เทปลบคำผิด</h6>
+                                <p class="text-muted small mb-3">อุปกรณ์แก้ไขคำผิดสะดวกใช้งาน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">50 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="เทปลบคำผิด" data-cost="50">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. ผงซักฟอก -->
+                        <div class="col" data-reward-card data-reward="ผงซักฟอก" data-cost="60">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-soap text-secondary fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ผงซักฟอก</h6>
+                                <p class="text-muted small mb-3">ผลิตภัณฑ์ซักผ้าสะอาดหอมสดชื่น</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">60 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ผงซักฟอก" data-cost="60">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. น้ำยาปรับผ้านุ่ม -->
+                        <div class="col" data-reward-card data-reward="น้ำยาปรับผ้านุ่ม" data-cost="60">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-bottle-droplet text-danger fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">น้ำยาปรับผ้านุ่ม</h6>
+                                <p class="text-muted small mb-3">ช่วยให้ผ้านุ่มและมีกลิ่นหอมติดทนนาน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">60 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="น้ำยาปรับผ้านุ่ม" data-cost="60">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. น้ำยาซักผ้า -->
+                        <div class="col" data-reward-card data-reward="น้ำยาซักผ้า" data-cost="60">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-jug-detergent text-primary fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">น้ำยาซักผ้า</h6>
+                                <p class="text-muted small mb-3">ผลิตภัณฑ์ซักผ้าชนิดน้ำสูตรเข้มข้น</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">60 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="น้ำยาซักผ้า" data-cost="60">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. กะละมัง -->
+                        <div class="col" data-reward-card data-reward="กะละมัง" data-cost="70">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-circle-notch text-dark fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">กะละมัง</h6>
+                                <p class="text-muted small mb-3">อุปกรณ์เครื่องใช้พลาสติกอเนกประสงค์</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">70 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="กะละมัง" data-cost="70">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 8. ไม้หนีบ -->
+                        <div class="col" data-reward-card data-reward="ไม้หนีบ" data-cost="70">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-hands-holding text-success fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ไม้หนีบ</h6>
+                                <p class="text-muted small mb-3">ไม้หนีบผ้าอเนกประสงค์แพ็คสุดคุ้ม</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">70 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ไม้หนีบ" data-cost="70">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 9. ไม้แขวนเสื้อ -->
+                        <div class="col" data-reward-card data-reward="ไม้แขวนเสื้อ" data-cost="70">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-shirt text-primary fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ไม้แขวนเสื้อ</h6>
+                                <p class="text-muted small mb-3">ชุดไม้แขวนเสื้อทนทานใช้งานได้นาน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">70 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ไม้แขวนเสื้อ" data-cost="70">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 10. แปรงสีฟัน -->
+                        <div class="col" data-reward-card data-reward="แปรงสีฟัน" data-cost="80">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-tooth text-info fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">แปรงสีฟัน</h6>
+                                <p class="text-muted small mb-3">แปรงสีฟันขนนุ่มถนอมเหงือกและฟัน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">80 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="แปรงสีฟัน" data-cost="80">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 11. ยาสีฟัน -->
+                        <div class="col" data-reward-card data-reward="ยาสีฟัน" data-cost="80">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-pump-soap text-success fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ยาสีฟัน</h6>
+                                <p class="text-muted small mb-3">ยาสีฟันสูตรลดกลิ่นปากลมหายใจสดชื่น</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">80 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ยาสีฟัน" data-cost="80">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 12. ครีมอาบน้ำ -->
+                        <div class="col" data-reward-card data-reward="ครีมอาบน้ำ" data-cost="80">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-shower text-primary fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ครีมอาบน้ำ</h6>
+                                <p class="text-muted small mb-3">ครีมอาบน้ำบำรุงผิวเนียนนุ่มชุ่มชื้น</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">80 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ครีมอาบน้ำ" data-cost="80">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 13. มีดโกนหนวด -->
+                        <div class="col" data-reward-card data-reward="มีดโกนหนวด" data-cost="80">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-vest-patches text-dark fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">มีดโกนหนวด</h6>
+                                <p class="text-muted small mb-3">มีดโกนหนวดคมกริบใช้งานปลอดภัย</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">80 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="มีดโกนหนวด" data-cost="80">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 14. สบู่ก้อน -->
+                        <div class="col" data-reward-card data-reward="สบู่ก้อน" data-cost="50">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-soap text-warning fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">สบู่ก้อน</h6>
+                                <p class="text-muted small mb-3">สบู่ก้อนทำความสะอาดผิวกายกลิ่นหอมละมุน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">50 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="สบู่ก้อน" data-cost="50">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 15. น้ำยาบ้วนปาก -->
+                        <div class="col" data-reward-card data-reward="นำยาบ้วนปาก" data-cost="80">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-glass-water text-info fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">น้ำยาบ้วนปาก</h6>
+                                <p class="text-muted small mb-3">น้ำยาบ้วนปากสูตรอ่อนโยนสะอาดมั่นใจ</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">80 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="นำยาบ้วนปาก" data-cost="80">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 16. สเปรย์ดับกลิ่น -->
+                        <div class="col" data-reward-card data-reward="สเปรย์ดับกลิ่น" data-cost="100">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-spray-can text-danger fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">สเปรย์ดับกลิ่น</h6>
+                                <p class="text-muted small mb-3">สเปรย์ระงับกลิ่นกายมั่นใจตลอดวัน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">100 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="สเปรย์ดับกลิ่น" data-cost="100">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 17. ยากันยุงไฟฟ้า -->
+                        <div class="col" data-reward-card data-reward="ยากันยุงไฟฟ้า" data-cost="100">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-plug-circle-bolt text-warning fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ยากันยุงไฟฟ้า</h6>
+                                <p class="text-muted small mb-3">เครื่องกันยุงไฟฟ้าไร้ควันรบกวน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">100 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ยากันยุงไฟฟ้า" data-cost="100">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 18. สเปรย์ปรับอากาศ -->
+                        <div class="col" data-reward-card data-reward="สเปรย์ดับอากาศ" data-cost="100">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-wind text-success fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">สเปรย์ดับอากาศ</h6>
+                                <p class="text-muted small mb-3">สเปรย์ปรับอากาศเพิ่มความหอมสดชื่น</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">100 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="สเปรย์ดับอากาศ" data-cost="100">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 19. โรลออน -->
+                        <div class="col" data-reward-card data-reward="โรลออน" data-cost="80">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-circle text-primary fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">โรลออน</h6>
+                                <p class="text-muted small mb-3">ผลิตภัณฑ์ระงับกลิ่นกายสูตรอ่อนโยน</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">80 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="โรลออน" data-cost="80">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 20. ผ้าเช็ดตัว -->
+                        <div class="col" data-reward-card data-reward="ผ้าเช็ดตัว" data-cost="150">
+                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 category-card">
+                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 mb-3" style="height: 120px;">
+                                    <i class="fa-solid fa-bath text-info fs-1"></i>
+                                </div>
+                                <h6 class="fw-bold mb-1">ผ้าเช็ดตัว</h6>
+                                <p class="text-muted small mb-3">ผ้าเช็ดตัวเนื้อนุ่มซับน้ำได้ดีเยี่ยม</p>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <span class="text-success fw-bold">150 แต้ม</span>
+                                    <button class="btn btn-success btn-sm rounded-pill px-3 home-redeem-button" data-reward="ผ้าเช็ดตัว" data-cost="150">แลกเลย</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <section class="home-panel" aria-labelledby="redemption-history-title">
+                    <div class="home-panel-heading">
+                        <div><h2 id="redemption-history-title">ประวัติแลกรางวัล</h2><p>รายการและรหัสรับของของคุณ</p></div>
+                        <span class="home-small-link"><i class="fa-solid fa-ticket"></i> <span id="history-count">0</span> รายการ</span>
+                    </div>
+                    <div class="home-redemption-history rewards-redemption-history" id="rewards-redemption-history" hidden>
+                        <div class="home-redemption-list" id="rewards-redemption-list"></div>
+                    </div>
+                    <div class="rewards-empty-state" id="rewards-empty-state"><i class="fa-solid fa-box-open"></i><span>ยังไม่มีรายการแลกรางวัล</span></div>
+                </section>
+            </div>
+
+            <aside class="rewards-side-column" aria-label="ข้อมูลการรับรางวัล">
+                <section class="home-panel rewards-collection-panel" aria-labelledby="collection-title">
+                    <div class="home-panel-heading">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="home-panel-icon is-location"><i class="fa-solid fa-location-dot"></i></span>
+                            <div><h2 id="collection-title">จุดรับรางวัล</h2><p>โรงเรียน TATC</p></div>
+                        </div>
+                        <span class="home-open-badge"><i class="fa-solid fa-circle"></i> เปิดอยู่</span>
+                    </div>
+                    <div class="rewards-collection-address"><i class="fa-solid fa-school"></i><strong>จุดรับขยะหน้าอาคารเรียน</strong></div>
+                    <div class="home-drop-details">
+                        <span><i class="fa-regular fa-clock"></i> จันทร์–ศุกร์ · 08:00–16:30 น.</span>
+                        <span><i class="fa-solid fa-id-card"></i> แสดงรหัสแลกรางวัลพร้อมบัตรนักเรียน</span>
+                    </div>
+                    <a class="home-outline-link" href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะเพื่อสะสมแต้ม</a>
+                </section>
+
+                <section class="home-panel rewards-earn-panel" aria-labelledby="earn-title">
+                    <div class="home-panel-heading">
+                        <div><h2 id="earn-title">วิธีสะสมแต้ม</h2><p>ทุกการแยกขยะมีค่า</p></div>
+                    </div>
+                    <div class="rewards-earn-row"><span><i class="fa-solid fa-bottle-water"></i></span><div><strong>ขวดพลาสติก PET</strong><small>2 แต้ม / กก.</small></div></div>
+                    <div class="rewards-earn-row"><span><i class="fa-solid fa-box"></i></span><div><strong>กระดาษ</strong><small>1 แต้ม / กก.</small></div></div>
+                    <div class="rewards-earn-row"><span><i class="fa-solid fa-glass-water-droplet"></i></span><div><strong>กระป๋องอะลูมิเนียม</strong><small>5 แต้ม / กก.</small></div></div>
+                    <a class="home-small-link d-inline-block mt-2" href="education.html">ดูประเภทขยะทั้งหมด <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                </section>
+
+                <section class="home-panel rewards-note-panel">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>ทุกแต้มเริ่มจากการแยกขยะอย่างถูกต้อง ขอบคุณที่ช่วยดูแลโลก</span>
+                </section>
+            </aside>
+        </div>
+
+        <footer class="waste-footer">
+            <span>EcoPoint · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-graduation-cap me-1"></i> ต้นแบบเพื่อการศึกษา</span>
+        </footer>
+    </main>
+
+    <dialog class="home-redeem-dialog" id="home-redeem-dialog" aria-labelledby="redeem-dialog-title">
+        <div class="home-redeem-dialog-shell">
+            <div class="home-redeem-dialog-heading">
+                <span class="home-redeem-dialog-icon"><i class="fa-solid fa-gift"></i></span>
+                <button class="home-redeem-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-redeem><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2 id="redeem-dialog-title">ยืนยันการแลกรางวัล</h2>
+            <p class="home-redeem-dialog-copy">คุณกำลังแลกรางวัล</p>
+            <strong class="home-redeem-dialog-reward" id="redeem-dialog-reward"></strong>
+            <div class="home-redeem-breakdown">
+                <span>แต้มที่ใช้ <strong><span id="redeem-dialog-cost"></span> แต้ม</strong></span>
+                <span>แต้มคงเหลือ <strong><span id="redeem-dialog-balance"></span> แต้ม</strong></span>
+            </div>
+            <p class="home-redeem-dialog-note"><i class="fa-solid fa-circle-info"></i> หลังยืนยัน รับรางวัลที่จุดรับขยะหน้าอาคารเรียน</p>
+            <div class="home-redeem-dialog-actions">
+                <button class="home-redeem-cancel" type="button" data-close-redeem>ยกเลิก</button>
+                <button class="home-redeem-confirm" type="button" id="confirm-redemption"><i class="fa-solid fa-check"></i> ยืนยันแลก</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!--  Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    
+    <script>
+        // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+        const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const rewardDialog = document.querySelector('#home-redeem-dialog');
+        const rewardMessage = document.querySelector('#reward-message');
+        const rewardCards = [...document.querySelectorAll('[data-reward-card]')];
+        const rewardButtons = [...document.querySelectorAll('.home-redeem-button')];
+        
+        let studentState = { points: 0, redemptions: [] };
+        let pendingRewardButton = null;
+        let currentFilter = 'all';
+        let currentUserId = null;
+
+        // 🌟 ดึงข้อมูลคะแนนและประวัติการแลกรางวัลจาก Supabase
+         async function loadStudentStateFromSupabase(userId) {
+        try {
+            // 1. ดึงแต้มจากตาราง Education
+            const { data: eduData, error: eduError } = await supabaseClient
+                .from('Education')
+                .select('Points')
+                .eq('UserId', userId)
+                .eq('Status', 1);
+
+            let educationPoints = 0;
+            if (!eduError && eduData) {
+                educationPoints = eduData.reduce((sum, row) => sum + (Number(row.Points) || 0), 0);
+            }
+
+            // 2. ดึงข้อมูลจากตาราง SendWaste เฉพาะ Status = 1 (คำนวณทั้งแต้ม และ น้ำหนักขยะ WeightWaste)
+            const { data: sendWasteData, error: sendWasteError } = await supabaseClient
+                .from('SendWaste')
+                .select('*')
+                .eq('UserIdRequest', userId)
+                .eq('Status', 1);
+
+            let sendWastePoints = 0;
+            let totalSentCount = 0; 
+            let totalWeightWaste = 0; // 🌟 ตัวแปรเก็บน้ำหนักขยะรวม
+
+            if (!sendWasteError && sendWasteData) {
+                totalSentCount = sendWasteData.length;
+                
+                sendWastePoints = sendWasteData.reduce((sum, row) => {
+                    const p = row.EarnedPoints !== undefined ? row.EarnedPoints 
+                            : (row.Points !== undefined ? row.Points 
+                            : (row.points !== undefined ? row.points : 0));
+                    return sum + (Number(p) || 0);
+                }, 0);
+
+                // 🌟 คำนวณน้ำหนักรวมจาก WeightWaste (รองรับทั้งตัวพิมพ์เล็ก/ใหญ่)
+                totalWeightWaste = sendWasteData.reduce((sum, row) => {
+                    const w = row.WeightWaste !== undefined ? row.WeightWaste 
+                            : (row.weightwaste !== undefined ? row.weightwaste 
+                            : (row.weightWaste !== undefined ? row.weightWaste : 0));
+                    return sum + (Number(w) || 0);
+                }, 0);
+            } else if (sendWasteError) {
+                console.warn('SendWaste query warning:', sendWasteError.message);
+            }
+
+            // 3. รวมแต้มทั้งหมด
+            let totalPoints = educationPoints + sendWastePoints;
+
+            // 4. ดึงประวัติการแลกรางวัลจากตาราง Redemptions
+            let redemptionsList = [];
+            try {
+                const { data: redeemData, error: redeemError } = await supabaseClient
+                    .from('Redemptions')
+                    .select('*')
+                    .eq('UserId', userId)
+                    .order('created_at', { ascending: false });
+
+                if (!redeemError && redeemData) {
+                    redemptionsList = redeemData.map(item => ({
+                        reward: item.RewardName,
+                        cost: item.Cost,
+                        date: new Intl.DateTimeFormat('th-TH', { dateStyle: 'medium' }).format(new Date(item.created_at)),
+                        code: item.Code
+                    }));
+                }
+            } catch (e) {
+                console.warn('Redemptions table might not exist yet.');
+            }
+
+            const totalSpent = redemptionsList.reduce((sum, item) => sum + Number(item.cost), 0);
+            let finalPoints = Math.max(0, totalPoints - totalSpent);
+
+            // 🌟 เก็บค่าลง studentState (รวมถึง totalWeightWaste)
+            studentState = {
+                points: finalPoints,
+                redemptions: redemptionsList,
+                sentCount: totalSentCount,
+                totalWeight: totalWeightWaste.toFixed(2) // จัดรูปแบบให้แสดงทศนิยม 2 ตำแหน่ง
+            };
+
+            renderRewards();
+        } catch (err) {
+            console.error('Error loading data from Supabase:', err);
+        }
+    }
+        
+    // 🌟 บันทึกการแลกรางวัลลง Supabase
+        async function saveRedemptionToSupabase(reward, cost, code) {
+            if (!currentUserId) return;
+
+            try {
+                // บันทึกลงตาราง Redemptions ใน Supabase
+                const { error } = await supabaseClient
+                    .from('Redemptions')
+                    .insert([
+                        { 
+                            UserId: currentUserId, 
+                            RewardName: reward, 
+                            Cost: cost, 
+                            Code: code,
+                            Status: 'รอรับ' 
+                        }
+                    ]);
+
+                if (error) {
+                    console.error('Error saving redemption:', error.message);
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire('แจ้งเตือน', 'บันทึกการแลกรางวัลไม่สำเร็จ', 'error');
+                    }
+                }
+            } catch (err) {
+                console.error('Supabase connection error:', err);
+            }
+        }
+
+        function renderRedemptionHistory() {
+            const list = document.querySelector('#rewards-redemption-list');
+            const historyPanel = document.querySelector('#rewards-redemption-history');
+            const emptyState = document.querySelector('#rewards-empty-state');
+            if (!list || !historyPanel || !emptyState) return;
+
+            list.replaceChildren();
+            historyPanel.hidden = studentState.redemptions.length === 0;
+            emptyState.hidden = studentState.redemptions.length > 0;
+            
+            const historyCount = document.querySelector('#history-count');
+            if (historyCount) historyCount.textContent = String(studentState.redemptions.length);
+
+            studentState.redemptions.forEach(redemption => {
+                const entry = document.createElement('div');
+                entry.className = 'home-redemption-entry';
+                entry.innerHTML = `<span class="home-redemption-check"><i class="fa-solid fa-check"></i></span><span class="home-redemption-info"><strong></strong><small></small></span><span class="home-redemption-state">รอรับ</span>`;
+                entry.querySelector('strong').textContent = redemption.reward;
+                entry.querySelector('small').textContent = `${redemption.cost} แต้ม · ${redemption.date} · รหัส ${redemption.code}`;
+                list.append(entry);
+            });
+        }
+
+        function renderRewards() {
+            const pointsEl1 = document.querySelector('#rewards-points');
+            const pointsEl2 = document.querySelector('#catalog-points');
+            const pointsEl3 = document.querySelector('#sidebar-points');
+            if (pointsEl1) pointsEl1.textContent = String(studentState.points);
+            if (pointsEl2) pointsEl2.textContent = String(studentState.points);
+            if (pointsEl3) pointsEl3.textContent = String(studentState.points);
+
+            const progressEl = document.querySelector('#sidebar-points-progress');
+            if (progressEl) {
+                progressEl.style.width = `${Math.min((studentState.points / 500) * 100, 100)}%`;
+            }
+
+            const redeemedCountEl = document.querySelector('#rewards-redeemed-count');
+            if (redeemedCountEl) redeemedCountEl.textContent = String(studentState.redemptions.length);
+
+            const weightEl = document.querySelector('#total-weight-display');
+            if (weightEl) {
+                weightEl.textContent = studentState.totalWeight;
+            }
+
+            const filterAllCount = document.querySelector('#filter-all-count');
+            if (filterAllCount) filterAllCount.textContent = String(rewardCards.length);
+
+            rewardCards.forEach(card => {
+                const redeemed = studentState.redemptions.some(item => item.reward === card.dataset.reward);
+                const available = !redeemed && studentState.points >= Number(card.dataset.cost);
+                card.dataset.state = redeemed ? 'redeemed' : available ? 'available' : 'unavailable';
+                card.classList.toggle('is-redeemed', redeemed);
+                const button = card.querySelector('.home-redeem-button');
+                if (button) {
+                    button.disabled = redeemed || !available;
+                    button.textContent = redeemed ? 'แลกแล้ว' : available ? 'แลกเลย' : 'แต้มไม่พอ';
+                }
+            });
+
+            const availableCount = rewardCards.filter(card => card.dataset.state === 'available').length;
+            const redeemedCount = rewardCards.filter(card => card.dataset.state === 'redeemed').length;
+            
+            const rewardsAvailable = document.querySelector('#rewards-available');
+            const filterAvailableCount = document.querySelector('#filter-available-count');
+            const filterRedeemedCount = document.querySelector('#filter-redeemed-count');
+
+            if (rewardsAvailable) rewardsAvailable.textContent = String(availableCount);
+            if (filterAvailableCount) filterAvailableCount.textContent = String(availableCount);
+            if (filterRedeemedCount) filterRedeemedCount.textContent = String(redeemedCount);
+
+            updateNextReward();
+            renderRedemptionHistory();
+            filterRewards();
+        }
+
+        function updateNextReward() {
+            const unredeemed = rewardCards
+                .filter(card => !studentState.redemptions.some(item => item.reward === card.dataset.reward))
+                .sort((firstCard, secondCard) => Number(firstCard.dataset.cost) - Number(secondCard.dataset.cost));
+            
+            const nextReward = unredeemed.find(card => Number(card.dataset.cost) > studentState.points);
+            const progressBar = document.querySelector('#next-reward-progress-bar');
+            if (!progressBar) return;
+            const progressTrack = progressBar.parentElement;
+
+            if (nextReward) {
+                const cost = Number(nextReward.dataset.cost);
+                const previousThreshold = unredeemed.filter(card => Number(card.dataset.cost) <= studentState.points).reduce((highest, card) => Math.max(highest, Number(card.dataset.cost)), 0);
+                const progress = Math.min(Math.floor((studentState.points - previousThreshold) / (cost - previousThreshold) * 100), 100);
+                
+                document.querySelector('#next-reward-name').textContent = `${nextReward.dataset.reward} · ${cost} แต้ม`;
+                document.querySelector('#next-reward-gap').textContent = `อีก ${cost - studentState.points} แต้ม`;
+                document.querySelector('#next-reward-progress-value').textContent = `${progress}%`;
+                document.querySelector('#next-reward-progress-label').textContent = 'ความคืบหน้าสู่รางวัล';
+                progressBar.style.width = `${progress}%`;
+                progressTrack.setAttribute('aria-valuenow', String(progress));
+                return;
+            }
+            document.querySelector('#next-reward-name').textContent = 'คุณแลกรางวัลที่มีแต้มถึงครบแล้ว';
+            document.querySelector('#next-reward-gap').textContent = 'เก็บแต้มต่อ';
+            document.querySelector('#next-reward-progress-value').textContent = '100%';
+            document.querySelector('#next-reward-progress-label').textContent = 'รางวัลทั้งหมดพร้อมแลกแล้ว';
+            progressBar.style.width = '100%';
+            progressTrack.setAttribute('aria-valuenow', '100');
+        }
+
+        function filterRewards() {
+            rewardCards.forEach(card => {
+                const matchesFilter = currentFilter === 'all' || card.dataset.state === currentFilter;
+                card.hidden = !matchesFilter;
+            });
+        }
+
+        document.querySelectorAll('[data-reward-filter]').forEach(filterButton => {
+            filterButton.addEventListener('click', () => {
+                currentFilter = filterButton.dataset.rewardFilter;
+                document.querySelectorAll('[data-reward-filter]').forEach(button => {
+                    const active = button === filterButton;
+                    button.classList.toggle('is-active', active);
+                    button.setAttribute('aria-pressed', String(active));
+                });
+                filterRewards();
+            });
+        });
+
+        rewardButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.disabled) return;
+                pendingRewardButton = button;
+                const cost = Number(button.dataset.cost);
+                document.querySelector('#redeem-dialog-reward').textContent = button.dataset.reward;
+                document.querySelector('#redeem-dialog-cost').textContent = String(cost);
+                document.querySelector('#redeem-dialog-balance').textContent = String(studentState.points - cost);
+                if (rewardDialog) rewardDialog.showModal();
+            });
+        });
+
+        document.querySelectorAll('[data-close-redeem]').forEach(button => button.addEventListener('click', () => {
+            if (rewardDialog) rewardDialog.close();
+        }));
+
+        document.querySelector('#confirm-redemption').addEventListener('click', async () => {
+            if (!pendingRewardButton) return;
+            const reward = pendingRewardButton.dataset.reward;
+            const cost = Number(pendingRewardButton.dataset.cost);
+            
+            if (studentState.points < cost) {
+                if (rewardDialog) rewardDialog.close();
+                if (rewardMessage) {
+                    rewardMessage.hidden = false;
+                    rewardMessage.textContent = 'แต้มของคุณไม่เพียงพอสำหรับรางวัลนี้';
+                }
+                return;
+            }
+
+            const generatedCode = `EP-${Date.now().toString().slice(-6)}`;
+            const formattedDate = new Intl.DateTimeFormat('th-TH', { dateStyle: 'medium' }).format(new Date());
+
+            // อัปเดต State หน้าเว็บ
+            studentState.points -= cost;
+            studentState.redemptions.unshift({
+                reward,
+                cost,
+                date: formattedDate,
+                code: generatedCode
+            });
+
+            // 🌟 บันทึกการแลกรางวัลลง Supabase
+            await saveRedemptionToSupabase(reward, cost, generatedCode);
+
+            renderRewards();
+            if (rewardMessage) {
+                rewardMessage.hidden = false;
+                rewardMessage.textContent = `แลก ${reward} สำเร็จ โปรดแสดงรหัสรับของในรายการแลกรางวัล`;
+            }
+            if (rewardDialog) rewardDialog.close();
+            pendingRewardButton = null;
+        });
+
+        if (rewardDialog) {
+            rewardDialog.addEventListener('click', event => {
+                if (event.target === rewardDialog) rewardDialog.close();
+            });
+        }
+
+        // โหลดข้อมูลเมื่อเปิดหน้าเว็บและตรวจสอบ Session ผู้ใช้
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('currentUser');
+            
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                currentUserId = user.UserName || user.id;
+                
+                const nameSpan = document.getElementById('textUser');
+                const nameSpanSecond = document.getElementById('textUser_second');
+                if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
+                if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+
+                // 🌟 ดึงข้อมูลจริงจาก Supabase
+                loadStudentStateFromSupabase(currentUserId);
+            } else {
+                window.location.href = 'index.html';
+            }
+
+            const logoutButton = document.getElementById('logout-btn');
+
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                    // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                            text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#6c757d',
+                            confirmButtonText: 'ออกจากระบบ',
+                            cancelButtonText: 'ยกเลิก'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                performLogout();
+                            }
+                        });
+                    } else {
+                        // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                        if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                            performLogout();
+                        }
+                    }
+                });
+            }
+        });
+
+        function performLogout() {
+            // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

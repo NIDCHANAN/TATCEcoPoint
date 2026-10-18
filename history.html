@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - ประวัติการส่งขยะ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="history-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TATC</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li class="active"><a href="history.html" aria-current="page"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
+                    <!-- <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบขยะ (กรรมการ)</a></li>
+                    <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li> -->
+                </ul>
+            </nav>
+        </div>
+
+        <div>
+            <!-- <div class="sidebar-profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="รูปโปรไฟล์">
+                <div style="font-size: 0.82rem; line-height: 1.2;">
+                    <div class="text-muted" style="font-size: 0.68rem;">ยินดีต้อนรับ</div>
+                    <div class="fw-bold" id="textUser"></div>
+                    <span class="badge bg-warning text-dark mt-1" style="font-size: 0.62rem;">Lv.2 Green Explorer</span>
+                    <div class="progress mt-1" style="height: 4px; width: 90px;"><div class="progress-bar bg-success" style="width: 24%;"></div></div>
+                    <div class="text-muted mt-1" style="font-size: 0.62rem;">120 แต้ม</div>
+                </div>
+            </div> -->
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success" style="font-size: 0.86rem;">แยกขยะ... เริ่มได้จากตัวเรา</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-navbar">
+           <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-success" style="font-size: 1.8rem;"></i>
+                    <h1>ประวัติการส่งขยะ</h1>
+                </div>
+                <p>ตรวจสอบรายการที่ส่งย้อนหลัง ดูรายละเอียด คะแนน และสถานะได้ที่นี่</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">ทุกการแยกขยะ สร้างการเปลี่ยนแปลงได้เสมอ</div>
+        </header>
+
+        <section class="history-summary-grid" aria-label="สรุปประวัติการส่งขยะ">
+            <article class="history-summary-card">
+                <span class="history-summary-icon"><i class="fa-solid fa-recycle"></i></span>
+                <div><small>จำนวนรายการทั้งหมด</small><strong>12 <small class="d-inline">ครั้ง</small></strong></div>
+            </article>
+            <article class="history-summary-card">
+                <span class="history-summary-icon"><i class="fa-solid fa-weight-hanging"></i></span>
+                <div><small>น้ำหนักขยะสะสม</small><strong>18.5 <small class="d-inline">ชิ้น</small></strong></div>
+            </article>
+            <article class="history-summary-card">
+                <span class="history-summary-icon"><i class="fa-solid fa-star"></i></span>
+                <div><small>คะแนนที่ได้รับทั้งหมด</small><strong>45 <small class="d-inline">แต้ม</small></strong></div>
+            </article>
+            <article class="history-summary-card">
+                <span class="history-summary-icon"><i class="fa-solid fa-leaf"></i></span>
+                <div><small>ลดการปล่อย CO₂</small><strong>13.0 <small class="d-inline">กก.</small></strong></div>
+            </article>
+        </section>
+
+        <div class="history-toolbar">
+            <div class="history-tabs" role="group" aria-label="กรองตามสถานะ">
+                <button class="history-tab is-active" type="button" data-filter="all" aria-pressed="true">ทั้งหมด <span>10</span></button>
+                <button class="history-tab" type="button" data-filter="approved" aria-pressed="false">ตรวจสอบแล้ว <span>7</span></button>
+                <button class="history-tab" type="button" data-filter="review" aria-pressed="false">รอตรวจ <span>2</span></button>
+                <button class="history-tab" type="button" data-filter="rejected" aria-pressed="false">ไม่ผ่าน <span>1</span></button>
+            </div>
+            <div class="history-search">
+                <label class="visually-hidden" for="history-search-input">ค้นหาประวัติ</label>
+                <input id="history-search-input" type="search" placeholder="ค้นหาวันที่ ประเภทขยะ หรือสถานะ...">
+                <label class="history-date-filter" for="history-date-input" title="กรองตามวันที่"><i class="fa-regular fa-calendar"></i></label>
+                <input class="visually-hidden" id="history-date-input" type="date" aria-label="กรองตามวันที่">
+            </div>
+        </div>
+
+        <div class="history-content-grid">
+            <section class="history-list-panel" aria-label="รายการประวัติการส่งขยะ">
+                <div class="history-list-head" aria-hidden="true">
+                    <span>วันที่ / เวลา</span><span>ประเภทขยะ</span><span>น้ำหนัก</span><span>แต้ม</span><span>สถานะ</span><span></span>
+                </div>
+                <div id="history-rows">
+                </div>
+                <div class="history-empty" id="history-empty" hidden>ไม่พบรายการที่ตรงกับการค้นหา</div>
+                <nav class="history-pagination" aria-label="แบ่งหน้ารายการ">
+                    <button class="history-page-button" type="button" aria-label="หน้าก่อนหน้า" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="history-page-button is-active" type="button" aria-current="page">1</button>
+                    <button class="history-page-button" type="button" aria-label="หน้าถัดไป" disabled><i class="fa-solid fa-chevron-right"></i></button>
+                </nav>
+            </section>
+
+            <aside class="history-detail-panel" aria-labelledby="history-detail-title">
+                <div class="history-detail-top">
+                    <h2 id="history-detail-title"><i class="fa-solid fa-arrow-left"></i> รายละเอียดรายการ</h2>
+                    <span class="history-detail-status" id="detail-status">อนุมัติแล้ว</span>
+                </div>
+                <div class="history-detail-body">
+                    <img class="history-detail-photo" src="https://i.pinimg.com/736x/43/e3/24/43e3244cbaf8cad4c52251a75f16fbd8.jpg" alt="ภาพประกอบเกี่ยวกับการจัดการขยะ">
+                    <div class="history-detail-meta">
+                        <span><i class="fa-regular fa-calendar"></i><span id="detail-date">15 ต.ค. 2569 เวลา 10:24 น.</span></span>
+                        <span><i class="fa-solid fa-location-dot"></i><span id="detail-location">จุดรับขยะหน้าอาคารเรียน</span></span>
+                    </div>
+                    <div class="history-detail-item">
+                        <span class="history-detail-item-name"><i class="fa-solid fa-bottle-water"></i><span><span id="detail-item">ขวดพลาสติก PET</span><small class="d-block text-muted" id="detail-type">ขยะรีไซเคิล</small></span></span>
+                        <i class="fa-solid fa-leaf text-success" aria-hidden="true"></i>
+                    </div>
+                    <div class="history-detail-metrics">
+                        <div><small>น้ำหนัก</small><strong><span id="detail-weight">2.5</span> ชิ้น</strong></div>
+                        <div><small>คะแนนที่ได้รับ</small><strong><i class="fa-solid fa-star"></i> <span id="detail-points">5</span> แต้ม</strong></div>
+                    </div>
+                    <h3 class="history-detail-section-title">รายละเอียดเพิ่มเติม</h3>
+                    <small class="text-muted">หมายเหตุ</small>
+                    <p class="mb-2" style="font-size: 0.68rem;" id="detail-note">ขยะสะอาดและแยกประเภทเรียบร้อยแล้ว</p>
+                    <h3 class="history-detail-section-title">ประวัติการตรวจสอบ</h3>
+                    <ul class="history-audit">
+                        <li><i class="fa-solid fa-user-check"></i><span><strong>ส่งรายการ</strong><br><span id="audit-submitted">15 ต.ค. 2569 เวลา 10:24 น.</span></span></li>
+                        <li><i class="fa-solid fa-magnifying-glass"></i><span><strong>เจ้าหน้าที่ตรวจสอบ</strong><br>15 ต.ค. 2569 เวลา 11:03 น.</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong>อนุมัติแล้ว</strong><br>15 ต.ค. 2569 เวลา 11:20 น.</span></li>
+                    </ul>
+                    <div class="history-detail-note"><i class="fa-solid fa-seedling"></i><span>ขอบคุณที่ช่วยลดขยะและดูแลสิ่งแวดล้อม</span></div>
+                </div>
+            </aside>
+        </div>
+
+        <footer class="waste-footer">
+            <span>TATC · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-graduation-cap me-1"></i> ต้นแบบเพื่อการศึกษา</span>
+        </footer>
+    </main>
+
+    <dialog class="history-modal" id="history-detail-modal" aria-labelledby="history-modal-title">
+        <div class="history-modal-shell">
+            <div class="history-modal-heading">
+                <h2 id="history-modal-title">รายละเอียดรายการส่งขยะ</h2>
+                <button class="history-modal-close" id="history-modal-close" type="button" aria-label="ปิดรายละเอียด"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="history-modal-content"></div>
+        </div>
+    </dialog>
+
+    <!--  Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+
+   <script>
+    // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let historyRows = [];
+    let historyTabs = [...document.querySelectorAll('.history-tab')];
+    let searchInput = document.querySelector('#history-search-input');
+    let dateInput = document.querySelector('#history-date-input');
+    let emptyMessage = document.querySelector('#history-empty');
+    let historyModal = document.querySelector('#history-detail-modal');
+    let modalContent = document.querySelector('#history-modal-content');
+    let currentFilter = 'all';
+
+    // แมปตัวเลข TypeWaste กลับเป็นชื่อประเภทขยะและไอคอน
+    const typeWasteMap = {
+        1: { name: 'RDF พิเศษ', category: 'rdf-special', icon: 'fa-fire-flame-curved' },
+        2: { name: 'RDF แบบปกติ', category: 'rdf-standard', icon: 'fa-fire' },
+        3: { name: 'ขยะทั่วไป', category: 'general', icon: 'fa-trash-can' },
+        4: { name: 'ถังพลาสติก', category: 'plastic-container', icon: 'fa-bottle-water' },
+        5: { name: 'ขวดกระป๋องอะลูมิเนียม', category: 'metal-cans', icon: 'fa-glass-water-droplet' },
+        6: { name: 'ขวดแก้ว', category: 'glass-bottles', icon: 'fa-wine-bottle' },
+        7: { name: 'กระดาษ', category: 'paper', icon: 'fa-box' },
+        8: { name: 'ขยะอันตราย', category: 'hazardous', icon: 'fa-triangle-exclamation' },
+        9: { name: 'ถังเศษอาหาร', category: 'food-scraps', icon: 'fa-seedling' },
+        10: { name: 'ถังน้ำและเครื่องดื่ม', category: 'drinks-liquid', icon: 'fa-glass-water' },
+        11: { name: 'ขยะอันตรายติดเชื้อ', category: 'infectious-waste', icon: 'fa-kit-medical' }
+    };
+
+    // ฟังก์ชันอัปเดตแผงแสดงรายละเอียดทางขวา
+    function updateDetails(row) {
+        historyRows.forEach(item => {
+            const selected = item === row;
+            item.classList.toggle('is-selected', selected);
+            item.setAttribute('aria-pressed', String(selected));
+        });
+
+        const status = row.dataset.status; // เช่น 'approved', 'review' (รอตรวจสอบ), 'rejected' (ไม่ผ่าน)
+        const statusLabel = row.dataset.statusLabel;
+        
+        document.querySelector('#detail-status').textContent = statusLabel;
+        document.querySelector('#detail-date').textContent = `${row.dataset.dateLabel} เวลา ${row.dataset.time}`;
+        document.querySelector('#detail-location').textContent = row.dataset.location;
+        document.querySelector('#detail-item').textContent = row.dataset.item;
+        document.querySelector('#detail-type').textContent = row.dataset.type;
+        document.querySelector('#detail-weight').textContent = row.dataset.weight;
+        document.querySelector('#detail-points').textContent = row.dataset.points;
+        document.querySelector('#detail-note').textContent = row.dataset.note || 'ไม่มีหมายเหตุ';
+        document.querySelector('#audit-submitted').textContent = `${row.dataset.dateLabel} เวลา ${row.dataset.time}`;
+        document.querySelector('.history-detail-photo').src = row.dataset.photo || 'https://i.pinimg.com/736x/43/e3/24/43e3244cbaf8cad4c52251a75f16fbd8.jpg';
+        
+        const statusBadge = document.querySelector('#detail-status');
+        statusBadge.className = `history-detail-status${status === 'review' || status === 'pending' ? ' is-pending' : status === 'rejected' ? ' is-rejected' : ''}`;
+
+        // 🌟 จัดการแสดง/ซ่อนขั้นตอนในประวัติการตรวจสอบ (Audit Trail) ตามสถานะ
+        const auditList = document.querySelector('.history-audit');
+        if (auditList) {
+            const auditItems = auditList.querySelectorAll('li');
+            
+            if (auditItems.length >= 3) {
+                const stepSubmitted = auditItems[0]; // ส่งรายการ
+                const stepChecking = auditItems[1];   // เจ้าหน้าที่ตรวจสอบ
+                const stepApproved = auditItems[2];   // อนุมัติแล้ว / ผลลัพธ์
+
+                // แสดงขั้นตอน "ส่งรายการ" เสมอ
+                stepSubmitted.style.display = 'flex';
+
+                if (status === 'review' || status === 'pending') {
+                    // ถ้ายังรอตรวจสอบ ซ่อนขั้นตอนการตรวจสอบและอนุมัติออกไปก่อน
+                    stepChecking.style.display = 'none';
+                    stepApproved.style.display = 'none';
+                } else if (status === 'approved') {
+                    // ถ้าอนุมัติแล้ว แสดงครบทุกขั้นตอน
+                    stepChecking.style.display = 'flex';
+                    stepApproved.style.display = 'flex';
+                    stepApproved.querySelector('span').innerHTML = `<strong>อนุมัติแล้ว</strong><br>${row.dataset.dateLabel}`;
+                } else if (status === 'rejected') {
+                    // ถ้าไม่ผ่านการอนุมัติ ให้ปรับเปลี่ยนข้อความขั้นตอนสุดท้ายเป็นไม่ผ่าน
+                    stepChecking.style.display = 'flex';
+                    stepApproved.style.display = 'flex';
+                    stepApproved.querySelector('span').innerHTML = `<strong class="text-danger">ไม่ผ่านการอนุมัติ</strong><br>${row.dataset.dateLabel}`;
+                }
+            }
+        }
+    }
+
+    // ฟังก์ชันดึงข้อมูลประวัติจาก Supabase โดยใช้ UserId
+    async function fetchUserWasteHistory(userId) {
+        if (!supabaseClient) {
+            console.error('Supabase Client not initialized');
+            return;
+        }
+
+        try {
+            // ดึงข้อมูลจากตาราง SendWaste โดยกรองเฉพาะ UserIdRequest ที่ตรงกับผู้ใช้ปัจจุบัน
+            const { data, error } = await supabaseClient
+                .from('SendWaste')
+                .select('*')
+                .eq('UserIdRequest', userId)
+                .order('SubmissionDatetime', { ascending: false });
+
+            if (error) throw error;
+
+            updateSummaryCards(data || []);
+            
+            const container = document.querySelector('#history-rows');
+            container.innerHTML = ''; // ล้างข้อมูลจำลองเดิมออก
+
+            if (!data || data.length === 0) {
+                emptyMessage.hidden = false;
+                historyRows = [];
+                return;
+            }
+
+            emptyMessage.hidden = true;
+            historyRows = [];
+
+            data.forEach((record, index) => {
+                const subDate = new Date(record.SubmissionDatetime || record.created_at);
+                const dateFormatted = subDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+                const timeFormatted = subDate.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
+                const dateISO = subDate.toISOString().split('T')[0];
+
+                // แปลงสถานะ (Status: 0 = รอตรวจสอบ/Pending, 1 = อนุมัติ/Approved, 2 = ไม่ผ่าน/Rejected)
+                let status = 'review';
+                let statusLabel = 'รอตรวจสอบ';
+                if (record.Status === 1) {
+                    status = 'approved';
+                    statusLabel = 'อนุมัติแล้ว';
+                } else if (record.Status === 2 || record.Status === 3) {
+                    status = 'rejected';
+                    statusLabel = 'ไม่ผ่าน';
+                }
+
+                const wasteInfo = typeWasteMap[record.TypeWaste] || { name: 'ขยะทั่วไป', category: 'general', icon: 'fa-trash-can' };
+                const points = status === 'rejected' ? 0 : (Number(record.EarnedPoints) || 0);
+                const weight = Number(record.WeightWaste || 0).toFixed(1);
+
+                // สร้างปุ่มแถวประวัติ (HTML Element)
+                const btn = document.createElement('button');
+                btn.className = `history-row ${index === 0 ? 'is-selected' : ''}`;
+                btn.type = 'button';
+                btn.dataset.status = status;
+                btn.dataset.statusLabel = statusLabel;
+                btn.dataset.search = `${dateFormatted} ${wasteInfo.name} ${record.CollectionPoint || ''} ${statusLabel}`.toLowerCase();
+                btn.dataset.date = dateISO;
+                btn.dataset.item = wasteInfo.name;
+                btn.dataset.type = 'ขยะรีไซเคิล/ทั่วไป';
+                btn.dataset.weight = weight;
+                btn.dataset.points = String(points);
+                btn.dataset.dateLabel = dateFormatted;
+                btn.dataset.time = timeFormatted;
+                btn.dataset.location = record.CollectionPoint || 'จุดรับขยะกลาง';
+                btn.dataset.note = record.Reson || '';
+                btn.dataset.photo = record.ImageUrl || '';
+
+                btn.innerHTML = `
+                    <span class="history-date"><strong>${dateFormatted}</strong><small>${timeFormatted}</small></span>
+                    <span class="history-item"><i class="history-item-icon fa-solid ${wasteInfo.icon}"></i><span><strong>${wasteInfo.name}</strong><small>${weight} ชิ้น</small></span></span>
+                    <span class="history-weight">${weight} ชิ้น</span>
+                    <span class="history-points"><i class="fa-solid fa-coins"></i> ${points}</span>
+                    <span class="history-status ${status === 'review' ? 'is-pending' : status === 'rejected' ? 'is-rejected' : ''}">${statusLabel}</span>
+                    <i class="history-open fa-solid fa-chevron-right"></i>
+                `;
+
+                bindHistoryRow(btn);
+                container.appendChild(btn);
+                historyRows.push(btn);
+            });
+
+            // อัปเดตตัวเลขจำนวนใน Tab แบนเนอร์
+            updateTabCounts();
+
+            // อัปเดตแสดงรายละเอียดแถวแรกสุด
+            if (historyRows.length > 0) {
+                updateDetails(historyRows[0]);
+            }
+
+        } catch (err) {
+            console.error('Error fetching waste history:', err);
+        }
+    }
+
+    // ฟังก์ชันคำนวณและอัปเดตตัวเลขการสรุปผล (Summary Cards)
+    function updateSummaryCards(wasteData) {
+    let totalItems = wasteData.length; // จำนวนรายการทั้งหมด (ครั้ง)
+    let totalWeight = 0; // น้ำหนักขยะสะสม (กก.)
+    let totalPoints = 0; // คะแนนที่ได้รับทั้งหมด (แต้ม)
+
+    wasteData.forEach(record => {
+        // คำนวณน้ำหนัก (ถ้าสถานะไม่เป็นไม่ผ่าน ถึงจะนำมาคำนวณ หรือรวมทั้งหมดตามต้องการ)
+        totalWeight += Number(record.WeightWaste || 0);
+
+        // คำนวณคะแนนเฉพาะรายการที่อนุมัติแล้ว หรือรวมคะแนนที่ได้รับ (EarnedPoints)
+        if (record.Status === 1) {
+            totalPoints += Number(record.EarnedPoints || 0);
+        }
+    });
+
+    // คำนวณการลด CO₂ สมมติฐาน: น้ำหนักขยะสะสม 1 กก. ลด CO₂ ได้ประมาณ 0.7 กก. (หรือปรับสูตรตามต้องการ)
+    let totalCO2 = totalWeight * 0.7;
+
+    // อัปเดตค่าลงใน HTML Summary Cards
+    // หมายเหตุ: ปรับ Selector ให้ตรงกับ HTML ของคุณ
+    const cards = document.querySelectorAll('.history-summary-card strong');
+    if (cards.length >= 4) {
+        cards[0].innerHTML = `${totalItems} <small class="d-inline">ครั้ง</small>`;
+        cards[1].innerHTML = `${totalWeight.toFixed(1)} <small class="d-inline">ชิ้น</small>`; // แก้หน่วยจาก ชิ้น เป็น กก. ให้ถูกต้องตามบริบทน้ำหนัก
+        cards[2].innerHTML = `${totalPoints} <small class="d-inline">แต้ม</small>`;
+        cards[3].innerHTML = `${totalCO2.toFixed(1)} <small class="d-inline">กก.</small>`;
+    }
+}
+
+    function updateTabCounts() {
+        historyTabs.forEach(tab => {
+            const filterStatus = tab.dataset.filter;
+            const count = filterStatus === 'all' 
+                ? historyRows.length 
+                : historyRows.filter(row => row.dataset.status === filterStatus).length;
+            const spanCount = tab.querySelector('span');
+            if (spanCount) spanCount.textContent = String(count);
+        });
+    }
+
+    function openDetailsModal(row) {
+        updateDetails(row);
+        const detailCopy = document.querySelector('.history-detail-panel').cloneNode(true);
+        detailCopy.classList.add('history-modal-detail');
+        detailCopy.removeAttribute('aria-labelledby');
+        detailCopy.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+        modalContent.replaceChildren(detailCopy);
+        if (historyModal) historyModal.showModal();
+    }
+
+    function filterHistory() {
+        const query = searchInput.value.trim().toLowerCase();
+        const selectedDate = dateInput.value;
+        const visibleRows = historyRows.filter(row => {
+            const matchesStatus = currentFilter === 'all' || row.dataset.status === currentFilter;
+            const matchesSearch = !query || row.dataset.search.includes(query);
+            const matchesDate = !selectedDate || row.dataset.date === selectedDate;
+            const visible = matchesStatus && matchesSearch && matchesDate;
+            row.hidden = !visible;
+            return visible;
+        });
+        emptyMessage.hidden = visibleRows.length > 0;
+        if (!visibleRows.includes(document.querySelector('.history-row.is-selected')) && visibleRows.length) {
+            updateDetails(visibleRows[0]);
+        }
+    }
+
+    historyTabs.forEach(tab => tab.addEventListener('click', () => {
+        currentFilter = tab.dataset.filter;
+        historyTabs.forEach(item => {
+            const active = item === tab;
+            item.classList.toggle('is-active', active);
+            item.setAttribute('aria-pressed', String(active));
+        });
+        filterHistory();
+    }));
+
+    function bindHistoryRow(row) {
+        row.addEventListener('click', event => {
+            updateDetails(row);
+            if (event.target.closest('.history-open') || event.detail === 0) {
+                openDetailsModal(row);
+            }
+        });
+    }
+
+    // โหลดข้อมูลเมื่อเปิดหน้าเว็บ และตรวจสอบ Session ผู้ใช้
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedUser = localStorage.getItem('currentUser');
+        
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            
+            // แสดงชื่อผู้ใช้ที่มุมจอ
+            const nameSpan = document.getElementById('textUser');
+            const nameSpanSecond = document.getElementById('textUser_second');
+            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
+            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
+
+            // เรียกดึงประวัติขยะจาก Supabase โดยใช้ id ของผู้ใช้ที่ Login อยู่ (UserIdRequest)
+            if (user.id) {
+                fetchUserWasteHistory(user.id);
+            }
+        } else {
+            window.location.href = 'index.html';
+        }
+
+        const logoutButton = document.getElementById('logout-btn');
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+
+                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performLogout();
+                        }
+                    });
+                } else {
+                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
+                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+                        performLogout();
+                    }
+                }
+            });
+        }
+    });
+
+    function performLogout() {
+        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
+        localStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+    }
+
+    // Event Listeners ต่างๆ
+    const closeBtn = document.querySelector('#history-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => historyModal.close());
+    
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && historyModal && historyModal.open) historyModal.close();
+    });
+    
+    if (historyModal) {
+        historyModal.addEventListener('click', event => {
+            if (event.target === historyModal) historyModal.close();
+        });
+    }
+    
+    if (searchInput) searchInput.addEventListener('input', filterHistory);
+    if (dateInput) dateInput.addEventListener('change', filterHistory);
+</script>
+</body>
+</html>
