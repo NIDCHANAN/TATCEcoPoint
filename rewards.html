@@ -544,7 +544,7 @@
                 .from('Education')
                 .select('Points')
                 .eq('UserId', userId)
-                .eq('Status', 1);
+                .eq('Status', 2);
 
             let educationPoints = 0;
             if (!eduError && eduData) {
