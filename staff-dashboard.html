@@ -162,8 +162,7 @@
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
-
-   <script>
+<script>
     // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
     const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
@@ -191,8 +190,8 @@
     let allRecords = [];
     let currentPeriod = 'week';
 
-    // 2. ฟังก์ชันดึงข้อมูลทั้งหมดจาก Supabase ตาราง SendWaste พร้อม Join ตาราง User
-  async function loadRecordsFromSupabase() {
+    // 2. ฟังก์ชันดึงข้อมูลทั้งหมดจาก Supabase ตาราง SendWaste พร้อม Join ตาราง User (ใช้ updated_at)
+    async function loadRecordsFromSupabase() {
         if (!supabaseClient) {
             console.error('Supabase Client not initialized');
             return;
@@ -209,12 +208,13 @@
                         LastName
                     )
                 `)
-                .order('SubmissionDatetime', { ascending: false });
+                .order('updated_at', { ascending: false }); // 🌟 เปลี่ยนมาเรียงตาม updated_at
 
             if (error) throw error;
 
             allRecords = (data || []).map(record => {
-                const subDate = new Date(record.SubmissionDatetime || record.created_at);
+                // 🌟 ดึงค่าจาก updated_at เป็นหลัก (ถ้าไม่มีให้ fallback ไปใช้ created_at)
+                const subDate = new Date(record.updated_at || record.created_at);
                 
                 // 🌟 ใช้ en-CA เพื่อบังคับรูปแบบ YYYY-MM-DD ตามเวลาไทยโดยไม่มีเครื่องหมายคอมมามากวนใจ
                 const dateISO = new Intl.DateTimeFormat('en-CA', {
@@ -258,7 +258,8 @@
             console.error('Error fetching dashboard records from Supabase:', err);
         }
     }
-   function startOfWeek(date) {
+ 
+    function startOfWeek(date) {
         const d = date ? new Date(date) : new Date();
         const start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
         const daysSinceMonday = (start.getDay() + 6) % 7;
@@ -274,7 +275,6 @@
     function periodRange(period) {
         const today = new Date();
         
-        // 🌟 ดึงค่าปี เดือน วัน ตามเวลาท้องถิ่นของเครื่อง (Local Time) 100% ป้องกันปัญหา Timezone UTC
         const year = today.getFullYear();
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
@@ -321,15 +321,6 @@
         });
     }
 
-    // function recordsInPeriod(period) {
-    //     const { start, end } = periodRange(period);
-    //     return allRecords.filter(record => {
-    //         if (!record.date) return false;
-    //         const date = new Date(`${record.date}T12:00:00`);
-    //         return date >= start && date <= end;
-    //     });
-    // }
-
     function formatRange(period) {
         const { start, end } = periodRange(period);
         const formatter = new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -357,22 +348,18 @@
     }
 
    function groupValue(record, period, group) {
-        console.log(record);
         const isApproved = record.status === 'approved' || record.status === 1 || record.Status === 1;
         if (!isApproved) return 0;
 
         if (period === 'day' || period === 'daily') {
-            // 🌟 เช็คแค่วันที่ตรงกันว่าเป็นวันเดียวกันหรือไม่
             const recordDateOnly = (record.date || '').split('T')[0];
             const todayStr = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
             
             if (recordDateOnly !== todayStr) return 0;
 
-            // ดึงชั่วโมงจากเวลา record.time
             const timeStr = String(record.time || '');
             const hourMatch = timeStr.match(/(\d{1,2})/);
             
-            // ถ้าดึงชั่วโมงได้ ให้ลงแท่งกราฟตามชั่วโมงนั้น ถ้าไม่ได้ให้ลงที่ช่วง 10:00 หรือ 12:00 เป็นค่าเริ่มต้น
             const recordHour = hourMatch ? Number(hourMatch[1]) : 10;
             const targetHour = Number(group.key);
             
@@ -458,7 +445,6 @@
     }
 
     function renderWasteCategories(records) {
-        // 🌟 กำหนดรายการครบทั้ง 11 ประเภทตามระบบ TypeWaste
         const definitions = [
             { id: 1, label: 'RDF พิเศษ', icon: 'fa-fire', cat: 'recycle' },
             { id: 2, label: 'RDF แบบปกติ', icon: 'fa-fire-flame-curved', cat: 'recycle' },
@@ -474,9 +460,7 @@
         ];
 
         const totals = definitions.map(definition => {
-            // กรองเรคคอร์ดที่ตรงกับ TypeWaste ของแต่ละประเภท
             const categoryRecords = records.filter(record => {
-                // เทียบจากรหัส TypeWaste หรือชื่อประเภท
                 return record.TypeWaste === definition.id || 
                        `${record.item || ''}`.includes(definition.label);
             });
@@ -567,7 +551,7 @@
 
     periodButtons.forEach(button => button.addEventListener('click', () => {
         let p = button.dataset.period || button.getAttribute('data-period');
-        if (p === 'daily') p = 'day'; // เผื่อปุ่มใช้ชื่อ daily
+        if (p === 'daily') p = 'day';
         currentPeriod = p;
 
         periodButtons.forEach(item => {
@@ -582,7 +566,6 @@
 
     if (searchInput) searchInput.addEventListener('input', renderDashboard);
 
-    // เริ่มต้นโหลดข้อมูลจริงจาก Supabase เมื่อเปิดหน้าเว็บ
     document.addEventListener('DOMContentLoaded', () => {
         const savedUser = localStorage.getItem('currentUser');
         if (savedUser) {
@@ -599,9 +582,8 @@
 
         if (logoutButton) {
             logoutButton.addEventListener('click', (e) => {
-                e.preventDefault(); // ป้องกันลิงก์ดีפולต์ `#`
+                e.preventDefault();
 
-                // หากโปรเจกต์ของคุณใช้ SweetAlert (Swal) สามารถใช้กล่องยืนยันเท่ๆ ได้
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
                         title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
@@ -618,7 +600,6 @@
                         }
                     });
                 } else {
-                    // ถ้าระบบไม่มี SweetAlert ให้ใช้ confirm พื้นฐานของเบราว์เซอร์
                     if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
                         performLogout();
                     }
@@ -628,7 +609,6 @@
     });
 
     function performLogout() {
-        // ลบข้อมูล session ของผู้ใช้ที่บันทึกไว้
         localStorage.removeItem('currentUser');
         window.location.href = 'index.html';
     }
