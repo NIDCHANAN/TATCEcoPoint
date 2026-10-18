@@ -131,7 +131,7 @@
                         <div class="d-flex gap-2">
                             <button class="btn btn-outline-success btn-sm rounded-pill px-3 is-active" data-reward-filter="all" aria-pressed="true">ทั้งหมด (<span id="filter-all-count">20</span>)</button>
                             <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-reward-filter="available" aria-pressed="false">แลกได้ (<span id="filter-available-count">0</span>)</button>
-                            <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-reward-filter="redeemed" aria-pressed="false">แลกแล้ว (<span id="filter-redeemed-count">0</span>)</button>
+                            <!-- <button class="btn btn-outline-success btn-sm rounded-pill px-3" data-reward-filter="redeemed" aria-pressed="false">แลกแล้ว (<span id="filter-redeemed-count">0</span>)</button> -->
                         </div>
                     </div>
 
@@ -456,7 +456,7 @@
                     <div class="home-panel-heading">
                         <div class="d-flex align-items-center gap-2">
                             <span class="home-panel-icon is-location"><i class="fa-solid fa-location-dot"></i></span>
-                            <div><h2 id="collection-title">จุดรับรางวัล</h2><p>โรงเรียน TATC</p></div>
+                            <div><h2 id="collection-title">จุดรับรางวัล</h2><p>วิทยาลัยเทคโนโลยียานยนต์โตโยต้า</p></div>
                         </div>
                         <span class="home-open-badge"><i class="fa-solid fa-circle"></i> เปิดอยู่</span>
                     </div>
@@ -638,7 +638,7 @@
                             RewardName: reward, 
                             Cost: cost, 
                             Code: code,
-                            Status: 'รอรับ' 
+                            Status: 1 
                         }
                     ]);
 
@@ -700,15 +700,18 @@
             const filterAllCount = document.querySelector('#filter-all-count');
             if (filterAllCount) filterAllCount.textContent = String(rewardCards.length);
 
-            rewardCards.forEach(card => {
-                const redeemed = studentState.redemptions.some(item => item.reward === card.dataset.reward);
-                const available = !redeemed && studentState.points >= Number(card.dataset.cost);
-                card.dataset.state = redeemed ? 'redeemed' : available ? 'available' : 'unavailable';
-                card.classList.toggle('is-redeemed', redeemed);
+           rewardCards.forEach(card => {
+                const cost = Number(card.dataset.cost);
+                const available = studentState.points >= cost;
+                
+                card.dataset.state = available ? 'available' : 'unavailable';
+                
+                card.classList.toggle('is-redeemed', false); 
+                
                 const button = card.querySelector('.home-redeem-button');
                 if (button) {
-                    button.disabled = redeemed || !available;
-                    button.textContent = redeemed ? 'แลกแล้ว' : available ? 'แลกเลย' : 'แต้มไม่พอ';
+                    button.disabled = !available; // ปิดปุ่มก็ต่อเมื่อแต้มไม่พอ
+                    button.textContent = available ? 'แลกเลย' : 'แต้มไม่พอ'; // ข้อความบนปุ่มจะสลับแค่วิธีนี้
                 }
             });
 
