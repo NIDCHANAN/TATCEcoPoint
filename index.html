@@ -519,7 +519,8 @@
                   <label class="role-label" for="roleStudent">
                     <i class="bi bi-mortarboard"></i> นักศึกษา
                   </label>
-                </div>                             
+                </div>                             
+
              </div>
             </div>
 
@@ -610,6 +611,22 @@
                 </div>
 
               </div>
+
+               <div class="col-12 mt-3">
+                  <label for="regClass" class="form-label">ห้องเรียน <span class="text-danger">*</span></label>
+                  <div class="input-group-custom">
+                    <i class="fa-solid fa-school input-icon-left"></i>
+                    <input 
+                      type="text" 
+                      id="regClass" 
+                      class="form-control-custom" 
+                      placeholder="1/1" 
+                      maxlength="100" 
+                      title="กรุณากรอกห้องเรียนให้ถูกต้อง"
+                      required
+                    >
+                  </div>
+                </div>
             </div>
 
             <!-- Row 2: รหัสผ่าน & ยืนยันรหัสผ่าน -->
@@ -879,8 +896,10 @@
       const fullName = document.getElementById('regfullName').value.trim();
       const lastName = document.getElementById('reglastName').value.trim();
       const department = document.querySelector('input[name="department"]:checked')?.value || 'AT';
+      const className = document.getElementById('regClass').value.trim();
       const password = document.getElementById('regPassword').value;
       const confirmPassword = document.getElementById('regConfirmPassword').value;
+      const resDepartment = department + ' ' + className; // Default status for student
 
       // 1. Validation ตรวจสอบความถูกต้องเบื้องต้น
       if (password !== confirmPassword) {
@@ -909,8 +928,7 @@
       const statusMap = {
         'student': 1,
         'committee': 2,
-        'admin': 3,
-        'tat_tmt': 4
+        'admin': 3
       };
       const statusInt = statusMap[roleValue] || 1;
 
@@ -955,7 +973,8 @@
               LastName: lastName,       // นามสกุล
               Password: password,       // รหัสผ่าน
               Status: statusInt,        // สิทธิ์ใช้งาน (1=นักศึกษา, 2=กรรมการ, 3=Admin, 4=TAT/TMT)
-              Active: true              // เปิดใช้งานบัญชีทันที
+              Active: true,              // เปิดใช้งานบัญชีทันที
+              Department: resDepartment  // ภาควิชา
             }
           ]);
 
