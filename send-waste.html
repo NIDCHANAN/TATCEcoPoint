@@ -667,6 +667,7 @@
                 let totalPoints = (educationPoints + sendWastePoints) - totalSpent;
                 let finalPoints = Math.max(0, totalPoints); // ป้องกันไม่ให้ติดลบ
 
+                console.log(`User ID: ${userId}, Education Points: ${educationPoints}, SendWaste Points: ${sendWastePoints}, Total Spent: ${totalSpent}, Final Points: ${finalPoints}`);
                 // 5. นำไปแสดงผลที่แท็ก id="submitter-points" บนหน้าเว็บ
                 const pointsElement = document.getElementById('submitter-points');
                 if (pointsElement) {
