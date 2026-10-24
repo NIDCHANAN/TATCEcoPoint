@@ -27,9 +27,9 @@
                     <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
                     <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
                     <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li>
-                    <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการส่งขยะ</a></li>
-                    <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li> -->
-                    <li class="active"><a href="staff-dashboard.html" aria-current="page"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                    <li><a href="review.html"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการส่งขยะ</a></li> -->
+                    <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน</a></li> 
+                    <li class="active"><a href="staff-dashboard.html" aria-current="page"><i class="fa-solid fa-chart-line"></i> สรุปผล</a></li>
                 </ul>
             </nav>
         </div>
@@ -50,16 +50,14 @@
     </aside>
 
     <main class="main-content">
+        <!-- Navbar ด้านบน -->
         <div class="top-navbar">
-            <!-- <button class="top-icon-btn" type="button" aria-label="การแจ้งเตือน"><i class="fa-regular fa-bell"></i></button> -->
             <div class="dropdown">
                 <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                     <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
-                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ชื่อผู้ใช้</span>
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">ผู้ดูแลระบบ</span>
                     <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
                 </div>
-
-                <!-- 🌟 เมนูดรอปดาวน์สำหรับ Logout -->
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
                     <li>
                         <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
@@ -70,88 +68,289 @@
             </div>
         </div>
 
-        <header class="hero-banner">
+        <!-- Header Banner -->
+        <header class="hero-banner d-flex justify-content-between align-items-center">
             <div>
                 <div class="d-flex align-items-center gap-2">
                     <i class="fa-solid fa-chart-line text-success staff-hero-icon" aria-hidden="true"></i>
-                    <h1>ภาพรวมการส่งขยะ</h1>
+                    <h1>ภาพรวมสถิติขยะแลกแต้ม</h1>
                 </div>
-                <p>ติดตามปริมาณขยะ คะแนน และสถานะการตรวจรับ</p>
+                <p>ช่วงวันที่ <span id="hero-date-range">19 ตุลาคม 2569 - 11 ธันวาคม 2569</span></p>
             </div>
-            <div class="speech-bubble d-none d-lg-block">ข้อมูลรวมสำหรับ TAT/TMT</div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-danger btn-sm rounded-3"><i class="fa-solid fa-file-pdf me-1"></i> PDF</button>
+                <button class="btn btn-outline-success btn-sm rounded-3"><i class="fa-solid fa-file-excel me-1"></i> Excel</button>
+            </div>
         </header>
 
+        <!-- Toolbar สำหรับกรองข้อมูล -->
         <section class="staff-dashboard-toolbar" aria-label="เลือกช่วงเวลารายงาน">
             <div class="staff-period-control" role="group" aria-label="ช่วงเวลารายงาน">
-                <button class="staff-period-button" type="button" data-period="day" aria-pressed="false">รายวัน</button>
-                <button class="staff-period-button is-active" type="button" data-period="week" aria-pressed="true">รายสัปดาห์</button>
-                <button class="staff-period-button" type="button" data-period="month" aria-pressed="false">รายเดือน</button>
+                <button class="staff-period-button" type="button" data-period="all">ภาพรวมทั้งหมด</button>
+                <button class="staff-period-button is-active" type="button" data-period="day">รายวัน</button>
+                <button class="staff-period-button" type="button" data-period="range">ช่วงวันที่</button>
             </div>
-            <div class="staff-report-date"><i class="fa-regular fa-calendar"></i><span id="report-date-range"></span></div>
+            <div class="staff-report-date"><i class="fa-regular fa-calendar"></i><span id="report-date-range">19 ต.ค. 2569 - 11 ธ.ค. 2569</span></div>
         </section>
 
+        <!-- สรุปผล 4 การ์ดหลัก -->
         <section class="staff-summary-grid" aria-label="สรุปผลตามช่วงเวลา">
-            <article class="home-metric-card"><span class="home-metric-icon is-blue"><i class="fa-solid fa-inbox"></i></span><div><small>รายการที่ส่ง</small><strong><span id="summary-submissions">0</span> <small class="d-inline">รายการ</small></strong></div></article>
-            <article class="home-metric-card"><span class="home-metric-icon is-green"><i class="fa-solid fa-weight-hanging"></i></span><div><small>จำนวนรับเข้าระบบ</small><strong><span id="summary-weight">0</span> <small class="d-inline">ชิ้น</small></strong></div></article>
-            <article class="home-metric-card"><span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span><div><small>แต้มที่อนุมัติ</small><strong><span id="summary-points">0</span> <small class="d-inline">แต้ม</small></strong></div></article>
-            <article class="home-metric-card"><span class="home-metric-icon is-leaf"><i class="fa-regular fa-clock"></i></span><div><small>รอตรวจสอบ</small><strong><span id="summary-pending">0</span> <small class="d-inline">รายการ</small></strong></div></article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-leaf"><i class="fa-solid fa-leaf"></i></span>
+                <div>
+                    <small>น้ำหนักขยะรวม</small>
+                    <strong><span id="summary-weight">1,245.60</span> <small class="d-inline">กก.</small></strong>
+                    <!-- <div class="text-success small" style="font-size: 0.75rem;"><i class="fa-solid fa-caret-up"></i> +12.5% จากช่วงก่อนหน้า</div> -->
+                </div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-blue"><i class="fa-solid fa-users"></i></span>
+                <div>
+                    <small>นักศึกษาที่เข้าร่วม</small>
+                    <strong><span id="summary-students">342</span> <small class="d-inline">คน</small></strong>
+                    <!-- <div class="text-success small" style="font-size: 0.75rem;"><i class="fa-solid fa-caret-up"></i> +8.3% จากช่วงก่อนหน้า</div> -->
+                </div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span>
+                <div>
+                    <small>คะแนนที่ได้รับ</small>
+                    <strong><span id="summary-points">24,780</span> <small class="d-inline">แต้ม</small></strong>
+                    <!-- <div class="text-success small" style="font-size: 0.75rem;"><i class="fa-solid fa-caret-up"></i> +15.6% จากช่วงก่อนหน้า</div> -->
+                </div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-purple" style="background-color: #f0e6ff; color: #8a2be2;"><i class="fa-solid fa-gift"></i></span>
+                <div>
+                    <small>การแลกรางวัล</small>
+                    <strong><span id="summary-redemptions">86</span> <small class="d-inline">ครั้ง</small></strong>
+                    <!-- <div class="text-success small" style="font-size: 0.75rem;"><i class="fa-solid fa-caret-up"></i> +10.2% จากช่วงก่อนหน้า</div> -->
+                </div>
+            </article>
         </section>
 
-        <div class="staff-dashboard-grid">
-            <section class="staff-panel staff-chart-panel" aria-labelledby="activity-chart-title">
-                <div class="staff-panel-heading">
-                    <div><h2 id="activity-chart-title">น้ำหนักขยะที่รับเข้าระบบ</h2><p id="activity-chart-caption">แยกตามวันในสัปดาห์</p></div>
-                    <span class="staff-chart-unit">กิโลกรัม</span>
-                </div>
-                <div class="staff-chart" id="activity-chart" role="img" aria-label="กราฟน้ำหนักขยะที่อนุมัติแล้ว"></div>
-                <div class="staff-chart-legend"><span><i></i> อนุมัติแล้ว</span><span id="chart-total-label">รวม 0 ชิ้น</span></div>
-            </section>
+        <!-- โซนที่ 1: สัดส่วนขยะ 11 ประเภท + ปริมาณขยะ 11 ประเภท + ปฏิทินเลือกวันที่ -->
+        <div class="row g-3 mb-4">
+            <!-- สัดส่วนขยะทั้ง 11 ประเภท -->
+            <div class="col-lg-5">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div>
+                            <h2>สัดส่วนขยะทั้ง 11 ประเภท</h2>
+                            <p>แสดงเป็นเปอร์เซ็นต์ของน้ำหนักขยะรวม</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center p-3">
+                        <canvas id="category-pie-chart" style="max-height: 220px;"></canvas>
+                    </div>
+                </section>
+            </div>
 
-            <section class="staff-panel staff-status-panel" aria-labelledby="status-breakdown-title">
-                <div class="staff-panel-heading"><div><h2 id="status-breakdown-title">สถานะรายการ</h2><p id="status-breakdown-caption">ภาพรวมรายการในช่วงเวลา</p></div></div>
-                <div class="staff-status-total"><strong id="status-total">0</strong><span>รายการ</span></div>
-                <div class="staff-status-bar" aria-hidden="true">
-                    <span class="is-approved" id="status-bar-approved"></span>
-                    <span class="is-pending" id="status-bar-pending"></span>
-                    <span class="is-rejected" id="status-bar-rejected"></span>
-                </div>
-                <div class="staff-status-legend">
-                    <div><span class="staff-status-dot is-approved"></span><span>อนุมัติแล้ว</span><strong id="status-approved">0</strong></div>
-                    <div><span class="staff-status-dot is-pending"></span><span>รอตรวจ</span><strong id="status-pending">0</strong></div>
-                    <div><span class="staff-status-dot is-rejected"></span><span>ไม่รับ</span><strong id="status-rejected">0</strong></div>
-                </div>
-                <a class="staff-review-link" href="review.html"><i class="fa-solid fa-clipboard-check"></i> ไปหน้าตรวจรับ <i class="fa-solid fa-arrow-right"></i></a>
-            </section>
+            <!-- ปริมาณขยะทั้ง 11 ประเภท (กก.) -->
+            <div class="col-lg-4">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div>
+                            <h2>ปริมาณขยะทั้ง 11 ประเภท</h2>
+                            <p>หน่วย: กิโลกรัม</p>
+                        </div>
+                    </div>
+                    <canvas id="category-bar-chart" style="max-height: 220px;"></canvas>
+
+                    <!-- <div class="staff-chart p-2" id="category-bar-chart" style="height: 220px;"></div> -->
+                </section>
+            </div>
+
+            <!-- เลือกวันที่ดูข้อมูล (Calendar Widget) -->
+            <div class="col-lg-3">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div><h2>เลือกวันที่ดูข้อมูล</h2></div>
+                    </div>
+                    <div class="p-2 text-center">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <button class="btn btn-sm btn-light">&lt;</button>
+                            <strong style="font-size: 0.9rem;">ตุลาคม 2569</strong>
+                            <button class="btn btn-sm btn-light">&gt;</button>
+                        </div>
+                        <table class="table table-borderless table-sm small text-center mb-2" style="font-size: 0.75rem;">
+                            <thead>
+                                <tr class="text-muted"><th>อา.</th><th>จ.</th><th>อ.</th><th>พ.</th><th>พฤ.</th><th>ศ.</th><th>ส.</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td></td><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td></tr>
+                                <tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+                                <tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+                                <tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
+                                <tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="bg-light p-2 rounded-3 text-start mb-2" style="font-size: 0.8rem;">
+                            <small class="text-muted d-block">วันที่เลือก</small>
+                            <i class="fa-regular fa-calendar-check text-success me-1"></i> 
+                            <span id="report-date-range2">19 ตุลาคม 2569</span>
+                        </div>
+                        <button class="btn btn-success btn-sm w-100 rounded-pill">ดูข้อมูล</button>
+                    </div>
+                </section>
+            </div>
         </div>
 
-        <section class="staff-panel staff-category-panel" aria-labelledby="category-breakdown-title">
-            <div class="staff-panel-heading">
-                <div><h2 id="category-breakdown-title">ประเภทขยะที่ส่งเข้ามา</h2><p>รวมน้ำหนักและจำนวนรายการในช่วงเวลาที่เลือก รวมรายการรอตรวจสอบ</p></div>
-                <span class="staff-chart-unit">ชิ้น / รายการ</span>
+        <!-- โซนที่ 2: กราฟแนวโน้มปริมาณขยะรายวัน + กราฟคะแนนที่ได้รับและใช้แลก -->
+        <div class="row g-3 mb-4">
+            <!-- กราฟแนวโน้มปริมาณขยะรายวัน -->
+            <div class="col-lg-6">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div>
+                            <h2>กราฟแนวโน้มปริมาณขยะรายวัน</h2>
+                            <p>ช่วงวันที่ 19 ตุลาคม - 11 ธันวาคม 2569</p>
+                        </div>
+                        <span class="staff-chart-unit">น้ำหนัก (กก.) / จำนวนรายการ</span>
+                    </div>
+                    <canvas id="daily-trend-chart" style="max-height: 220px;"></canvas>
+                    <!-- <div class="staff-chart" id="daily-trend-chart" style="height: 200px;"></div> -->
+                    <div class="staff-chart-legend mt-2">
+                        <span><i style="background: #20c997;"></i> น้ำหนักขยะ (กก.)</span>
+                        <span><i style="background: #0d6efd;"></i> จำนวนรายการ</span>
+                    </div>
+                </section>
             </div>
-            <div class="staff-category-list" id="category-breakdown"></div>
-        </section>
 
-        <section class="staff-panel staff-table-panel" aria-labelledby="detail-table-title">
+            <!-- กราฟคะแนนที่ได้รับและใช้แลก -->
+            <div class="col-lg-6">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div>
+                            <h2>กราฟคะแนนที่ได้รับและใช้แลกรางวัล</h2>
+                            <p>ช่วงวันที่ 19 ตุลาคม - 11 ธันวาคม 2569</p>
+                        </div>
+                        <span class="staff-chart-unit">คะแนน</span>
+                    </div>
+                    <canvas id="points-compare-chart" style="max-height: 220px;"></canvas>
+                    <div class="staff-chart-legend mt-2">
+                        <span><i style="background: #198754;"></i> คะแนนที่ได้รับ</span>
+                        <span><i style="background: #fd7e14;"></i> คะแนนที่ใช้แลก</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- โซนที่ 3: ตารางรายการส่งขยะล่าสุด -->
+        <section class="staff-panel staff-table-panel mb-4" aria-labelledby="latest-table-title">
             <div class="staff-panel-heading staff-table-heading">
-                <div><h2 id="detail-table-title">รายละเอียดการส่งขยะ</h2><p id="detail-table-caption">รายการทั้งหมดในช่วงเวลา</p></div>
-                <div class="staff-table-tools">
-                    <label class="staff-record-search"><i class="fa-solid fa-magnifying-glass"></i><span class="visually-hidden">ค้นหารายการ</span><input id="record-search" type="search" placeholder="ค้นหานักเรียนหรือประเภทขยะ"></label>
-                    <a class="staff-export-link" href="history.html"><i class="fa-solid fa-clock-rotate-left"></i><span>ประวัติทั้งหมด</span></a>
+                <div>
+                    <h2 id="latest-table-title">รายการส่งขยะล่าสุด</h2>
+                    <p>ข้อมูลย้อนหลังล่าสุดในระบบ</p>
                 </div>
+                <a class="staff-export-link text-decoration-none" href="history.html">
+                    <span>ดูทั้งหมด</span> <i class="fa-solid fa-chevron-right ms-1"></i>
+                </a>
             </div>
             <div class="staff-table-scroll">
                 <table class="staff-record-table">
-                    <thead><tr><th>วันที่</th><th>นักเรียน</th><th>ประเภท / รายการ</th><th>น้ำหนัก</th><th>แต้ม</th><th>สถานะ</th><th></th></tr></thead>
-                    <tbody id="staff-record-rows"></tbody>
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>วันที่ส่งขยะ</th>
+                            <th>รหัสนักศึกษา</th>
+                            <th>ชื่อ - นามสกุล</th>
+                            <th>ประเภทขยะ</th>
+                            <th>น้ำหนัก/จำนวน</th>
+                            <th>หน่วย</th>
+                            <th>คะแนนที่ได้รับ</th>
+                            <th>ผู้บันทึก</th>
+                        </tr>
+                    </thead>
+                    <tbody id="latest-record-rows">
+                        <tr>
+                            <td>1</td><td>11 ต.ค. 2569</td><td>670123</td><td>นายอนันต์ ใจดี</td><td>ขวดพลาสติก</td><td>2.5</td><td>กก.</td><td><strong class="text-success">50</strong></td><td>กรรมการ A</td>
+                        </tr>
+                        <tr>
+                            <td>2</td><td>11 ต.ค. 2569</td><td>670256</td><td>นางสาวกมลวรรณ จันทา</td><td>กระดาษ</td><td>1.2</td><td>กก.</td><td><strong class="text-success">30</strong></td><td>กรรมการ B</td>
+                        </tr>
+                        <tr>
+                            <td>3</td><td>10 ต.ค. 2569</td><td>670178</td><td>นายธนกร สุขใจ</td><td>กระป๋อง</td><td>15</td><td>ชิ้น</td><td><strong class="text-success">45</strong></td><td>กรรมการ A</td>
+                        </tr>
+                        <tr>
+                            <td>4</td><td>10 ต.ค. 2569</td><td>670301</td><td>นางสาวปิยดา แสงทอง</td><td>ขวดแก้ว</td><td>0.8</td><td>กก.</td><td><strong class="text-success">25</strong></td><td>กรรมการ C</td>
+                        </tr>
+                        <tr>
+                            <td>5</td><td>10 ต.ค. 2569</td><td>670221</td><td>นายภูมิพินิจ ศรีสุข</td><td>เศษอาหาร</td><td>3.0</td><td>กก.</td><td><strong class="text-success">60</strong></td><td>กรรมการ B</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            <div class="staff-table-empty" id="staff-table-empty" hidden>ไม่มีรายการในช่วงเวลานี้</div>
         </section>
 
-        <footer class="waste-footer">
-            <span>EcoPoint · Learn better · Sort smarter · Live greener</span>
-            <span><i class="fa-solid fa-chart-simple me-1"></i> ภาพรวม TAT/TMT</span>
+         <!-- โซนที่ 4: อันดับนักศึกษาที่ส่งขยะมากที่สุด Top 10 + รายละเอียดรายบุคคล -->
+        <div class="row g-3 mb-4">
+            <!-- กล่องซ้าย: รายชื่อ Top 10 นักศึกษาที่ส่งขยะมากที่สุด -->
+            <div class="col-lg-4">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-trophy text-warning"></i>
+                            <h2>10 อันดับนักศึกษาที่ส่งขยะมากที่สุด</h2>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
+                        <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.85rem;">
+                            <thead class="table-light sticky-top">
+                                <tr>
+                                    <th class="text-center">อันดับ</th>
+                                    <th>ชื่อ - นามสกุล</th>
+                                    <th class="text-end">น้ำหนักรวม</th>
+                                    <th class="text-center">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top-students-rows">
+                                <!-- ข้อมูลจะถูกเติมโดย JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- กล่องกลาง: รายการขยะที่นักศึกษาคนนั้นส่ง -->
+            <div class="col-lg-5">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div><h2 id="selected-student-title">รายการขยะที่ส่ง (เลือกนักศึกษา)</h2></div>
+                    </div>
+                    <div class="table-responsive" style="max-height: 250px;">
+                        <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.8rem;">
+                            <thead class="table-light sticky-top">
+                                <tr><th>ที่</th><th>ประเภทขยะ</th><th>จำนวน/น้ำหนัก</th><th>หน่วย</th><th>คะแนน</th><th>วันที่ส่ง</th></tr>
+                            </thead>
+                            <tbody id="student-detail-rows">
+                                <tr><td colspan="6" class="text-center text-muted py-3">กรุณาคลิกเลือกนักศึกษาจากตารางซ้ายมือ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- กล่องขวา: สรุปการส่งขยะของนักศึกษาที่เลือก -->
+            <div class="col-lg-3">
+                <section class="staff-panel h-100">
+                    <div class="staff-panel-heading">
+                        <div><h2>สรุปข้อมูลนักศึกษา</h2></div>
+                    </div>
+                    <div class="p-2 d-flex flex-column gap-2" id="student-summary-box">
+                        <div class="text-center text-muted py-4">
+                            <i class="fa-solid fa-user-gear fa-2x mb-2 text-secondary"></i>
+                            <p class="small mb-0">ยังไม่ได้เลือกนักศึกษา</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="waste-footer d-flex justify-content-between align-items-center">
+            <span>ขยะแลกแต้ม · ร่วมกันลดขยะ สร้างสังคมสีเขียว</span>
+            <span><i class="fa-regular fa-calendar me-1"></i> 19 ตุลาคม 2569 - 11 ธันวาคม 2569</span>
         </footer>
     </main>
 
@@ -161,457 +360,508 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- โหลด Chart.js  -->
+    <script script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-<script>
-    // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
-    const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <script>
+        // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+        const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // แมปตัวเลข TypeWaste กลับเป็นชื่อประเภทขยะและหมวดหมู่
-    const typeWasteMap = {
-        1: { name: 'RDF พิเศษ', type: 'ขยะเชื้อเพลิง', category: 'recycle' },
-        2: { name: 'RDF แบบปกติ', type: 'ขยะเชื้อเพลิง', category: 'recycle' },
-        3: { name: 'ขยะทั่วไป', type: 'วัสดุอื่น ๆ', category: 'general' },
-        4: { name: 'ถังพลาสติก', type: 'ขยะรีไซเคิล', category: 'recycle' },
-        5: { name: 'ขวดกระป๋องอะลูมิเนียม', type: 'โลหะ', category: 'recycle' },
-        6: { name: 'ขวดแก้ว', type: 'แก้ว', category: 'recycle' },
-        7: { name: 'กระดาษ', type: 'กระดาษลัง', category: 'recycle' },
-        8: { name: 'ขยะอันตราย', type: 'อันตราย', category: 'hazardous' },
-        9: { name: 'ถังเศษอาหาร', type: 'เศษอาหาร', category: 'organic' },
-        10: { name: 'ถังน้ำและเครื่องดื่ม', type: 'เครื่องดื่ม', category: 'recycle' },
-        11: { name: 'ขยะอันตรายติดเชื้อ', type: 'ติดเชื้อ', category: 'hazardous' }
-    };
-
-    const periodButtons = [...document.querySelectorAll('.staff-period-button')];
-    const chartElement = document.querySelector('#activity-chart');
-    const tableBody = document.querySelector('#staff-record-rows');
-    const searchInput = document.querySelector('#record-search');
-    let allRecords = [];
-    let currentPeriod = 'week';
-
-    // 2. ฟังก์ชันดึงข้อมูลทั้งหมดจาก Supabase ตาราง SendWaste พร้อม Join ตาราง User (ใช้ updated_at)
-    async function loadRecordsFromSupabase() {
-        if (!supabaseClient) {
-            console.error('Supabase Client not initialized');
-            return;
-        }
-
-        try {
-            const { data, error } = await supabaseClient
-                .from('SendWaste')
-                .select(`
-                    *,
-                    User:UserIdRequest (
-                        id,
-                        FullName,
-                        LastName
-                    )
-                `)
-                .order('updated_at', { ascending: false }); // 🌟 เปลี่ยนมาเรียงตาม updated_at
-
-            if (error) throw error;
-
-            allRecords = (data || []).map(record => {
-                // 🌟 ดึงค่าจาก updated_at เป็นหลัก (ถ้าไม่มีให้ fallback ไปใช้ created_at)
-                const subDate = new Date(record.updated_at || record.created_at);
-                
-                // 🌟 ใช้ en-CA เพื่อบังคับรูปแบบ YYYY-MM-DD ตามเวลาไทยโดยไม่มีเครื่องหมายคอมมามากวนใจ
-                const dateISO = new Intl.DateTimeFormat('en-CA', {
-                    timeZone: 'Asia/Bangkok',
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                }).format(subDate);
-
-                const dateFormatted = subDate.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', day: 'numeric', month: 'short', year: 'numeric' });
-                const timeFormatted = subDate.toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' }) + ' น.';
-
-                let status = 'pending';
-                if (record.Status === 1) status = 'approved';
-                else if (record.Status === 2 || record.Status === 3) status = 'rejected';
-
-                const wasteInfo = typeWasteMap[record.TypeWaste] || { name: 'ขยะทั่วไป', type: 'ทั่วไป', category: 'general' };
-                const userInfo = record.User;
-                const studentName = userInfo ? `${userInfo.FullName} ${userInfo.LastName}` : `ผู้ส่ง ID: ${record.UserIdRequest}`;
-                const className = record.Department || (userInfo ? userInfo.Department : '') || '—';
-
-                return {
-                    id: String(record.id),
-                    student: studentName,
-                    className: className,
-                    item: wasteInfo.name,
-                    type: wasteInfo.type,
-                    category: wasteInfo.category,
-                    weight: Number(record.WeightWaste || 0),
-                    points: status === 'rejected' ? 0 : Number(record.EarnedPoints || 0),
-                    date: dateISO,
-                    dateLabel: dateFormatted,
-                    time: timeFormatted,
-                    status: status
-                };
-            });
-
-            renderDashboard();
-
-        } catch (err) {
-            console.error('Error fetching dashboard records from Supabase:', err);
-        }
-    }
- 
-    function startOfWeek(date) {
-        const d = date ? new Date(date) : new Date();
-        const start = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-        const daysSinceMonday = (start.getDay() + 6) % 7;
-        start.setDate(start.getDate() - daysSinceMonday);
-        return start;
-    }
-
-    function dateKey(date) {
-        const d = date ? new Date(date) : new Date();
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    }
-
-    function periodRange(period) {
-        const today = new Date();
-        
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const todayStr = `${year}-${month}-${day}`;
-        
-        if (period === 'day' || period === 'daily') {
-            return {
-                startDate: todayStr,
-                endDate: todayStr,
-                type: 'day'
-            };
-        } else if (period === 'week') {
-            const startOfWeekDate = startOfWeek(today);
-            const swYear = startOfWeekDate.getFullYear();
-            const swMonth = String(startOfWeekDate.getMonth() + 1).padStart(2, '0');
-            const swDay = String(startOfWeekDate.getDate()).padStart(2, '0');
-            return {
-                startDate: `${swYear}-${swMonth}-${swDay}`,
-                endDate: todayStr,
-                type: 'week'
-            };
-        } else {
-            const startOfMonth = `${year}-${month}-01`;
-            return {
-                startDate: startOfMonth,
-                endDate: todayStr,
-                type: 'month'
-            };
-        }
-    }
-
-    function recordsInPeriod(period) {
-        const range = periodRange(period);
-        
-        return allRecords.filter(record => {
-            if (!record.date) return false;
-            const recordDateOnly = record.date.split('T')[0];
-
-            if (range.type === 'day') {
-                return recordDateOnly === range.startDate;
-            } else {
-                return recordDateOnly >= range.startDate && recordDateOnly <= range.endDate;
-            }
-        });
-    }
-
-    function formatRange(period) {
-        const { start, end } = periodRange(period);
-        const formatter = new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
-        return `${formatter.format(start)} – ${formatter.format(end)}`;
-    }
-
-   function chartGroups(period) {
-        const range = periodRange(period);
-        const today = new Date();
-
-        if (period === 'day' || period === 'daily') {
-            return [8, 10, 12, 14, 16, 18, 20].map(hour => ({ key: hour, label: `${String(hour).padStart(2, '0')}:00` }));
-        }
-        
-        if (period === 'week') {
-            const startDate = new Date(range.startDate);
-            return Array.from({ length: 7 }, (_, index) => {
-                const date = new Date(startDate);
-                date.setDate(date.getDate() + index);
-                return { key: dateKey(date), label: new Intl.DateTimeFormat('th-TH', { weekday: 'short' }).format(date), date };
-            }).filter(group => group.date <= today);
-        }
-
-        return Array.from({ length: 5 }, (_, index) => ({ key: index + 1, label: `สัปดาห์ ${index + 1}` }));
-    }
-
-   function groupValue(record, period, group) {
-        const isApproved = record.status === 'approved' || record.status === 1 || record.Status === 1;
-        if (!isApproved) return 0;
-
-        if (period === 'day' || period === 'daily') {
-            const recordDateOnly = (record.date || '').split('T')[0];
-            const todayStr = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
-            
-            if (recordDateOnly !== todayStr) return 0;
-
-            const timeStr = String(record.time || '');
-            const hourMatch = timeStr.match(/(\d{1,2})/);
-            
-            const recordHour = hourMatch ? Number(hourMatch[1]) : 10;
-            const targetHour = Number(group.key);
-            
-            return recordHour === targetHour ? Number(record.weight || record.WeightWaste || 0) : 0;
-        }
-        
-        if (period === 'week') {
-            const recordDateOnly = (record.date || '').split('T')[0];
-            const groupKeyOnly = String(group.key).split('T')[0];
-            return recordDateOnly === groupKeyOnly ? Number(record.weight || record.WeightWaste || 0) : 0;
-        }
-        
-        const day = Number((record.date || '').slice(-2));
-        return Math.ceil(day / 7) === group.key ? Number(record.weight || record.WeightWaste || 0) : 0;
-    }
-
-    function renderChart(records) {
-        const groups = chartGroups(currentPeriod);
-        const values = groups.map(group => records.reduce((total, record) => total + groupValue(record, currentPeriod, group), 0));
-        const maxValue = Math.max(...values, 1);
-        if (chartElement) chartElement.replaceChildren();
-        groups.forEach((group, index) => {
-            const column = document.createElement('div');
-            column.className = 'staff-chart-column';
-            const value = document.createElement('span');
-            value.className = 'staff-chart-value';
-            value.textContent = values[index] ? values[index].toFixed(1) : '';
-            const track = document.createElement('div');
-            track.className = 'staff-chart-track';
-            const bar = document.createElement('span');
-            bar.className = 'staff-chart-bar';
-            bar.style.height = `${values[index] ? Math.max(6, (values[index] / maxValue) * 100) : 2}%`;
-            track.append(bar);
-            const label = document.createElement('small');
-            label.textContent = group.label;
-            column.append(value, track, label);
-            if (chartElement) chartElement.append(column);
-        });
-        const totalWeight = values.reduce((total, value) => total + value, 0);
-        
-        const elTotalLabel = document.querySelector('#chart-total-label');
-        const elChartCaption = document.querySelector('#activity-chart-caption');
-        const elDetailCaption = document.querySelector('#detail-table-caption');
-        const elReportRange = document.querySelector('#report-date-range');
-
-        if (elTotalLabel) elTotalLabel.textContent = `รวม ${totalWeight.toFixed(1)} ชิ้น`;
-        if (elChartCaption) elChartCaption.textContent = currentPeriod === 'day' ? 'แยกตามช่วงเวลา' : currentPeriod === 'week' ? 'แยกตามวันในสัปดาห์' : 'แยกตามสัปดาห์ในเดือน';
-        if (elDetailCaption) elDetailCaption.textContent = currentPeriod === 'day' ? 'รายการของวันนี้' : currentPeriod === 'week' ? 'รายการของสัปดาห์นี้' : 'รายการของเดือนนี้';
-        if (elReportRange) elReportRange.textContent = currentPeriod === 'day' ? new Intl.DateTimeFormat('th-TH', { dateStyle: 'medium' }).format(periodRange(currentPeriod).today) : formatRange(currentPeriod);
-    }
-
-    function renderStatusBreakdown(records) {
-        const counts = {
-            approved: records.filter(record => record.status === 1).length,
-            pending: records.filter(record => record.status === 0).length,
-            rejected: records.filter(record => record.status === 2).length
+        const typeWasteMap = {
+            1: { name: 'RDF พิเศษ', category: 'recycle' },
+            2: { name: 'RDF แบบปกติ', category: 'recycle' },
+            3: { name: 'ขยะทั่วไป', category: 'general' },
+            4: { name: 'ถังพลาสติก', category: 'recycle' },
+            5: { name: 'ขวดกระป๋องอะลูมิเนียม', category: 'recycle' },
+            6: { name: 'ขวดแก้ว', category: 'recycle' },
+            7: { name: 'กระดาษ', category: 'recycle' },
+            8: { name: 'ขยะอันตราย', category: 'hazardous' },
+            9: { name: 'ถังเศษอาหาร', category: 'organic' },
+            10: { name: 'ถังน้ำและเครื่องดื่ม', category: 'recycle' },
+            11: { name: 'ขยะอันตรายติดเชื้อ', category: 'hazardous' }
         };
-        const total = records.length || 1;
 
-        const elStatusTotal = document.querySelector('#status-total');
-        const elStatusApproved = document.querySelector('#status-approved');
-        const elStatusPending = document.querySelector('#status-pending');
-        const elStatusRejected = document.querySelector('#status-rejected');
-        const elBarApproved = document.querySelector('#status-bar-approved');
-        const elBarPending = document.querySelector('#status-bar-pending');
-        const elBarRejected = document.querySelector('#status-bar-rejected');
+        let allRecords = [];
+        let selectedDateISO = null;
 
-        if (elStatusTotal) elStatusTotal.textContent = String(records.length);
-        if (elStatusApproved) elStatusApproved.textContent = String(counts.approved);
-        if (elStatusPending) elStatusPending.textContent = String(counts.pending);
-        if (elStatusRejected) elStatusRejected.textContent = String(counts.rejected);
-        if (elBarApproved) elBarApproved.style.width = `${(counts.approved / total) * 100}%`;
-        if (elBarPending) elBarPending.style.width = `${(counts.pending / total) * 100}%`;
-        if (elBarRejected) elBarRejected.style.width = `${(counts.rejected / total) * 100}%`;
-    }
+        let pieChartInstance = null;
+        let barChartInstance = null;
+        let dailyTrendInstance = null;
+        let pointsCompareInstance = null;
 
-    function getWasteCategory(record) {
-        const value = `${record.category || ''} ${record.type || ''} ${record.item || ''}`.toLowerCase();
-        if (value.includes('hazard') || value.includes('อันตราย')) return 'hazardous';
-        if (value.includes('organic') || value.includes('อินทรีย์') || value.includes('เศษอาหาร')) return 'organic';
-        if (value.includes('general') || value.includes('ทั่วไป')) return 'general';
-        return 'recycle';
-    }
+        // 2. โหลดข้อมูลจาก Supabase
+        async function loadRecordsFromSupabase() {
+            if (!supabaseClient) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('SendWaste')
+                    .select(`*, User:UserIdRequest ( id, FullName, LastName, Department, UserName )`)
+                    .order('updated_at', { ascending: false });
 
-    function renderWasteCategories(records) {
-        const definitions = [
-            { id: 1, label: 'RDF พิเศษ', icon: 'fa-fire', cat: 'recycle' },
-            { id: 2, label: 'RDF แบบปกติ', icon: 'fa-fire-flame-curved', cat: 'recycle' },
-            { id: 3, label: 'ขยะทั่วไป', icon: 'fa-trash-can', cat: 'general' },
-            { id: 4, label: 'ถังพลาสติก', icon: 'fa-bottle-water', cat: 'recycle' },
-            { id: 5, label: 'ขวดกระป๋องอะลูมิเนียม', icon: 'fa-glass-water-droplet', cat: 'recycle' },
-            { id: 6, label: 'ขวดแก้ว', icon: 'fa-wine-bottle', cat: 'recycle' },
-            { id: 7, label: 'กระดาษ', icon: 'fa-newspaper', cat: 'recycle' },
-            { id: 8, label: 'ขยะอันตราย', icon: 'fa-triangle-exclamation', cat: 'hazardous' },
-            { id: 9, label: 'ถังเศษอาหาร', icon: 'fa-seedling', cat: 'organic' },
-            { id: 10, label: 'ถังน้ำและเครื่องดื่ม', icon: 'fa-glass-water', cat: 'recycle' },
-            { id: 11, label: 'ขยะอันตรายติดเชื้อ', icon: 'fa-biohazard', cat: 'hazardous' }
+                if (error) throw error;
+
+                allRecords = (data || []).map(record => {
+                    const subDate = new Date(record.updated_at || record.created_at);
+                    const dateISO = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit' }).format(subDate);
+                    const dateFormatted = subDate.toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', day: 'numeric', month: 'short', year: 'numeric' });
+                    const timeFormatted = subDate.toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' }) + ' น.';
+
+                    let status = 'pending';
+                    if (record.Status === 1) status = 'approved';
+                    else if (record.Status === 2 || record.Status === 3) status = 'rejected';
+
+                    const wasteInfo = typeWasteMap[record.TypeWaste] || { name: 'ขยะทั่วไป' };
+                    const userInfo = record.User;
+
+                    return {
+                        id: String(record.id),
+                        studentId: userInfo ? userInfo.UserName : `-`,
+                        student: userInfo ? `${userInfo.FullName} ${userInfo.LastName}` : `ผู้ส่ง ID: ${record.UserIdRequest}`,
+                        initialLetter: userInfo ? userInfo.FullName.charAt(0).toUpperCase() : 'U',  
+                        className: userInfo ? userInfo.Department : 'ไม่ระบุ',
+                        item: wasteInfo.name,
+                        typeWaste: Number(record.TypeWaste || 1),
+                        weight: Number(record.WeightWaste || 0),
+                        points: status === 'rejected' ? 0 : Number(record.EarnedPoints || 0),
+                        date: dateISO,
+                        dateLabel: dateFormatted,
+                        time: timeFormatted,
+                        status: status,
+                        recorder: record.Recorder || 'กรรมการ A'
+                    };
+                });
+
+                if (allRecords.length > 0 && !selectedDateISO) {
+                    selectedDateISO = allRecords[0].date;
+                } else if (!selectedDateISO) {
+                    selectedDateISO = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+                }
+
+                renderDashboard();
+                setupCalendarEvents();
+
+            } catch (err) {
+                console.error('Error fetching records:', err);
+            }
+        }
+
+        // 3. ฟังก์ชันวาดกราฟทั้ง 4 ตัว
+        function renderAllCharts(records) {
+        const approvedRecords = allRecords.filter(r => r.status === 'approved');
+
+        const categoryNames = [
+            'RDF พิเศษ', 'RDF ปกติ', 'ขยะทั่วไป', 'ถังพลาสติก', 
+            'ขวดกระป๋อง', 'ขวดแก้ว', 'กระดาษ', 'ขยะอันตราย', 
+            'เศษอาหาร', 'เครื่องดื่ม', 'ขยะติดเชื้อ'
         ];
 
-        const totals = definitions.map(definition => {
-            const categoryRecords = records.filter(record => {
-                return record.TypeWaste === definition.id || 
-                       `${record.item || ''}`.includes(definition.label);
+        const categoryWeights = categoryNames.map((_, index) => {
+            const typeId = index + 1;
+            return approvedRecords
+                .filter(r => r.typeWaste === typeId)
+                .reduce((sum, r) => sum + r.weight, 0);
+        });
+
+        // --- 1. กราฟวงกลม (Pie Chart) แสดงผลเป็นเปอร์เซ็นต์ (%) ---
+        const pieCtx = document.getElementById('category-pie-chart');
+        if (pieCtx) {
+            if (pieChartInstance) pieChartInstance.destroy();
+
+            // คำนวณน้ำหนักรวมทั้งหมด (Total Weight) ของขยะที่อนุมัติแล้ว
+            const totalApprovedWeight = categoryWeights.reduce((sum, w) => sum + w, 0);
+
+            // แปลงค่าน้ำหนักแต่ละประเภทให้เป็นเปอร์เซ็นต์ (%)
+            const percentageWeights = categoryWeights.map(weight => {
+                if (totalApprovedWeight === 0) return 0;
+                return Number(((weight / totalApprovedWeight) * 100).toFixed(1)); // ปัดเศษทศนิยม 1 ตำแหน่ง
             });
 
-            return {
-                ...definition,
-                count: categoryRecords.length,
-                weight: categoryRecords.reduce((total, record) => total + Number(record.weight || record.WeightWaste || 0), 0),
-                approvedWeight: categoryRecords.filter(record => record.status === 'approved' || record.Status === 1).reduce((total, record) => total + Number(record.weight || record.WeightWaste || 0), 0),
-                pendingCount: categoryRecords.filter(record => record.status === 'pending' || record.Status === 0).length
-            };
-        });
+            // ถ้าไม่มีข้อมูลเลย ให้แสดงข้อมูลตัวอย่างชั่วคราวเพื่อให้กราฟขึ้น
+            const hasData = totalApprovedWeight > 0;
+            const finalChartData = hasData ? percentageWeights : [15, 10, 20, 25, 10, 8, 5, 2, 3, 1, 1];
 
-        const maxWeight = Math.max(...totals.map(item => item.weight), 1);
-        const list = document.querySelector('#category-breakdown');
-        if (!list) return;
-        
-        list.replaceChildren();
-        
-        totals.forEach(item => {
-            const row = document.createElement('div');
-            row.className = `staff-category-row is-${item.cat || 'recycle'} mb-2`;
-            row.innerHTML = `
-                <span class="staff-category-icon"><i class="fa-solid ${item.icon}"></i></span>
-                <span class="staff-category-name"><strong></strong><small></small><span class="staff-category-track"><i></i></span></span>
-                <span class="staff-category-total"><strong></strong><small></small></span>
-            `;
-            row.querySelector('.staff-category-name strong').textContent = item.label;
-            row.querySelector('.staff-category-name small').textContent = `${item.count} รายการ · อนุมัติแล้ว ${item.approvedWeight.toFixed(1)} กก.${item.pendingCount ? ` · รอตรวจ ${item.pendingCount}` : ''}`;
-            row.querySelector('.staff-category-track i').style.width = `${item.weight ? Math.max(4, (item.weight / maxWeight) * 100) : 0}%`;
-            row.querySelector('.staff-category-total strong').textContent = `${item.weight.toFixed(1)} กก.`;
-            row.querySelector('.staff-category-total small').textContent = `${item.count} รายการ`;
-            list.append(row);
-        });
-    }
-
-    function renderTable(records) {
-        if (!tableBody) return;
-        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
-        const filteredRecords = records.filter(record => `${record.student} ${record.item} ${record.type} ${record.status}`.toLowerCase().includes(query));
-        
-        tableBody.replaceChildren();
-        const emptyEl = document.querySelector('#staff-table-empty');
-        if (emptyEl) emptyEl.hidden = filteredRecords.length > 0;
-
-        filteredRecords.sort((first, second) => `${second.date} ${second.time}`.localeCompare(`${first.date} ${first.time}`)).forEach(record => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td><strong class="staff-table-date"></strong><small class="staff-table-time"></small></td><td><strong class="staff-table-student"></strong><small class="staff-table-class"></small></td><td><strong class="staff-table-item"></strong><small class="staff-table-type"></small></td><td class="staff-table-number"></td><td class="staff-table-points"></td><td><span class="staff-table-status"></span></td><td><a class="staff-table-action" href="review.html" aria-label="ตรวจรายการ"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></td>`;
-            
-            row.querySelector('.staff-table-date').textContent = record.dateLabel;
-            row.querySelector('.staff-table-time').textContent = record.time;
-            row.querySelector('.staff-table-student').textContent = record.student;
-            row.querySelector('.staff-table-class').textContent = record.className || '';
-            row.querySelector('.staff-table-item').textContent = record.item;
-            row.querySelector('.staff-table-type').textContent = record.type;
-            row.querySelector('.staff-table-number').textContent = `${Number(record.weight).toFixed(1)} ชิ้น`;
-            row.querySelector('.staff-table-points').textContent = record.status === 'approved' ? `${record.points} แต้ม` : '—';
-            
-            const status = row.querySelector('.staff-table-status');
-            status.textContent = record.status === 'approved' ? 'อนุมัติแล้ว' : record.status === 'rejected' ? 'ไม่รับ' : 'รอตรวจ';
-            status.className = `staff-table-status ${record.status === 'approved' ? 'is-approved' : record.status === 'rejected' ? 'is-rejected' : 'is-pending'}`;
-            tableBody.append(row);
-        });
-    }
-
-    function renderDashboard() {
-        const records = recordsInPeriod(currentPeriod);
-        const approved = records.filter(record => record.status === 'approved');
-        const weight = approved.reduce((total, record) => total + Number(record.weight), 0);
-        const points = approved.reduce((total, record) => total + Number(record.points), 0);
-        const pending = records.filter(record => record.status === 'pending').length;
-
-        const elSub = document.querySelector('#summary-submissions');
-        const elWeight = document.querySelector('#summary-weight');
-        const elPoints = document.querySelector('#summary-points');
-        const elPending = document.querySelector('#summary-pending');
-
-        if (elSub) elSub.textContent = String(records.length);
-        if (elWeight) elWeight.textContent = weight.toFixed(1);
-        if (elPoints) elPoints.textContent = String(points);
-        if (elPending) elPending.textContent = String(pending);
-
-        renderChart(records);
-        renderStatusBreakdown(records);
-        renderWasteCategories(records);
-        renderTable(records);
-    }
-
-    periodButtons.forEach(button => button.addEventListener('click', () => {
-        let p = button.dataset.period || button.getAttribute('data-period');
-        if (p === 'daily') p = 'day';
-        currentPeriod = p;
-
-        periodButtons.forEach(item => {
-            const itemP = item.dataset.period || item.getAttribute('data-period');
-            const active = (itemP === currentPeriod) || (currentPeriod === 'day' && itemP === 'daily');
-            item.classList.toggle('is-active', active);
-            item.setAttribute('aria-pressed', String(active));
-        });
-
-        renderDashboard();
-    }));
-
-    if (searchInput) searchInput.addEventListener('input', renderDashboard);
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const savedUser = localStorage.getItem('currentUser');
-        if (savedUser) {
-            const user = JSON.parse(savedUser);
-            const nameSpan = document.getElementById('textUser');
-            const nameSpanSecond = document.getElementById('textUser_second');
-            if (nameSpan) nameSpan.textContent = `${user.fullName} ${user.lastName}`;
-            if (nameSpanSecond) nameSpanSecond.textContent = `${user.fullName} ${user.lastName}`;
-        }
-        
-        loadRecordsFromSupabase();
-
-        const logoutButton = document.getElementById('logout-btn');
-
-        if (logoutButton) {
-            logoutButton.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        title: 'คุณต้องการออกจากระบบใช่หรือไม่?',
-                        text: 'หากออกจากระบบ คุณจะต้องเข้าสู่ระบบใหม่อีกครั้ง',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#6c757d',
-                        confirmButtonText: 'ออกจากระบบ',
-                        cancelButtonText: 'ยกเลิก'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            performLogout();
+            pieChartInstance = new Chart(pieCtx.getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: categoryNames,
+                    datasets: [{
+                        data: finalChartData,
+                        backgroundColor: [
+                            '#198754', '#20c997', '#ffc107', '#0dcaf0', 
+                            '#dc3545', '#6f42c1', '#fd7e14', '#adb5bd', 
+                            '#0d6efd', '#20c997', '#8a2be2'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                // 🌟 ปรับแต่งกล่อง Tooltip เวลาเอาเมาส์ชี้ ให้แสดงค่าเป็น %
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return ` ${label}: ${value}%`;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 11 }
+                            }
                         }
-                    });
-                } else {
-                    if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
-                        performLogout();
                     }
                 }
             });
         }
-    });
 
-    function performLogout() {
-        localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
+        // --- 2. กราฟแท่ง (Bar Chart) ---
+        const barCtx = document.getElementById('category-bar-chart');
+        if (barCtx) {
+            if (barChartInstance) barChartInstance.destroy();
+            barChartInstance = new Chart(barCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: categoryNames.map(name => name.length > 8 ? name.substring(0, 8) + '..' : name),
+                    datasets: [{
+                        label: 'น้ำหนัก (กก.)',
+                        data: categoryWeights,
+                        backgroundColor: '#198754',
+                        borderRadius: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+            });
+        }
+
+        // 🌟 สร้าง Array ย้อนหลัง 7 วัน นับจากวันที่เลือก เพื่อให้กราฟมีแกน X ต่อเนื่องกัน 7 จุด
+        const last7Days = [];
+        const baseDate = selectedDateISO ? new Date(selectedDateISO) : new Date();
+        
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(baseDate);
+            d.setDate(d.getDate() - i);
+            const iso = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+            const label = d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
+            last7Days.push({ iso, label });
+        }
+
+        // คำนวณน้ำหนัก จำนวนรายการ และคะแนน ย้อนหลัง 7 วัน
+        const weightsTrend = last7Days.map(dayObj => {
+            return allRecords
+                .filter(r => r.date === dayObj.iso && r.status === 'approved')
+                .reduce((sum, r) => sum + r.weight, 0);
+        });
+
+        const countsTrend = last7Days.map(dayObj => {
+            return allRecords.filter(r => r.date === dayObj.iso).length;
+        });
+
+        const pointsTrend = last7Days.map(dayObj => {
+            return allRecords
+                .filter(r => r.date === dayObj.iso && r.status === 'approved')
+                .reduce((sum, r) => sum + r.points, 0);
+        });
+
+        const dateLabels = last7Days.map(d => d.label);
+
+        // --- 3. กราฟเส้น (Line Chart) แนวโน้มย้อนหลัง 7 วัน ---
+        const trendCtx = document.getElementById('daily-trend-chart');
+        if (trendCtx) {
+            if (dailyTrendInstance) dailyTrendInstance.destroy();
+            dailyTrendInstance = new Chart(trendCtx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: dateLabels,
+                    datasets: [
+                        { label: 'น้ำหนัก (กก.)', data: weightsTrend, borderColor: '#20c997', backgroundColor: '#20c997', tension: 0.3 },
+                        { label: 'จำนวนรายการ', data: countsTrend, borderColor: '#0d6efd', backgroundColor: '#0d6efd', tension: 0.3 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+            });
+        }
+
+        // --- 4. กราฟแท่ง (Bar Chart) คะแนนย้อนหลัง 7 วัน ---
+        const pointsCtx = document.getElementById('points-compare-chart');
+        if (pointsCtx) {
+            if (pointsCompareInstance) pointsCompareInstance.destroy();
+            pointsCompareInstance = new Chart(pointsCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: dateLabels,
+                    datasets: [
+                        { label: 'คะแนนที่ได้รับ', data: pointsTrend, backgroundColor: '#198754', borderRadius: 4 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+            });
+        }
     }
-</script>
+      
+       // 4. อัปเดตข้อมูลบนหน้าจอตามวันที่เลือก
+        async function renderDashboard() {
+        // กรองข้อมูลขยะเฉพาะวันที่เลือก
+        const dayRecords = allRecords.filter(r => r.date === selectedDateISO);
+        const approved = dayRecords.filter(r => r.status === 'approved');
+
+        const totalWeight = approved.reduce((sum, r) => sum + r.weight, 0);
+        const totalPoints = approved.reduce((sum, r) => sum + r.points, 0);
+        const uniqueStudents = new Set(dayRecords.map(r => r.student)).size;
+        const pendingCount = dayRecords.filter(r => r.status === 'pending').length;
+
+        // 🌟 สมมติว่าดึงข้อมูลการแลกรางวัลมาแล้ว และกรองตามวันที่เลือก (selectedDateISO)
+        // หรือถ้าดึงมาจากอีกตาราง ให้เปลี่ยนเป็นตัวแปรของตารางนั้นๆ เช่น allRedemptions
+        const dayRedemptions = (window.allRedemptions || []).filter(r => {
+            const rDate = new Date(r.updated_at || r.created_at);
+            const rDateISO = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit' }).format(rDate);
+            return rDateISO === selectedDateISO;
+        });
+        const totalRedemptions = dayRedemptions.length; // จำนวนครั้งการแลกรางวัลในวันนั้น
+
+        // อัปเดตข้อมูลลงในการ์ดสรุปผล
+        if (document.querySelector('#summary-weight')) document.querySelector('#summary-weight').textContent = totalWeight.toFixed(2);
+        if (document.querySelector('#summary-students')) document.querySelector('#summary-students').textContent = String(uniqueStudents);
+        if (document.querySelector('#summary-points')) document.querySelector('#summary-points').textContent = String(totalPoints);
+        if (document.querySelector('#summary-pending')) document.querySelector('#summary-pending').textContent = String(pendingCount);
+        
+        // 🌟 อัปเดตการแสดงผลช่อง summary-redemptions ตรงนี้
+        if (document.querySelector('#summary-redemptions')) {
+            document.querySelector('#summary-redemptions').textContent = String(totalRedemptions);
+        }
+
+        const dateObj = new Date(selectedDateISO);
+        const dateThaiFormatted = dateObj.toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' });
+        
+        if (document.querySelector('#selected-date-display')) document.querySelector('#selected-date-display').textContent = dateThaiFormatted;
+        if (document.querySelector('#report-date-range')) document.querySelector('#report-date-range').textContent = dateThaiFormatted;
+        if (document.querySelector('#report-date-range2')) document.querySelector('#report-date-range2').textContent = dateThaiFormatted;
+        if (document.querySelector('#hero-date-range')) document.querySelector('#hero-date-range').textContent = dateThaiFormatted;
+
+        renderAllCharts(allRecords);
+        renderTable(dayRecords);
+        
+        // เรียกใช้งานฟังก์ชันแสดง Top 10 นักศึกษา
+        renderTopStudents();
+    }
+      
+        // เรนเดอร์รายการในตารางหลัก
+        function renderTable(records) {
+            const tableBody = document.querySelector('#latest-record-rows');
+            if (!tableBody) return;
+
+            tableBody.replaceChildren();
+
+            if (records.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `<td colspan="9" class="text-center text-muted py-3">ไม่มีรายการส่งขยะในวันที่เลือก</td>`;
+                tableBody.append(emptyRow);
+                return;
+            }
+
+            records.forEach((record, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${record.dateLabel}</td>
+                    <td>${record.id}</td>
+                    <td>${record.student}</td>
+                    <td>${record.item}</td>
+                    <td>${Number(record.weight).toFixed(1)}</td>
+                    <td>กก.</td>
+                    <td><strong class="text-success">${record.points}</strong></td>
+                    <td>${record.recorder}</td>
+                `;
+                tableBody.append(row);
+            });
+        }
+
+        // 5. ระบบคลิกเลือกวันที่บนปฏิทิน
+        function setupCalendarEvents() {
+            const calendarTable = document.querySelector('table');
+            if (!calendarTable) return;
+
+            calendarTable.addEventListener('click', (e) => {
+                const td = e.target.closest('td');
+                if (!td || !td.textContent.trim()) return;
+
+                const dayNum = parseInt(td.textContent.trim(), 10);
+                if (isNaN(dayNum)) return;
+
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const dayStr = String(dayNum).padStart(2, '0');
+
+                selectedDateISO = `${year}-${month}-${dayStr}`;
+
+                calendarTable.querySelectorAll('span.badge').forEach(el => {
+                    el.className = '';
+                });
+                td.innerHTML = `<span class="badge bg-success rounded-circle">${dayNum}</span>`;
+
+                renderDashboard();
+            });
+        }
+
+        // 6. ประมวลผลและแสดง Top 10 นักศึกษา
+        function renderTopStudents() {
+            const studentMap = {};
+
+            allRecords.forEach(r => {
+                if (!r.student) return;
+                if (!studentMap[r.student]) {
+                    studentMap[r.student] = {
+                        name: r.student,
+                        id: r.UserName || '—',
+                        className: r.Department  || '-',
+                        totalWeight: 0,
+                        totalPoints: 0,
+                        count: 0,
+                        records: []
+                    };
+                }
+                if (r.status === 'approved') {
+                    studentMap[r.student].totalWeight += r.weight;
+                    studentMap[r.student].totalPoints += r.points;
+                }
+                studentMap[r.student].count += 1;
+                studentMap[r.student].records.push(r);
+            });
+
+            const sortedStudents = Object.values(studentMap).sort((a, b) => b.totalWeight - a.totalWeight).slice(0, 10);
+
+            const tbody = document.querySelector('#top-students-rows');
+            if (!tbody) return;
+            tbody.replaceChildren();
+
+            if (sortedStudents.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">ไม่มีข้อมูลนักศึกษา</td></tr>`;
+                return;
+            }
+
+            sortedStudents.forEach((student, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center fw-bold text-success">${index + 1}</td>
+                    <td>
+                        <div class="fw-bold text-dark">${student.name}</div>
+                        <small class="text-muted">รหัส: ${student.id}</small>
+                    </td>
+                    <td class="text-end fw-bold">${student.totalWeight.toFixed(1)} กก.</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-success rounded-pill px-2 py-0" style="font-size: 0.75rem;" onclick="viewStudentDetail('${student.name}')">
+                            ดู <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.append(tr);
+            });
+
+            if (sortedStudents.length > 0) {
+                viewStudentDetail(sortedStudents[0].name);
+            }
+        }
+
+        // 7. ฟังก์ชันแสดงรายละเอียดเมื่อคลิกดูนักศึกษาแต่ละคน
+        window.viewStudentDetail = function(studentName) {
+            const studentMap = {};
+            allRecords.forEach(r => {
+                if (!r.student) return;
+                if (!studentMap[r.student]) {
+                    studentMap[r.student] = {
+                        name: r.student,
+                        id: r.studentId || '-',
+                        className: r.className || '-',
+                        totalWeight: 0,
+                        totalPoints: 0,
+                        count: 0,
+                        records: []
+                    };
+                }
+                if (r.status === 'approved') {
+                    studentMap[r.student].totalWeight += r.weight;
+                    studentMap[r.student].totalPoints += r.points;
+                }
+                studentMap[r.student].count += 1;
+                studentMap[r.student].records.push(r);
+            });
+
+            const student = studentMap[studentName];
+            if (!student) return;
+
+            const initialLetter = student.name ? student.name.charAt(0).toUpperCase() : 'U';
+
+            document.querySelector('#selected-student-title').textContent = `รายการขยะของ: ${student.name}`;
+
+            const detailTbody = document.querySelector('#student-detail-rows');
+            detailTbody.replaceChildren();
+
+            student.records.forEach((rec, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td>${rec.item}</td>
+                    <td>${rec.weight}</td>
+                    <td>กก.</td>
+                    <td><strong class="text-success">${rec.points}</strong></td>
+                    <td>${rec.dateLabel}</td>
+                `;
+                detailTbody.append(row);
+            });
+
+            const summaryBox = document.querySelector('#student-summary-box');
+            summaryBox.innerHTML = `
+                <div class="text-center mb-2">
+                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center mx-auto mb-1 fw-bold shadow-sm" style="width: 50px; height: 50px; font-size: 1.25rem;">
+                        ${initialLetter}
+                    </div>
+                    <h6 class="fw-bold mb-0">${student.name}</h6>
+                    <small class="text-muted">รหัส: ${student.id} (${student.className})</small>
+                </div>
+                <div class="d-flex align-items-center gap-2 p-2 bg-light rounded-3">
+                    <span class="home-metric-icon is-leaf" style="width: 32px; height: 32px; font-size: 0.8rem;"><i class="fa-solid fa-weight-hanging"></i></span>
+                    <div>
+                        <small class="text-muted d-block" style="font-size: 0.7rem;">น้ำหนักรวม</small>
+                        <strong style="font-size: 0.9rem;">${student.totalWeight.toFixed(1)} กก.</strong>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 p-2 bg-light rounded-3">
+                    <span class="home-metric-icon is-blue" style="width: 32px; height: 32px; font-size: 0.8rem;"><i class="fa-solid fa-list-check"></i></span>
+                    <div>
+                        <small class="text-muted d-block" style="font-size: 0.7rem;">จำนวนรายการ</small>
+                        <strong style="font-size: 0.9rem;">${student.count} รายการ</strong>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 p-2 bg-light rounded-3">
+                    <span class="home-metric-icon is-gold" style="width: 32px; height: 32px; font-size: 0.8rem;"><i class="fa-solid fa-star"></i></span>
+                    <div>
+                        <small class="text-muted d-block" style="font-size: 0.7rem;">คะแนนที่ได้รับ</small>
+                        <strong style="font-size: 0.9rem;" class="text-success">${student.totalPoints} แต้ม</strong>
+                    </div>
+                </div>
+            `;
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRecordsFromSupabase();
+
+            const logoutButton = document.getElementById('logout-btn');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
