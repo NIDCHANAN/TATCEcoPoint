@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2f8f8">
+    <title>TATC แลก Point - ตรวจสอบการส่งขยะ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="shared.css">
+</head>
+<body class="review-page">
+    <aside class="sidebar">
+        <div>
+            <a class="sidebar-brand text-decoration-none d-block" href="home.html">
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fa-solid fa-leaf text-success fs-3 me-2"></i>
+                    <span class="brand-title">TATC</span>
+                </div>
+                <div class="brand-subtitle">แยกขยะ วันนี้ เพื่อโลกที่ดีกว่า</div>
+            </a>
+            <nav aria-label="เมนูหลัก">
+                <ul class="sidebar-menu">
+                    <!-- <li><a href="home.html"><i class="fa-solid fa-house"></i> หน้าหลัก</a></li>
+                    <li><a href="education.html"><i class="fa-solid fa-book-open"></i> เรียนรู้การแยกขยะ</a></li>
+                    <li><a href="send-waste.html"><i class="fa-solid fa-recycle"></i> ส่งขยะ</a></li>
+                    <li><a href="history.html"><i class="fa-solid fa-clock-rotate-left"></i> ประวัติการส่งขยะ</a></li>
+                    <li><a href="rewards.html"><i class="fa-solid fa-award"></i> คะแนนและรางวัล</a></li> -->
+                    <li><a href="review.html" aria-current="page"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการส่งขยะ</a></li>
+                    <li class="active"><a href="review-rewards.html" aria-current="page"><i class="fa-solid fa-clipboard-check"></i> ตรวจสอบการแลกแต้ม</a></li>
+                    <!-- <li><a href="users.html"><i class="fa-solid fa-users-gear"></i> จัดการผู้ใช้งาน (Admin)</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li>
+                    <li><a href="staff-dashboard.html"><i class="fa-solid fa-chart-line"></i> ภาพรวม TAT/TMT</a></li> -->
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <!-- <div class="sidebar-profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="รูปโปรไฟล์กรรมการ">
+                <div class="review-sidebar-user">
+                    <div class="text-muted">กรรมการตรวจรับ</div>
+                    <div class="fw-bold" id="textUser"></div>
+                    <span class="badge bg-success-subtle text-success mt-1">ผู้ตรวจสอบ</span>
+                </div>
+            </div> -->
+            <div class="sidebar-footer-banner">
+                <div class="fw-bold text-success review-sidebar-tagline">ตรวจครบ ถูกต้อง<br>แต้มถึงมือนักเรียน</div>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=200&q=80" alt="โลกสีเขียว">
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <!-- Navbar ด้านบน -->
+        <div class="top-navbar">
+            <div class="dropdown">
+                <div class="top-user-pill d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User Profile" class="rounded-circle" width="35" height="35">
+                    <span class="fw-bold" style="font-size: 0.88rem;" id="textUser_second">กรรมการ/ผู้ดูแลระบบ</span>
+                    <i class="fa-solid fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
+                </div>
+
+                <!-- เมนูดรอปดาวน์สำหรับ Logout -->
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-3 border-0 mt-2">
+                    <li>
+                        <a class="dropdown-item text-danger fw-semibold py-2 d-flex align-items-center gap-2" href="#" id="logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ (Logout)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Header Banner -->
+        <header class="hero-banner">
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-gift text-success review-hero-icon" aria-hidden="true"></i>
+                    <h1>ระบบแลกของรางวัล (สำหรับกรรมการ)</h1>
+                </div>
+                <p>ตรวจสอบสิทธิ์ หักคะแนนสะสม และยืนยันการมอบของรางวัลให้นักศึกษา</p>
+            </div>
+            <div class="speech-bubble d-none d-lg-block">ตรวจสอบคะแนนคงเหลือก่อนมอบของรางวัล</div>
+        </header>
+
+        <!-- สรุปสถิติการแลกรางวัล -->
+        <section class="review-metric-grid" aria-label="สรุปงานแลกของรางวัล">
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-regular fa-clock"></i></span>
+                <div><small>รอรับของรางวัล</small><strong id="redemption-pending-count">0</strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-green"><i class="fa-solid fa-circle-check"></i></span>
+                <div><small>แลกสำเร็จแล้ว</small><strong id="redemption-completed-count">0</strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-blue"><i class="fa-solid fa-boxes-stacked"></i></span>
+                <div><small>จำนวนของรางวัลที่มอบ</small><strong><span id="redemption-total-items">0</span> <small class="d-inline">ชิ้น</small></strong></div>
+            </article>
+            <article class="home-metric-card">
+                <span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span>
+                <div><small>คะแนนที่ใช้แลกรวม</small><strong id="redemption-total-points">0</strong></div>
+            </article>
+        </section>
+
+        <!-- Toolbar ค้นหา และ ปุ่มทำรายการ Walk-in -->
+        <div class="review-toolbar">
+            <div class="review-tabs" role="group" aria-label="กรองรายการตามสถานะ">
+                <button class="review-tab is-active" type="button" data-review-filter="all" aria-pressed="true">ทั้งหมด <span id="redemption-filter-all">0</span></button>
+                <button class="review-tab" type="button" data-review-filter="pending" aria-pressed="false">รอรับของ <span id="redemption-filter-pending">0</span></button>
+                <button class="review-tab" type="button" data-review-filter="completed" aria-pressed="false">รับสำเร็จ <span id="redemption-filter-completed">0</span></button>
+                <button class="review-tab" type="button" data-review-filter="cancelled" aria-pressed="false">ยกเลิก <span id="redemption-filter-cancelled">0</span></button>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button class="btn btn-success btn-sm px-3 fw-bold shadow-sm" id="open-walkin-modal" type="button">
+                    <i class="fa-solid fa-gift me-1"></i> บันทึกแลกรางวัลหน้างาน (Walk-in)
+                </button>
+                <label class="review-search mb-0">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <span class="visually-hidden">ค้นหารายการแลก</span>
+                    <input id="review-search-input" type="search" placeholder="ค้นชื่อนักศึกษา รหัส หรือของรางวัล">
+                </label>
+            </div>
+        </div>
+
+        <!-- คิวรายการแลกของรางวัล -->
+        <div class="review-workspace">
+            <section class="review-queue-panel" aria-label="คิวรายการแลกของรางวัล">
+                <div class="review-queue-heading">
+                    <span>รายการขอแลกรางวัล</span>
+                    <span id="review-queue-caption">เรียงจากรายการล่าสุด</span>
+                </div>
+                <div class="review-table-head" aria-hidden="true">
+                    <span>นักศึกษา / วันที่</span>
+                    <span>ของรางวัล</span>
+                    <span>จำนวน</span>
+                    <span>คะแนนที่ใช้</span>
+                    <span>สถานะ</span>
+                    <span></span>
+                </div>
+                <div class="review-record-list" id="review-record-list"></div>
+                <div class="review-empty" id="review-empty" hidden>
+                    <i class="fa-solid fa-inbox"></i>
+                    <span>ไม่มีรายการที่ตรงกับตัวกรอง</span>
+                </div>
+            </section>
+
+            <!-- รายละเอียดรายการแลกที่เลือก -->
+            <aside class="review-detail-panel" aria-label="รายละเอียดรายการที่เลือก">
+                <div class="review-detail-heading">
+                    <h2><i class="fa-solid fa-receipt"></i> รายละเอียดการแลก</h2>
+                    <span class="review-status" id="detail-status">เลือกรายการ</span>
+                </div>
+                <div class="review-detail-content" id="review-detail-content">
+                    <div class="review-detail-placeholder">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>เลือกรายการจากคิวเพื่อตรวจสอบและมอบของรางวัล</span>
+                    </div>
+                </div>
+                <div class="review-actions" id="review-actions" hidden>
+                    <button class="review-reject-button" id="reject-record" type="button">
+                        <i class="fa-solid fa-xmark"></i> ยกเลิกรายการ
+                    </button>
+                    <button class="review-accept-button" id="accept-record" type="button">
+                        <i class="fa-solid fa-check"></i> ยืนยันการมอบของรางวัล
+                    </button>
+                </div>
+                <div class="review-decision-message" id="review-decision-message" role="status" hidden></div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="waste-footer">
+            <span>TATC · Learn better · Sort smarter · Live greener</span>
+            <span><i class="fa-solid fa-shield-halved me-1"></i> ระบบแลกรับของรางวัล</span>
+        </footer>
+    </main>
+
+    <!-- Modal: บันทึกการแลกรางวัลหน้างาน (Walk-in) -->
+    <dialog id="walkin-modal" class="p-0 rounded-4 shadow border-0" style="max-width: 650px; width: 100%;">
+        <div class="modal-content p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0 text-success"><i class="fa-solid fa-circle-plus me-2"></i>บันทึกการแลกรางวัลหน้างาน (Walk-in)</h5>
+                <button type="button" class="btn-close" id="close-walkin-modal"></button>
+            </div>
+            <form id="walkin-form">
+                <div class="row mb-3">
+                   <div class="col-md-12">
+                        <label class="form-label small fw-bold">รหัสนักศึกษา / ชื่อนักศึกษา</label>
+                        <select id="walkin-userid" class="form-select" required>
+                            <option value="">-- พิมพ์ค้นหาหรือเลือกนักศึกษา --</option>
+                        </select>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label class="form-label small fw-bold">แผนกวิชา / ภาค</label>
+                        <select id="walkin-department" class="form-select">
+                            <option value="AT">AT</option>
+                            <option value="AM">AM</option>
+                            <option value="SA">SA</option>
+                            <option value="BP">BP</option>
+                            <option value="EV">EV</option>
+                        </select>
+                    </div> -->
+                </div>
+
+                <!-- ส่วนรายการเลือกของรางวัล -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="form-label small fw-bold mb-0">รายการของรางวัลที่เลือกแลก</label>
+                        <button type="button" class="btn btn-outline-success btn-sm" id="add-waste-row">
+                            <i class="fa-solid fa-plus me-1"></i> เพิ่มรายการ
+                        </button>
+                    </div>
+                    <div id="waste-items-container" class="d-flex flex-column gap-2">
+                        <!-- แถวแรก (Default) -->
+                        <div class="waste-item-row card p-2 bg-light border-0 shadow-sm">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-5">
+                                    <label class="form-label small text-muted mb-1">เลือกของรางวัล</label>
+                                    <select class="form-select form-select-sm item-typewaste" id="rewardSelect" required>
+                                        <option value="" disabled selected>-- กรุณาเลือกของรางวัล --</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small text-muted mb-1">จำนวน (ชิ้น)</label>
+                                    <input type="number" step="1" class="form-control form-control-sm item-weight" value="1" min="1" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small text-muted mb-1">คะแนนรวมที่ใช้</label>
+                                    <input type="number" class="form-control form-control-sm item-points" value="50" min="0" readonly>
+                                </div>
+                                <div class="col-md-1 text-end d-flex align-items-end justify-content-center">
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-row-btn" style="visibility: hidden;"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">จุดบริการมอบของรางวัล</label>
+                        <input type="text" id="walkin-location" class="form-control" value="อาคารอำนวยการ จุดบริการที่ 1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">หมายเหตุเพิ่มเติม</label>
+                        <input type="text" id="walkin-note" class="form-control" value="แลกและรับของรางวัลหน้างานทันที">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light btn-sm px-3" id="cancel-walkin-modal">ยกเลิก</button>
+                    <button type="submit" class="btn btn-success btn-sm px-4 fw-bold"><i class="fa-solid fa-check me-1"></i> ยืนยันแลกและตัดแต้ม</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Modal: รายละเอียดการแลกรับของรางวัล -->
+    <dialog class="review-detail-modal" id="review-detail-modal" aria-labelledby="review-detail-modal-title">
+        <div class="review-detail-modal-shell">
+            <div class="review-detail-modal-heading">
+                <h2 id="review-detail-modal-title"><i class="fa-solid fa-gift"></i> รายละเอียดการแลกรางวัล</h2>
+                <div class="review-detail-modal-tools">
+                    <span class="review-status" id="modal-record-status">รอรับของ</span>
+                    <button class="review-dialog-close" type="button" id="close-review-detail" aria-label="ปิดรายละเอียด"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="review-detail-modal-content" id="review-detail-modal-content"></div>
+            <div class="review-detail-modal-actions" id="review-detail-modal-actions">
+                <button class="review-reject-button" type="button" id="modal-reject-record"><i class="fa-solid fa-xmark"></i> ยกเลิกรายการ</button>
+                <button class="review-accept-button" type="button" id="modal-accept-record"><i class="fa-solid fa-check"></i> ยืนยันมอบของรางวัล</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Dialog: ยกเลิกการแลกรางวัล -->
+    <dialog class="review-dialog" id="reject-dialog" aria-labelledby="reject-dialog-title">
+        <form class="review-dialog-shell" id="reject-form">
+            <div class="review-dialog-heading">
+                <span class="review-dialog-icon is-reject"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <button class="review-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-reject><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2 id="reject-dialog-title">ระบุเหตุผลที่ยกเลิกการแลก</h2>
+            
+            <label class="review-form-label" for="reject-reason">เหตุผล</label>
+            <select class="review-form-control" id="reject-reason" required>
+                <option value="">เลือกเหตุผล</option>
+                <option value="ของรางวัลหมดชั่วคราว">ของรางวัลหมดชั่วคราว</option>
+                <option value="คะแนนสะสมไม่เพียงพอ">คะแนนสะสมไม่เพียงพอ</option>
+                <option value="นักศึกษายกเลิกการแลกเอง">นักศึกษายกเลิกการแลกเอง</option>
+                <option value="ข้อมูลผู้ขอแลกไม่ถูกต้อง">ข้อมูลผู้ขอแลกไม่ถูกต้อง</option>
+                <option value="other">อื่น ๆ</option>
+            </select>
+
+            <!-- ช่องกรอกเพิ่มกรณีเลือก "อื่น ๆ" (ซ่อนไว้ก่อน) -->
+            <div class="mb-2 mt-2" id="reject-other-wrapper" style="display: none;">
+                <label class="review-form-label" for="reject-other-text">โปรดระบุเหตุผลเพิ่มเติม</label>
+                <input type="text" class="review-form-control" id="reject-other-text" placeholder="ระบุเหตุผล...">
+            </div>
+
+            <label class="review-form-label mt-2" for="reject-note">หมายเหตุแจ้งนักศึกษา (คืนแต้มให้อัตโนมัติ)</label>
+            <textarea class="review-form-control" id="reject-note" rows="2" maxlength="180" placeholder="ระบุเหตุผลเพื่อให้นักศึกษารับทราบ"></textarea>
+            
+            <div class="review-dialog-actions">
+                <button class="review-dialog-cancel" type="button" data-close-reject>ยกเลิก</button>
+                <button class="review-dialog-confirm is-reject" type="submit">ยืนยันยกเลิก & คืนแต้ม</button>
+            </div>
+        </form>
+    </dialog>
+    
+    <!-- Dialog: ยืนยันการมอบของรางวัล -->
+    <dialog class="review-dialog" id="approve-dialog" aria-labelledby="approve-dialog-title">
+        <div class="review-dialog-shell">
+            <div class="review-dialog-heading">
+                <span class="review-dialog-icon"><i class="fa-solid fa-circle-check"></i></span>
+                <button class="review-dialog-close" type="button" aria-label="ปิดหน้าต่าง" data-close-approve><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <h2 id="approve-dialog-title">ยืนยันการมอบของรางวัล</h2>
+            <p class="review-dialog-description" id="approve-description"></p>
+            <div class="review-dialog-actions">
+                <button class="review-dialog-cancel" type="button" data-close-approve>ตรวจสอบอีกครั้ง</button>
+                <button class="review-dialog-confirm" type="button" id="confirm-approve"><i class="fa-solid fa-check"></i> ยืนยันมอบของรางวัล</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Bootstrap JS  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- SweetAlert2 CSS & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- jQuery Select2 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        // 1. ตั้งค่าการเชื่อมต่อ Supabase Client
+        const SUPABASE_URL = 'https://isowhsbdzyzbitdocrol.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlzb3doc2Jkenl6Yml0ZG9jcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNzk0MTEsImV4cCI6MjEwNzc1NTQxMX0.OGBQDRCnpaaacZitq2W6wyTV7TS8-9YbZDlaSfXXQoA';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const rewardItemsMap = {
+            1: { name: 'ปากกาน้ำเงิน', points: 40 },
+            2: { name: 'ดินสอ', points: 40 },
+            3: { name: 'เทปลบคำผิด', points: 50 },
+            4: { name: 'ผงซักฟอก', points: 60 },
+            5: { name: 'น้ำยาปรับผ้านุ่ม', points: 60 },
+            6: { name: 'น้ำยาซักผ้า', points: 60 },
+            7: { name: 'กะละมัง', points: 70 },
+            8: { name: 'ไม้หนีบ', points: 70 },
+            9: { name: 'ไม้แขวนเสื้อ', points: 70 },
+            10: { name: 'แปรงสีฟัน', points: 80 },
+            11: { name: 'ยาสีฟัน', points: 80 },
+            12: { name: 'ครีมอาบน้ำ', points: 80 },
+            13: { name: 'มีดโกนหนวด', points: 80 },
+            14: { name: 'สบู่ก้อน', points: 50 },
+            15: { name: 'น้ำยาบ้วนปาก', points: 80 },
+            16: { name: 'สเปรย์ดับกลิ่น', points: 100 },
+            17: { name: 'ยากันยุงไฟฟ้า', points: 100 },
+            18: { name: 'สเปรย์ดับอากาศ', points: 100 },
+            19: { name: 'โรลออน', points: 80 },
+            20: { name: 'ผ้าเช็ดตัว', points: 150 },
+        };
+
+        let allRedemptions = [];
+        let selectedRedemptionId = null;
+        let currentFilterStatus = 'all';
+        let userBalances = {};
+
+        // ----------------------------------------------------
+        // ฟังก์ชันดึงรายชื่อนักศึกษาจากตาราง User มาใส่ใน Select (พร้อมพิมพ์ค้นหาด้วย Select2)
+        // ----------------------------------------------------
+        async function loadRedemptionsFromSupabase() {
+        if (!supabaseClient) return;
+        try {
+            // 1. ดึงข้อมูลการแลกรางวัล
+            const { data: redemptionsData, error: redError } = await supabaseClient
+                .from('Redemptions')
+                .select(`*, User:UserId ( id, FullName, LastName, Department, UserName )`)
+                .order('created_at', { ascending: false });
+
+            if (redError) console.error("Error ที่ตาราง Redemptions:", redError);
+
+            // 2. ดึงคะแนนจากตาราง Education และ SendWaste (ดึงครบทั้งสองตารางตามโครงสร้างหลัก)
+            const { data: eduData, error: eduError } = await supabaseClient.from('Education').select('UserId, Points');
+            const { data: wasteData, error: wasteError } = await supabaseClient.from('SendWaste').select('UserIdRequest, EarnedPoints');
+
+            if (eduError) console.error('Error loading Education points:', eduError);
+            if (wasteError) console.error('Error loading SendWaste points:', wasteError);
+
+            // 3. รวมคะแนนที่ได้รับทั้งหมดจากทั้ง Education และ SendWaste
+            const totalPointsMap = {};
+
+            // รวมคะแนนจากตาราง Education (รองรับข้อมูลที่จะเติมเข้ามาในอนาคต)
+            (eduData || []).forEach(row => {
+                if (row.UserId != null) {
+                    const uid = String(row.UserId).trim();
+                    totalPointsMap[uid] = (totalPointsMap[uid] || 0) + Number(row.Points || 0);
+                }
+            });
+
+            // รวมคะแนนจากตาราง SendWaste (ใช้ UserIdRequest ตามจริง)
+            (wasteData || []).forEach(row => {
+                if (row.UserIdRequest != null) {
+                    const uid = String(row.UserIdRequest).trim();
+                    totalPointsMap[uid] = (totalPointsMap[uid] || 0) + Number(row.EarnedPoints || 0);
+                }
+            });
+
+            // 4. รวมคะแนนที่ถูกใช้ไปแล้ว (Cost) จากตาราง Redemptions (เฉพาะที่ไม่ใช่สถานะยกเลิก Status != 2)
+            const spentPointsMap = {};
+            (redemptionsData || []).forEach(item => {
+                if (item.Status !== 2 && item.UserId != null) {
+                    const uid = String(item.UserId).trim();
+                    spentPointsMap[uid] = (spentPointsMap[uid] || 0) + Number(item.Cost || 0);
+                }
+            });
+
+            // 5. คำนวณยอดคงเหลือสุทธิเก็บไว้ใน userBalances
+            userBalances = {};
+            const allUserIds = new Set([...Object.keys(totalPointsMap), ...Object.keys(spentPointsMap)]);
+            
+            allUserIds.forEach(uid => {
+                const earned = totalPointsMap[uid] || 0;
+                const spent = spentPointsMap[uid] || 0;
+                userBalances[uid] = earned - spent;
+            });
+
+            console.log('User balances calculated:', userBalances);
+
+            // 6. แมปข้อมูลสำหรับแสดงผลในหน้า Dashboard
+            allRedemptions = (redemptionsData || []).map(item => {
+                const subDate = new Date(item.created_at || item.updated_at || Date.now());
+                const dateFormatted = subDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+                const timeFormatted = subDate.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) + ' น.';
+
+                let statusStr = 'pending';
+                if (item.Status === 1) statusStr = 'completed';
+                else if (item.Status === 2) statusStr = 'cancelled';
+
+                const userInfo = item.User;
+                const userIdStr = userInfo ? String(userInfo.id).trim() : String(item.UserId).trim();
+                const rewardInfo = rewardItemsMap[item.RewardId] || { name: item.RewardName || 'ของรางวัลทั่วไป', points: item.Cost || 0 };
+
+                const remainingPoints = userBalances[userIdStr] !== undefined ? userBalances[userIdStr] : 0;
+
+                return {
+                    id: String(item.id),
+                    userId: userIdStr,
+                    userName: userInfo ? userInfo.UserName : '',
+                    studentName: userInfo ? `${userInfo.FullName} ${userInfo.LastName}` : `นักศึกษา ID: ${item.UserId}`,
+                    department: userInfo ? userInfo.Department : 'AT',
+                    studentPoints: remainingPoints, // คะแนนคงเหลือสุทธิ
+                    rewardName: rewardInfo.name,
+                    quantity: Number(item.Quantity || 1),
+                    pointsUsed: Number(item.Cost || item.PointsUsed || (rewardInfo.points * (item.Quantity || 1))),
+                    dateLabel: `${dateFormatted} (${timeFormatted})`,
+                    status: statusStr,
+                    location: item.Location || 'จุดบริการที่ 1',
+                    note: item.Note || '-'
+                };
+            });
+
+            renderRedemptionDashboard();
+
+        } catch (err) {
+            console.error('🔥 Error detail in loadRedemptionsFromSupabase:', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'โหลดข้อมูลไม่สำเร็จ',
+                text: err.message || 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล',
+                confirmButtonColor: '#dc3545'
+            });
+        }
+    }
+   
+         // คำนวณคะแนนอัตโนมัติ
+        function calculateRowPoints(rowElement) {
+            const selectEl = rowElement.querySelector('.item-typewaste');
+            const qtyEl = rowElement.querySelector('.item-weight');
+            const pointsEl = rowElement.querySelector('.item-points');
+
+            if (!selectEl || !qtyEl || !pointsEl) return;
+
+            const rewardId = selectEl.value;
+            const qty = Math.max(1, parseInt(qtyEl.value || 1, 10));
+            
+            // 1. ลองหาจาก rewardItemsMap ก่อน
+            let unitPoints = rewardItemsMap[rewardId] ? rewardItemsMap[rewardId].points : 0;
+
+            // 2. ถ้าหาไม่เจอ ให้ดึงตัวเลขจากข้อความใน Option (เช่น "(50 แต้ม)" จะดึงเลข 50 ออกมาใช้ทันที)
+            if (unitPoints === 0 && selectEl.selectedIndex >= 0) {
+                const selectedText = selectEl.options[selectEl.selectedIndex].text;
+                const match = selectedText.match(/\((\d+)\s*แต้ม\)/);
+                if (match) {
+                    unitPoints = parseInt(match[1], 10);
+                }
+            }
+
+            const totalPoints = unitPoints * qty;
+
+            // ใส่ค่าคะแนนรวม
+            pointsEl.value = totalPoints;
+            $(pointsEl).val(totalPoints);
+        }
+        
+        function bindRowEvents(rowElement) {
+            const selectEl = rowElement.querySelector('.item-typewaste');
+            const qtyEl = rowElement.querySelector('.item-weight');
+            const removeBtn = rowElement.querySelector('.remove-row-btn');
+
+            if (selectEl) {
+                selectEl.addEventListener('change', () => calculateRowPoints(rowElement));
+            }
+            if (qtyEl) {
+                qtyEl.addEventListener('input', () => calculateRowPoints(rowElement));
+            }
+            if (removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    const container = document.querySelector('#waste-items-container');
+                    if (container && container.children.length > 1) {
+                        rowElement.remove();
+                        updateRemoveButtonsVisibility();
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'ไม่สามารถลบได้',
+                            text: 'ต้องมีรายการของรางวัลอย่างน้อย 1 รายการ',
+                            confirmButtonColor: '#198754'
+                        });
+                    }
+                });
+            }
+            calculateRowPoints(rowElement);
+        }
+
+        function updateRemoveButtonsVisibility() {
+            const rows = document.querySelectorAll('#waste-items-container .waste-item-row');
+            rows.forEach((row) => {
+                const btn = row.querySelector('.remove-row-btn');
+                if (btn) {
+                    btn.style.visibility = rows.length > 1 ? 'visible' : 'hidden';
+                }
+            });
+        }
+
+     
+        function renderRedemptionDashboard() {
+            const pendingList = allRedemptions.filter(r => r.status === 'pending');
+            const completedList = allRedemptions.filter(r => r.status === 'completed');
+            const cancelledList = allRedemptions.filter(r => r.status === 'cancelled');
+
+            const totalItemsDelivered = completedList.reduce((sum, r) => sum + r.quantity, 0);
+            const totalPointsUsed = completedList.reduce((sum, r) => sum + r.pointsUsed, 0);
+
+            if (document.querySelector('#redemption-pending-count')) document.querySelector('#redemption-pending-count').textContent = String(pendingList.length);
+            if (document.querySelector('#redemption-completed-count')) document.querySelector('#redemption-completed-count').textContent = String(completedList.length);
+            if (document.querySelector('#redemption-total-items')) document.querySelector('#redemption-total-items').textContent = String(totalItemsDelivered);
+            if (document.querySelector('#redemption-total-points')) document.querySelector('#redemption-total-points').textContent = String(totalPointsUsed);
+
+            if (document.querySelector('#redemption-filter-all')) document.querySelector('#redemption-filter-all').textContent = String(allRedemptions.length);
+            if (document.querySelector('#redemption-filter-pending')) document.querySelector('#redemption-filter-pending').textContent = String(pendingList.length);
+            if (document.querySelector('#redemption-filter-completed')) document.querySelector('#redemption-filter-completed').textContent = String(completedList.length);
+            if (document.querySelector('#redemption-filter-cancelled')) document.querySelector('#redemption-filter-cancelled').textContent = String(cancelledList.length);
+
+            renderQueueList();
+        }
+
+        function renderQueueList() {
+           const queueContainer = document.querySelector('#review-record-list');
+            const emptyBox = document.querySelector('#review-empty');
+            
+            // 🌟 ดึงค่าจากช่องค้นหาตรงๆ แบบนี้
+            const searchInputEl = document.querySelector('#review-search-input');
+            const searchKeyword = searchInputEl ? searchInputEl.value.toLowerCase().trim() : '';
+
+            if (!queueContainer) return;
+
+            let filtered = allRedemptions.filter(r => {
+                const matchStatus = (currentFilterStatus === 'all') || (r.status === currentFilterStatus);
+                // 2. เงื่อนไขกรองตามคำค้นหา (ชื่อนักศึกษา, รหัส, Username, ชื่อของรางวัล)
+                const studentName = String(r.studentName || '').toLowerCase();
+                const userId = String(r.userId || '').toLowerCase();
+                const userName = String(r.userName || '').toLowerCase();
+                const rewardName = String(r.rewardName || '').toLowerCase();
+
+                const matchSearch = (searchKeyword === '') || 
+                                    studentName.includes(searchKeyword) || 
+                                    userId.includes(searchKeyword) || 
+                                    userName.includes(searchKeyword) ||
+                                    rewardName.includes(searchKeyword);
+
+                return matchStatus && matchSearch;
+            });
+
+            queueContainer.replaceChildren();
+
+            if (filtered.length === 0) {
+                if (emptyBox) emptyBox.hidden = false;
+                return;
+            }
+            if (emptyBox) emptyBox.hidden = true;
+
+            filtered.forEach(item => {
+                const initialLetter = item.studentName ? item.studentName.charAt(0).toUpperCase() : 'U';
+                
+                let statusBadge = '<span class="badge bg-warning text-dark">รอรับของ</span>';
+                if (item.status === 'completed') statusBadge = '<span class="badge bg-success">รับสำเร็จ</span>';
+                else if (item.status === 'cancelled') statusBadge = '<span class="badge bg-secondary">ยกเลิก</span>';
+
+                // ใช้ item.userId หรือ item.userName (ป้องกันกรณีไม่มีค่า)
+                const displayUserCode = item.userName || item.userId || '-';
+
+                const card = document.createElement('div');
+                card.className = `p-3 mb-2 rounded-3 border bg-white cursor-pointer d-flex align-items-center justify-content-between shadow-sm ${selectedRedemptionId === item.id ? 'border-success bg-light' : ''}`;
+                card.style.cursor = 'pointer';
+
+                card.innerHTML = `
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px;">
+                            ${initialLetter}
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-dark">${item.studentName} <small class="text-muted">(${displayUserCode})</small></h6>
+                            <small class="text-muted d-block">${item.rewardName} x ${item.quantity} ชิ้น · ${item.dateLabel}</small>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <div class="fw-bold text-success mb-1">-${item.pointsUsed} แต้ม</div>
+                        ${statusBadge}
+                    </div>
+                `;
+
+                card.addEventListener('click', () => {
+                    selectedRedemptionId = item.id;
+                    renderQueueList();
+                    showRedemptionDetail(item);
+                });
+
+                queueContainer.append(card);
+            });
+
+            if (!selectedRedemptionId && filtered.length > 0) {
+                selectedRedemptionId = filtered[0].id;
+                showRedemptionDetail(filtered[0]);
+            }
+        }
+       
+        function showRedemptionDetail(item) {
+            const detailContainer = document.querySelector('#review-detail-content');
+            const actionsContainer = document.querySelector('#review-actions');
+            const statusBadge = document.querySelector('#detail-status');
+
+            if (!detailContainer) return;
+
+            if (statusBadge) {
+                if (item.status === 'pending') statusBadge.textContent = 'รอรับของรางวัล';
+                else if (item.status === 'completed') statusBadge.textContent = 'มอบรางวัลสำเร็จแล้ว';
+                else statusBadge.textContent = 'ยกเลิกรายการแล้ว';
+            }
+
+            const initialLetter = item.studentName ? item.studentName.charAt(0).toUpperCase() : 'U';
+
+            detailContainer.innerHTML = `
+                <div class="text-center mb-3">
+                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center mx-auto mb-2 fw-bold shadow-sm" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                        ${initialLetter}
+                    </div>
+                    <h5 class="fw-bold mb-0">${item.studentName}</h5>
+                    <small class="text-muted">รหัสนักศึกษา: ${item.userId} | แผนกวิชา: ${item.department}</small>
+                </div>
+
+                <div class="card bg-light border-0 p-3 mb-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">ของรางวัลที่แลก:</span>
+                        <strong class="text-dark">${item.rewardName}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">จำนวนที่แลก:</span>
+                        <strong>${item.quantity} ชิ้น</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">คะแนนที่ใช้แลก:</span>
+                        <strong class="text-danger">-${item.pointsUsed} แต้ม</strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">คะแนนสะสมคงเหลือ (ปัจจุบัน):</span>
+                        <strong class="text-success">${item.studentPoints} แต้ม</strong>
+                    </div>
+                </div>
+
+                <div class="small text-muted mb-2">
+                    <div><i class="fa-solid fa-location-dot me-1"></i> จุดรับของ: ${item.location}</div>
+                    <div><i class="fa-regular fa-clock me-1"></i> เวลาขอแลก: ${item.dateLabel}</div>
+                    <div><i class="fa-regular fa-note-sticky me-1"></i> หมายเหตุ: ${item.note}</div>
+                </div>
+            `;
+
+            if (actionsContainer) {
+                actionsContainer.hidden = (item.status !== 'pending');
+            }
+        }
+
+        async function updateRedemptionStatus(statusValue, statusText) {
+            if (!selectedRedemptionId) return;
+
+            const confirmResult = await Swal.fire({
+                title: `ยืนยัน${statusText}?`,
+                text: `ต้องการดำเนินการเปลี่ยนสถานะรายการนี้เป็น "${statusText}" ใช่หรือไม่?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: statusValue === 1 ? '#198754' : '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            });
+
+            if (!confirmResult.isConfirmed) return;
+
+            try {
+                Swal.showLoading();
+
+                const { error } = await supabaseClient
+                    .from('Redemptions')
+                    .update({ Status: statusValue, updated_at: new Date().toISOString() })
+                    .eq('id', selectedRedemptionId);
+
+                if (error) throw error;
+
+                await loadRedemptionsFromSupabase();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ดำเนินการสำเร็จ!',
+                    text: `บันทึกรายการเป็น "${statusText}" เรียบร้อยแล้ว`,
+                    timer: 1800,
+                    showConfirmButton: false
+                });
+
+            } catch (err) {
+                console.error('Error updating status:', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'ไม่สามารถอัปเดตสถานะได้ กรุณาลองใหม่อีกครั้ง',
+                    confirmButtonColor: '#198754'
+                });
+            }
+        }
+
+
+        function populateRewardSelect() {
+            const selectElement = document.getElementById('rewardSelect');
+            if (!selectElement) return;
+
+            selectElement.innerHTML = '<option value="" disabled selected>-- กรุณาเลือกของรางวัล --</option>';
+
+            // วนลูปดึงข้อมูลจาก rewardItemsMap มาสร้าง <option>
+            // โดยใช้ key (เช่น 1, 2, 3...) เป็น value และแสดงชื่อกับแต้มให้ผู้ใช้เห็น
+            Object.entries(rewardItemsMap).forEach(([key, item]) => {
+                const option = document.createElement('option');
+                option.value = item.name; // เก็บค่า ID ของรางวัล (เช่น 1, 2, 3)
+                option.textContent = `${item.name} (${item.points} แต้ม)`; // แสดงชื่อและคะแนน
+                selectElement.appendChild(option);
+            });
+        }
+
+        // ฟังก์ชันดึงรายชื่อนักศึกษาจากตาราง User มาใส่ใน Select (พร้อมพิมพ์ค้นหาด้วย Select2)
+        async function loadStudentsToSelect() {
+            try {
+                const { data: users, error } = await supabaseClient
+                    .from('User')
+                    .select('id, FullName, LastName, Department, UserName');
+
+                if (error) throw error;
+
+                const selectEl = $('#walkin-userid');
+                if (!selectEl.length) return;
+
+                selectEl.empty();
+                selectEl.append('<option value="">-- พิมพ์ค้นหาหรือเลือกนักศึกษา --</option>');
+
+                (users || []).forEach(user => {
+                    const fullName = user.FullName || '';
+                    const lastName = user.LastName || '';
+                    const dept = user.Department ? ` [${user.Department}]` : '';
+                    const userNameStr = user.UserName ? `(${user.UserName}) ` : '';
+                    const displayText = `${userNameStr}${fullName} ${lastName}${dept}`;
+                    
+                    selectEl.append(`<option value="${user.id}">${displayText}</option>`);
+                });
+
+                // เปิดใช้งาน Select2 พร้อมธีม Bootstrap 5 และรองรับ Modal
+                selectEl.select2({
+                    theme: 'bootstrap-5',
+                    dropdownParent: $('#walkin-modal'), // สำคัญมาก เพื่อให้ Dropdown แสดงผลทับ Modal ได้ถูกต้อง
+                    placeholder: '-- พิมพ์ค้นหาหรือเลือกนักศึกษา --',
+                    allowClear: true,
+                    width: '100%'
+                });
+
+            } catch (err) {
+                console.error('Error loading users for select:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRedemptionsFromSupabase();
+            loadStudentsToSelect(); // เรียกใช้งานเพื่อดึงรายชื่อนักศึกษามาใส่ใน Select2
+            populateRewardSelect();
+
+            const wasteContainer = document.querySelector('#waste-items-container');
+            if (wasteContainer) {
+                wasteContainer.addEventListener('click', (e) => {
+                    const removeBtn = e.target.closest('.remove-row-btn');
+                    if (removeBtn) {
+                        const row = removeBtn.closest('.waste-item-row');
+                        if (wasteContainer.children.length > 1) {
+                            row.remove();
+                            updateRemoveButtonsVisibility();
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'ไม่สามารถลบได้',
+                                text: 'ต้องมีรายการของรางวัลอย่างน้อย 1 รายการ',
+                                confirmButtonColor: '#198754'
+                            });
+                        }
+                    }
+                });
+            
+                // ดักจับเมื่อเปลี่ยนประเภทของรางวัล (change)
+                wasteContainer.addEventListener('change', (e) => {
+                    if (e.target.classList.contains('item-typewaste')) {
+                        const row = e.target.closest('.waste-item-row');
+                        if (row) calculateRowPoints(row);
+                    }
+                });
+
+                // ดักจับเมื่อพิมพ์เปลี่ยนจำนวนชิ้น (input)
+                wasteContainer.addEventListener('input', (e) => {
+                    if (e.target.classList.contains('item-weight')) {
+                        const row = e.target.closest('.waste-item-row');
+                        if (row) calculateRowPoints(row);
+                    }
+                });
+            }
+           
+           // ปุ่มเพิ่มแถวใหม่ (+ เพิ่มรายการ)
+            const addRowBtn = document.querySelector('#add-waste-row');
+            if (addRowBtn) {
+                addRowBtn.addEventListener('click', () => {
+                    if (!wasteContainer) return;
+
+                    const newRow = document.createElement('div');
+                    newRow.className = 'waste-item-row card p-2 bg-light border-0 shadow-sm';
+                    newRow.innerHTML = `
+                        <div class="row g-2 align-items-center">
+                            <div class="col-md-5">
+                                <label class="form-label small text-muted mb-1">เลือกของรางวัล</label>
+                                <select class="form-select form-select-sm item-typewaste" required>
+                                    <option value="1">สมุดโน้ต รักษ์โลก (50 แต้ม)</option>
+                                    <option value="2">แก้วน้ำเก็บความเย็น (150 แต้ม)</option>
+                                    <option value="3">กระเป๋าผ้า Eco Bag (100 แต้ม)</option>
+                                    <option value="4" selected>ปากการีไซเคิล (20 แต้ม)</option>
+                                    <option value="5">คูปองส่วนลดโรงอาหาร (30 แต้ม)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small text-muted mb-1">จำนวน (ชิ้น)</label>
+                                <input type="number" step="1" class="form-control form-control-sm item-weight" value="1" min="1" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small text-muted mb-1">คะแนนรวมที่ใช้</label>
+                                <input type="number" class="form-control form-control-sm item-points" value="20" min="0" readonly style="background-color: #e9ecef;">
+                            </div>
+                            <div class="col-md-1 text-end d-flex align-items-end justify-content-center">
+                                <button type="button" class="btn btn-outline-danger btn-sm remove-row-btn"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `;
+
+                    wasteContainer.append(newRow);
+                    calculateRowPoints(newRow); // คำนวณทันทีเมื่อสร้างแถวใหม่
+                    updateRemoveButtonsVisibility();
+                });
+            }
+
+            // คำนวณแถวแรกเริ่มต้นตอนเปิดหน้าเว็บ
+            const firstRow = document.querySelector('#waste-items-container .waste-item-row');
+            if (firstRow) calculateRowPoints(firstRow);
+          
+            const searchInput = document.querySelector('#review-search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    renderQueueList();
+                });
+                searchInput.addEventListener('keyup', () => {
+                    renderQueueList();
+                });
+            }
+
+            document.querySelectorAll('.review-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.review-tab').forEach(t => t.classList.remove('is-active'));
+                    e.currentTarget.classList.add('is-active');
+
+                    currentFilterStatus = e.currentTarget.getAttribute('data-review-filter');
+                    selectedRedemptionId = null;
+                    renderQueueList();
+                });
+            });
+
+
+            const walkinModal = document.querySelector('#walkin-modal');
+            const openWalkinBtn = document.querySelector('#open-walkin-modal');
+            const closeWalkinBtn = document.querySelector('#close-walkin-modal');
+            const cancelWalkinBtn = document.querySelector('#cancel-walkin-modal');
+
+            if (openWalkinBtn && walkinModal) {
+                openWalkinBtn.addEventListener('click', () => {
+                    walkinModal.showModal();
+                    
+                    // 🌟 บังคับคำนวณคะแนนทุกแถวใน Modal ทันทีที่เปิดขึ้นมา
+                    setTimeout(() => {
+                        const allRows = document.querySelectorAll('#waste-items-container .waste-item-row');
+                        allRows.forEach(row => {
+                            calculateRowPoints(row);
+                        });
+                    }, 50);
+                });
+            }
+
+            if (closeWalkinBtn && walkinModal) closeWalkinBtn.addEventListener('click', () => walkinModal.close());
+            if (cancelWalkinBtn && walkinModal) cancelWalkinBtn.addEventListener('click', () => walkinModal.close());
+            if (cancelWalkinBtn && walkinModal) cancelWalkinBtn.addEventListener('click', () => walkinModal.close());
+
+            // ----------------------------------------------------
+            // บันทึก Walk-in ดึงค่าจาก Select2 มาบันทึก
+            // ----------------------------------------------------
+           const walkinForm = document.querySelector('#walkin-form');
+            if (walkinForm) {
+                walkinForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const userId = $('#walkin-userid').val();
+                    const studentDisplayName = $('#walkin-userid option:selected').text();
+                    
+                    // 1. ปิด Modal ทันทีตั้งแต่เริ่ม Submit เพื่อไม่ให้ทับ SweetAlert2
+                    if (walkinModal) walkinModal.close();
+
+                    if (!userId) {
+                        await Swal.fire({ 
+                            icon: 'warning', 
+                            title: 'กรุณาเลือกนักศึกษา', 
+                            confirmButtonColor: '#198754' 
+                        });
+                        if (walkinModal) walkinModal.showModal(); // เปิด Modal กลับมาถ้ายังเลือกไม่ครบ
+                        return;
+                    }
+
+                    const note = document.querySelector('#walkin-note').value;
+                    const rows = document.querySelectorAll('#waste-items-container .waste-item-row');
+                    const insertDataArray = [];
+                    let totalPointsNeeded = 0;
+
+                    rows.forEach(row => {
+                        const rewardId = row.querySelector('.item-typewaste').value;
+                        const qty = Number(row.querySelector('.item-weight').value || 1);
+                        const points = Number(row.querySelector('.item-points').value || 0);
+
+                        totalPointsNeeded += points;
+
+                        insertDataArray.push({
+                            UserId: userId,
+                            RewardName: rewardId,
+                            Quantity: qty,
+                            Cost: points,
+                            Code: `EP-${Date.now().toString().slice(-6)}`,
+                            Status: 1, // 1 = สำเร็จทันทีหน้างาน
+                            Note: note,
+                            created_at: new Date().toISOString()
+                        });
+                    });
+
+                    // 2. ตรวจสอบคะแนนคงเหลือ
+                    console.log(userBalances);
+                    const studentAvailablePoints = userBalances[userId] || 0;
+                    if (studentAvailablePoints < totalPointsNeeded) {
+                        await Swal.fire({
+                            icon: 'error',
+                            title: 'คะแนนไม่เพียงพอ!',
+                            text: `นักศึกษา (${studentDisplayName}) มีคะแนนคงเหลือ ${studentAvailablePoints} แต้ม แต่ต้องใช้ทั้งหมด ${totalPointsNeeded} แต้ม ไม่สามารถทำรายการได้`,
+                            confirmButtonColor: '#dc3545'
+                        });
+                        if (walkinModal) walkinModal.showModal(); // เปิด Modal กลับมาแก้ไขรายการ
+                        return;
+                    }
+
+                    // 3. ยืนยันการทำรายการ (Modal ถูกปิดไปแล้วในข้อ 1 ทำให้ SweetAlert2 แสดงเด่นชัดเจน)
+                    const confirmSave = await Swal.fire({
+                        title: 'ยืนยันการทำรายการ?',
+                        text: `ต้องการบันทึกการแลกรางวัลทั้งหมด ${insertDataArray.length} รายการ (ใช้ ${totalPointsNeeded} แต้ม) สำหรับ "${studentDisplayName}" ใช่หรือไม่?`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#198754',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ยืนยันแลกและตัดแต้ม',
+                        cancelButtonText: 'ยกเลิก',
+                        allowOutsideClick: false
+                    });
+
+                    // ถ้าผู้ใช้กด "ยกเลิก" ให้เปิด Modal กลับขึ้นมาตามเดิม
+                    if (!confirmSave.isConfirmed) {
+                        if (walkinModal) walkinModal.showModal();
+                        return;
+                    }
+
+                    try {
+                        Swal.showLoading();
+
+                        const { error } = await supabaseClient
+                            .from('Redemptions')
+                            .insert(insertDataArray);
+
+                        if (error) throw error;
+
+                        await Swal.fire({
+                            icon: 'success',
+                            title: 'แลกรางวัลสำเร็จ!',
+                            text: 'บันทึกข้อมูลและตัดแต้มเรียบร้อยแล้ว',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+
+                        walkinForm.reset();
+                        $('#walkin-userid').val(null).trigger('change');
+
+                        const container = document.querySelector('#waste-items-container');
+                        if (container) {
+                            const rows = container.querySelectorAll('.waste-item-row');
+                            for (let i = 1; i < rows.length; i++) rows[i].remove();
+                            if (rows[0]) calculateRowPoints(rows[0]);
+                        }
+
+                        loadRedemptionsFromSupabase();
+
+                    } catch (err) {
+                        console.error('Error saving walk-in redemption:', err);
+                        await Swal.fire({
+                            icon: 'error',
+                            title: 'ทำรายการไม่สำเร็จ',
+                            text: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง',
+                            confirmButtonColor: '#198754'
+                        });
+                        if (walkinModal) walkinModal.showModal();
+                    }
+                });
+            }
+           
+            const acceptBtn = document.querySelector('#accept-record');
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', () => updateRedemptionStatus(1, 'มอบของรางวัล'));
+            }
+
+            const rejectBtn = document.querySelector('#reject-record');
+            if (rejectBtn) {
+                rejectBtn.addEventListener('click', () => updateRedemptionStatus(2, 'ยกเลิกรายการ'));
+            }
+
+            const logoutBtn = document.querySelector('#logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const confirmLogout = await Swal.fire({
+                        title: 'ออกจากระบบ?',
+                        text: 'คุณต้องการออกจากระบบใช่หรือไม่',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#dc3545',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'ออกจากระบบ',
+                        cancelButtonText: 'ยกเลิก'
+                    });
+
+                    if (confirmLogout.isConfirmed) {
+                        localStorage.removeItem('currentUser');
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
+    
+    </script>
+</body>
+</html>
