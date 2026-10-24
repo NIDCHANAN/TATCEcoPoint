@@ -30,6 +30,10 @@ textarea {
     font: inherit;
 }
 
+.swal2-container {
+    z-index: 99999 !important;
+}
+
 .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
