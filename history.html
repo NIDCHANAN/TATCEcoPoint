@@ -91,7 +91,7 @@
             </article>
             <article class="history-summary-card">
                 <span class="history-summary-icon"><i class="fa-solid fa-weight-hanging"></i></span>
-                <div><small>น้ำหนักขยะสะสม</small><strong>18.5 <small class="d-inline">ชิ้น</small></strong></div>
+                <div><small>น้ำหนักขยะสะสม</small><strong>18.5 <small class="d-inline">กก.</small></strong></div>
             </article>
             <article class="history-summary-card">
                 <span class="history-summary-icon"><i class="fa-solid fa-star"></i></span>
@@ -149,7 +149,7 @@
                         <i class="fa-solid fa-leaf text-success" aria-hidden="true"></i>
                     </div>
                     <div class="history-detail-metrics">
-                        <div><small>น้ำหนัก</small><strong><span id="detail-weight">2.5</span> ชิ้น</strong></div>
+                        <div><small>น้ำหนัก</small><strong><span id="detail-weight">2.5</span> กก.</strong></div>
                         <div><small>คะแนนที่ได้รับ</small><strong><i class="fa-solid fa-star"></i> <span id="detail-points">5</span> แต้ม</strong></div>
                     </div>
                     <h3 class="history-detail-section-title">รายละเอียดเพิ่มเติม</h3>
@@ -349,8 +349,8 @@
 
                 btn.innerHTML = `
                     <span class="history-date"><strong>${dateFormatted}</strong><small>${timeFormatted}</small></span>
-                    <span class="history-item"><i class="history-item-icon fa-solid ${wasteInfo.icon}"></i><span><strong>${wasteInfo.name}</strong><small>${weight} ชิ้น</small></span></span>
-                    <span class="history-weight">${weight} ชิ้น</span>
+                    <span class="history-item"><i class="history-item-icon fa-solid ${wasteInfo.icon}"></i><span><strong>${wasteInfo.name}</strong><small>${weight} กก.</small></span></span>
+                    <span class="history-weight">${weight} กก.</span>
                     <span class="history-points"><i class="fa-solid fa-coins"></i> ${points}</span>
                     <span class="history-status ${status === 'review' ? 'is-pending' : status === 'rejected' ? 'is-rejected' : ''}">${statusLabel}</span>
                     <i class="history-open fa-solid fa-chevron-right"></i>
@@ -398,7 +398,7 @@
     const cards = document.querySelectorAll('.history-summary-card strong');
     if (cards.length >= 4) {
         cards[0].innerHTML = `${totalItems} <small class="d-inline">ครั้ง</small>`;
-        cards[1].innerHTML = `${totalWeight.toFixed(1)} <small class="d-inline">ชิ้น</small>`; // แก้หน่วยจาก ชิ้น เป็น กก. ให้ถูกต้องตามบริบทน้ำหนัก
+        cards[1].innerHTML = `${totalWeight.toFixed(1)} <small class="d-inline">กก.</small>`; // แก้หน่วยจาก ชิ้น เป็น กก. ให้ถูกต้องตามบริบทน้ำหนัก
         cards[2].innerHTML = `${totalPoints} <small class="d-inline">แต้ม</small>`;
         cards[3].innerHTML = `${totalCO2.toFixed(1)} <small class="d-inline">กก.</small>`;
     }
