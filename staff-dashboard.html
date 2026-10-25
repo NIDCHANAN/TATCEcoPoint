@@ -247,9 +247,9 @@
                     <span>ดูทั้งหมด</span> <i class="fa-solid fa-chevron-right ms-1"></i>
                 </a>
             </div>
-            <div class="staff-table-scroll">
-                <table class="staff-record-table">
-                    <thead>
+            <div class="staff-table-scroll table-responsive" style="max-height: 280px;">
+                <table class="table table-sm table-hover align-middle mb-0" style="width: 2000px;font-size: 0.85rem;">
+                    <thead class="table-light sticky-top">
                         <tr>
                             <th>ลำดับ</th>
                             <th>วันที่ส่งขยะ</th>
@@ -263,21 +263,7 @@
                         </tr>
                     </thead>
                     <tbody id="latest-record-rows">
-                        <tr>
-                            <td>1</td><td>11 ต.ค. 2569</td><td>670123</td><td>นายอนันต์ ใจดี</td><td>ขวดพลาสติก</td><td>2.5</td><td>กก.</td><td><strong class="text-success">50</strong></td><td>กรรมการ A</td>
-                        </tr>
-                        <tr>
-                            <td>2</td><td>11 ต.ค. 2569</td><td>670256</td><td>นางสาวกมลวรรณ จันทา</td><td>กระดาษ</td><td>1.2</td><td>กก.</td><td><strong class="text-success">30</strong></td><td>กรรมการ B</td>
-                        </tr>
-                        <tr>
-                            <td>3</td><td>10 ต.ค. 2569</td><td>670178</td><td>นายธนกร สุขใจ</td><td>กระป๋อง</td><td>15</td><td>ชิ้น</td><td><strong class="text-success">45</strong></td><td>กรรมการ A</td>
-                        </tr>
-                        <tr>
-                            <td>4</td><td>10 ต.ค. 2569</td><td>670301</td><td>นางสาวปิยดา แสงทอง</td><td>ขวดแก้ว</td><td>0.8</td><td>กก.</td><td><strong class="text-success">25</strong></td><td>กรรมการ C</td>
-                        </tr>
-                        <tr>
-                            <td>5</td><td>10 ต.ค. 2569</td><td>670221</td><td>นายภูมิพินิจ ศรีสุข</td><td>เศษอาหาร</td><td>3.0</td><td>กก.</td><td><strong class="text-success">60</strong></td><td>กรรมการ B</td>
-                        </tr>
+                     
                     </tbody>
                 </table>
             </div>
@@ -671,7 +657,7 @@
                 row.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${record.dateLabel}</td>
-                    <td>${record.id}</td>
+                    <td>${record.studentId}</td>
                     <td>${record.student}</td>
                     <td>${record.item}</td>
                     <td>${Number(record.weight).toFixed(1)}</td>
@@ -714,13 +700,12 @@
         // 6. ประมวลผลและแสดง Top 10 นักศึกษา
         function renderTopStudents() {
             const studentMap = {};
-
             allRecords.forEach(r => {
                 if (!r.student) return;
                 if (!studentMap[r.student]) {
                     studentMap[r.student] = {
                         name: r.student,
-                        id: r.UserName || '—',
+                        id: r.studentId || '—',
                         className: r.Department  || '-',
                         totalWeight: 0,
                         totalPoints: 0,
@@ -753,7 +738,7 @@
                     <td class="text-center fw-bold text-success">${index + 1}</td>
                     <td>
                         <div class="fw-bold text-dark">${student.name}</div>
-                        <small class="text-muted">รหัส: ${student.id}</small>
+                        <small class="text-muted">รหัสนักศึกษา: ${student.id}</small>
                     </td>
                     <td class="text-end fw-bold">${student.totalWeight.toFixed(1)} กก.</td>
                     <td class="text-center">
