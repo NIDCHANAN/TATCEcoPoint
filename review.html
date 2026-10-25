@@ -95,7 +95,7 @@
             </article>
             <article class="home-metric-card">
                 <span class="home-metric-icon is-blue"><i class="fa-solid fa-weight-hanging"></i></span>
-                <div><small>จำนวนรับเข้าระบบ</small><strong><span id="review-total-weight">0</span> <small class="d-inline">ชิ้น</small></strong></div>
+                <div><small>จำนวนรับเข้าระบบ</small><strong><span id="review-total-weight">0</span> <small class="d-inline">กก.</small></strong></div>
             </article>
             <article class="home-metric-card">
                 <span class="home-metric-icon is-gold"><i class="fa-solid fa-star"></i></span>
@@ -204,8 +204,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="form-label small text-muted mb-1">น้ำหนัก (ชิ้น)</label>
-                                    <input type="number" step="1" class="form-control form-control-sm item-weight" value="1" min="1" required>
+                                    <label class="form-label small text-muted mb-1">น้ำหนัก (กก.)</label>
+                                    <input type="number" step="0.1" class="form-control form-control-sm item-weight" value="1" min="0.1" required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label small text-muted mb-1">แต้มที่ได้</label>
@@ -703,7 +703,7 @@
             row.querySelector('.review-item-cell strong').textContent = record.item;
             row.querySelector('.review-item-cell small').textContent = record.type;
             row.querySelector('.review-item-icon').className = `review-item-icon fa-solid ${record.icon || 'fa-recycle'}`;
-            row.querySelector('.review-weight-cell').textContent = `${Number(record.weight).toFixed(1)} ชิ้น`;
+            row.querySelector('.review-weight-cell').textContent = `${Number(record.weight).toFixed(1)} กก.`;
             row.querySelector('.review-points-cell').innerHTML = `<i class="fa-solid fa-star"></i> ${Number(record.points)} แต้ม`;
             
             const status = row.querySelector('.review-row-status');
@@ -875,7 +875,7 @@
 
         const desc = document.querySelector('#approve-description');
         if (desc) {
-            desc.textContent = `รับ ${record.item} จำนวน ${Number(record.weight).toFixed(1)} ชิ้น จาก ${record.student} และเพิ่ม ${currentPoints} แต้มเข้าบัญชีหรือไม่`;
+            desc.textContent = `รับ ${record.item} จำนวน ${Number(record.weight).toFixed(1)} กก. จาก ${record.student} และเพิ่ม ${currentPoints} แต้มเข้าบัญชีหรือไม่`;
         }
         
         if (approveDialog) approveDialog.showModal();
